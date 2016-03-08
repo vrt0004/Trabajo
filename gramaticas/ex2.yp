@@ -1,0 +1,22 @@
+%start S
+%%
+S :   B C 'c'	
+		|	'g' D B
+;
+
+B :   
+		|	'b' C D E
+;
+
+C :		'c' 'a'
+		| D 'a' B
+;
+
+E :		'g' S 'f'
+		| 'c'
+;
+
+D :	EPS
+		|	'd' D
+;
+%%

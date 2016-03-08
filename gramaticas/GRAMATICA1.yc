@@ -1,0 +1,22 @@
+/***********************
+** PROGRAMA DE PRUEBA **
+***********************/
+%{
+  int prueba;
+  int prueba2;   
+%}
+%start S /*SIMBOLO DE INICIO*/
+%nulo EPS /*SIMBOLO NULO*/
+%token end/*TERMINAL "id"*/
+%token begin
+%token codigo
+%token tipo
+%token id 
+%%
+S : B A end ;
+A : begin C ;
+C : codigo ;
+B : tipo;
+B : id B ;
+
+%%

@@ -1,0 +1,348 @@
+options 
+{
+  IGNORE_CASE = true;
+  STATIC = false;
+  
+  LOOKAHEAD = 1;
+  DEBUG_PARSER = false; 
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  JAVA_UNICODE_ESCAPE = true;
+  UNICODE_INPUT = false;
+}
+PARSER_BEGIN(ParserGramatica)
+
+
+package parser;
+import java.io.*;
+import gramatica.*;
+
+/**
+* <b>Descripción</b><br>
+* Clase que implementa el parser YACC.
+* <p>
+* <b>Detalles</b><br>
+* Clase que permite cargar un archivo guardado, en el sistema.<br>
+* </p> 
+* @author Carlos Gómez Palacios.
+* @version 1.0
+*/
+
+
+
+
+
+public class ParserGramatica
+{
+  private static boolean DEBUG=false;//Permite mostrar en pantalla mensajes de estado.
+  private  ParserGramaticaTokenManager TokMan;
+  private  ParserGramatica parser;
+  private   ParserGramatica nuevo;
+  private  static String s_nulo="EPS";
+  private  IParserYacc implementacion=null;//Implementacion para dar de alta la gramática.
+  
+  /**
+   * Constructor del parser para generar la gramática.
+   * @param d Flag que indica si se quieren mostrar por pantalla los estados por los que pasar el parser o no.
+   * @param ipy Implementación de la interface para dar de alta la gramática en el sistema.
+  **/
+  public ParserGramatica(boolean d,IParserYacc ipy)
+  {
+    DEBUG=d;
+    implementacion=ipy;
+    if(DEBUG==true)
+      System.out.println("\tDEBUG:Parser creado.");
+  }
+  /**
+   * Función que parsea una cadena de texto pasada como parámetro. 
+   * @param datos Cadena de texto que contiene la gramática en formato YACC.
+   * @return Gramática generada por la entrada. 
+  **/
+  public Gramatica parsearGramaticaCadena(String datos)throws ParseException 
+  {
+    JavaCharStream jcs;
+    TokMan=new ParserGramaticaTokenManager(jcs=new JavaCharStream(new StringReader(datos)),DEFAULT);
+    if(DEBUG==true)System.out.println("\tDEBUG:Comienza a parsear la cadena.");
+    token_source=TokMan;
+    ReInit(token_source);
+    if(DEBUG==true)System.out.println("\tDEBUG:Se inicializa el Token Manager.");
+	try
+	{Inicio();}
+    catch(ParseException e)
+    {throw e;} 
+    return implementacion.obtenerGramatica(); 
+  }
+  /**
+   * Función que parsea el contenido de un archivo de texto cuya ruta espasada como parámetro. 
+   * @param origen Ruta del archivo de texto que contiene la gramática en formato YACC.
+   * @return Gramática generada por la entrada. 
+  **/
+  public Gramatica parsearGramaticaArchivo(String origen)throws IOException,ParseException
+  {
+	FileReader fr;
+    JavaCharStream jcs;
+    try
+    {fr=new FileReader(origen);}
+    catch(IOException e){throw (e);}
+    TokMan=new ParserGramaticaTokenManager(jcs=new JavaCharStream(new BufferedReader(fr)),DEFAULT);
+    if(DEBUG==true)System.out.println("\tDEBUG:Comienza a parsear el parser con archivo :"+origen);
+    token_source=TokMan;
+    ReInit(token_source);
+    if(DEBUG==true)System.out.println("\tDEBUG:Se inicializa el Token Manager.");
+    try
+    {
+	  Inicio();
+	  if(implementacion!=null)
+	    return implementacion.obtenerGramatica();
+	}
+    catch(ParseException e)
+	{throw (e);}
+	return null;
+  }
+  //////////////////////////////////////////////////////////////////////////
+  //Funciones que llaman a la interface:
+  //////////////////////////////////////////////////////////////////////////
+  public  void terminal(String nuevo_terminal)
+  {
+    if(implementacion!=null)
+      implementacion.setTerminal(nuevo_terminal);
+  }
+  public  void noTerminal(String nuevo_no_terminal)
+  {
+    if(implementacion!=null)
+    {
+	  //if(nuevo_no_terminal.equals(s_nulo))
+	    //implementacion.setNulo();
+	  //else
+        implementacion.setNoTerminal(nuevo_no_terminal);
+    }
+  }
+  public  void simbolo_inicial(String simbolo_inicial)
+  {
+    if(implementacion!=null)
+     implementacion.setSimboloInicial(simbolo_inicial);
+  }
+  public  void simbolo_nulo(String nulo)
+  {
+    if(implementacion!=null)
+      s_nulo=nulo;
+  }
+  public  void inicio_produccion(String pi)
+  {
+    if(implementacion!=null)
+      implementacion.setParteIzquierdaProduccion(pi);
+  }
+  public  void anadir_parte_derecha_simbolo(String pd)
+  {
+    if(implementacion!=null)
+    {
+      if(pd.equals(s_nulo))
+	    implementacion.setNuloParteDerechaProduccion();
+	  else
+        implementacion.setParteDerechaSimboloProduccion(pd);
+    }
+  }
+  public  void anadir_parte_derecha_terminal(String pd)
+  {
+    if(implementacion!=null)
+      implementacion.setParteDerechaTerminalProduccion(pd);
+  }
+  public  void or()
+  {
+    if(implementacion!=null)
+      implementacion.orProduccion();
+  }
+  public  void fin_produccion()
+  {
+    if(implementacion!=null)
+      implementacion.finProduccion();
+  }
+}
+PARSER_END(ParserGramatica)
+/******************************************
+*****COMIENZAN LAS REGGLAS DEL PARSER.*****
+******************************************/
+
+//Cuando encuentre tabuladores, fines de line,espacios o comentarios los salta.
+SKIP:
+{
+  "\t" | "\n" | "\r" | " " | <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
+}
+TOKEN:
+{
+
+  <_TOKEN: "%token">
+  |
+  <_START: "%start">
+  |
+  <_LEFT: "%left">
+  |
+  <_RIGHT: "%right">
+  |
+  <_PREC: "%prec">
+  |
+  <_TYPE: "%type">
+  |
+  <_UNION: "%union">
+  |
+  <_NONASSOC: "%nonassoc">
+  |
+  <_NULO: "%nulo">
+  |
+  <SEPARADOR: "%%">
+  |
+  <LCURL :"%{">
+  |
+  <RCURL :"%}">
+  |
+  <VERT_BAR : "|">
+  |
+  <COLON : ":">
+  |
+  <LLAVE: "{">
+  |
+  <_ACCION: "{" (~["}"])* "}" >   
+ |
+ <_DEF_CODIGO: "%{" (~["%"])* "%}">
+ //<letra    : ["a"-"z","A"-"Z"] >
+ //|
+
+ //|
+ //<carIdentificador : <letra> | <digito> | "." | "_" | ":" >
+ //|
+ //<identificador : (<letra>|"_") (<carIdentificador>)* >
+ 
+ |
+ <identificador : (["a"-"z","A"-"Z"]|"_")   (["a"-"z","A"-"Z"]|   (["0"-"9"])+ | "." | "_" | ":")* >
+ 
+ 
+ 
+ 
+ 
+ 
+ |
+ //<literal : "\"" <identificador> "\"">
+ <literal : ("'" (~["'"])? "'") | ("\"" (~["'"])* "\"")   | ("'\\" (~["'"])? "'") >
+ 
+ |
+ 
+ 
+  <digito   : ["0"-"9"]>
+ |
+ <numero : (<digito>)+>
+}
+  void Inicio():{if(DEBUG==true)System.out.println("\tDEBUG:Comienza el parseo........");}
+  {
+	  
+  definiciones() 
+  
+  
+  <SEPARADOR> Reglas()  (Rutinas())?
+  }
+  
+  
+  
+  
+  ///////////////////////////////////////////////////
+  //DEFINICIONES:
+  ///////////////////////////////////////////////////
+  void definiciones():{if(DEBUG==true)System.out.println("\tDEBUG:Comienzan las definiciones......");}
+  {
+    (<_DEF_CODIGO>)?
+    (definicionSimbolos())+
+  }
+  
+  
+  
+  void definicionSimbolos():{Token t;}
+  {
+    <_START>   t=<identificador> {simbolo_inicial(t.image);}//%start
+   |
+   (<_UNION> <_ACCION>)
+   |
+   <_NULO> t=<identificador>{simbolo_nulo(t.image);}//%nulo
+   |
+   (Rword() Tag()  nList())
+   |
+   (<_TOKEN>  Tag() nlistToken())
+  }
+  void Rword():{}
+  {
+    <_LEFT> //%left
+    |
+    <_RIGHT>//%right
+    |
+    <_NONASSOC>//%nonassoc
+    |
+    <_TYPE>//%type
+  }
+  void nlistToken():{Token t;}
+  {
+    (
+      (t=<identificador> {terminal(t.image);})
+      |
+      (t=<literal> {String term=t.image;terminal(term.substring(1,term.length()-1));})
+    )+ 
+  }
+  void nList():{}
+  {
+    nmno()
+    masnlist()
+  }
+  void masnlist():{}
+  {
+    (nmno())*
+  }
+  void Tag():{}
+  {
+   ("<" <identificador> ">")?
+  }
+  void nmno():{}
+  {
+    (<identificador> (<numero>)?){}
+    |
+    (<literal> (<numero>)?){}
+  }
+  ///////////////////////////////////////////////////
+  //REGLAS:
+  ///////////////////////////////////////////////////
+  void Reglas():{if(DEBUG==true)System.out.println("\tDEBUG:Comienzan las reglas...");}
+  {
+    (Regla() )*
+  }
+  void Regla():{Token tok;}
+  {
+	tok=<identificador>  {inicio_produccion(tok.image);}
+	<COLON> 
+	(<LLAVE> accion())?  (<_PREC> <identificador>  (<LLAVE> accion())?  )?
+	  RBody()
+	  Prec()
+  }
+  void RBody():{Token tok;}
+  {
+   (
+   (
+     ( tok=<identificador> {anadir_parte_derecha_simbolo(tok.image);}
+        |
+        tok=<literal> {String pd=tok.image;anadir_parte_derecha_terminal(pd.substring(1,pd.length()-1));}
+        | <VERT_BAR> {or();}
+     ) (accion())?  
+   )
+   ((<_PREC> <identificador>)(accion())? )?
+   )+
+  }
+  void accion():{}
+  {
+    <_ACCION>
+  }
+  void Prec():{}
+  {
+	  ";" {fin_produccion();}
+  }
+  void Rutinas():{if(DEBUG==true)System.out.println("\tDEBUG:Comienzan las rutinas...");}
+  {
+   "%%"
+  }
+  
