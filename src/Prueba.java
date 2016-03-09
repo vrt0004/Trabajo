@@ -4,7 +4,20 @@ import parser.ParseException;
 import parser.ParserGramatica;
 import parser.ParserYacc;
 
-
+/**
+*
+* <b>Descripción</b><br>
+* Prototipo de línea de comandos utilizando clases de Burgram
+* <p>
+* <b>Detalles</b><br>
+* La idea es tener una pequeña aplicación en modo texto que:
+*	1. Toma como argumento el nombre de un archivo con la especificación de una gramática en el formato YACC
+*	2. Utilice su contenido para utilizando las clases adecuadas de Burgram para instanciar un objeto 'Gramatica'
+*	3. Interrogue el objeto gramática para mostrar el first y follow de los símbolos de la gramática.<br>
+* </p> 
+* @author Victor Renuncio
+* @version 1.0
+*/
 public class Prueba {
 	public static void main(String[] args) {
 	Gramatica g = null;
