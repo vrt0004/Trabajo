@@ -23,6 +23,7 @@ public class Prueba {
 	Gramatica g = null;
 	String GramaticaId=null;
 	GramaticaId ="gramatica1.yc";
+	//GramaticaId ="ex2.yp";
 	ParserGramatica pg = new ParserGramatica(false,new ParserYacc());
 	try {
 		g=pg.parsearGramaticaArchivo(System.getProperty("user.dir")+"\\gramaticas\\"+GramaticaId);
