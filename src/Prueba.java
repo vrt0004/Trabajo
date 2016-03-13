@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
 import gramatica.Gramatica;
 import parser.ParseException;
 import parser.ParserGramatica;
@@ -24,9 +27,13 @@ public class Prueba {
 	String GramaticaId=null;
 	GramaticaId ="gramatica1.yc";
 	//GramaticaId ="ex2.yp";
+	
+	
+	Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir")+System.getProperty("file.separator")+"gramaticas"+System.getProperty("file.separator"));
 	ParserGramatica pg = new ParserGramatica(false,new ParserYacc());
 	try {
-		g=pg.parsearGramaticaArchivo(System.getProperty("user.dir")+"\\gramaticas\\"+GramaticaId);
+		//g=pg.parsearGramaticaArchivo(System.getProperty("user.dir")+"\\gramaticas\\"+GramaticaId);
+		g=pg.parsearGramaticaArchivo(path+System.getProperty("file.separator")+GramaticaId);
 	} catch (IOException e) {
 		e.printStackTrace();
 	} catch (ParseException e) {
