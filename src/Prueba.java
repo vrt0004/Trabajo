@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+import analisis.Analisis;
+import analisis.AnalisisLL1;
 import gramatica.Gramatica;
 import parser.ParseException;
 import parser.ParserGramatica;
@@ -27,8 +29,6 @@ public class Prueba {
 	String GramaticaId=null;
 	GramaticaId ="gramatica1.yc";
 	//GramaticaId ="ex2.yp";
-	
-	
 	Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir")+System.getProperty("file.separator")+"gramaticas"+System.getProperty("file.separator"));
 	ParserGramatica pg = new ParserGramatica(false,new ParserYacc());
 	try {
@@ -39,6 +39,7 @@ public class Prueba {
 	} catch (ParseException e) {
 		e.printStackTrace();
 	}
+	Analisis analisis=new AnalisisLL1(g);
 	System.out.println("gramatica:   "+GramaticaId);
 	System.out.println();
 	System.out.println(g.toString());
@@ -48,5 +49,9 @@ public class Prueba {
 	System.out.println();
 	System.out.println("follow");
 	System.out.println(g.obtenerFollow());
+	System.out.println();
+	System.out.println("Tabla de análisis sintáctico predictivo");
+	System.out.println(analisis.obtenerTablaAnalisis());
+	
 }
 }
