@@ -1,0 +1,113 @@
+\capitulo{3}{Conceptos teóricos}
+
+
+
+\section{Gramática}
+
+El estudio de los lenguajes se puede hacer desde tres puntos de vista:
+\begin{itemize}
+	\item El de la interpretación: tiene que ver con la semántica de los lenguajes intenta formalizar el significado de las sentencias de un lenguaje.
+	
+	\item La generación de lenguajes: consiste en encontrar los mecanismos que permitan enumerar las cadenas que pertenecen a un lenguaje. Estos mecanismo son las gramáticas.
+	
+	
+	\item El del reconocimiento del lenguaje: esta muy ligado a la teoría de autómatas y es << ... el estudio de algoritmos o estructuras de máquinas que permiten, dado un lenguaje L y una cadena x, determinar si $ x\in\L$ o  $x\not\in\L$ >> \footnote{ Fernández,1995} 
+	
+	
+\end{itemize}
+Una gramática formal es una cuádrupla$(\Sigma,N,P,S)$, donde:
+\begin{itemize}
+\item $\Sigma$ es un alfabero(conjunto finito y no vacío) simbolos terminales(o tokens/tokenes).
+\item $N$ es un alfabeto cuyos elementos se llaman símbolos no terminales.
+\item P es un alfabeto de producciones de la forma:
+
+
+$\lbrace u\rightarrow v:  u=xAy\in(\Sigma\cup N)^{+}\wedge A \in N\wedge v\in(\Sigma\cup N)^{*}\rbrace$
+\item S$\in N$ es un símbolo especial llamado axioma o símbolo inicial
+\end{itemize}
+
+\
+\subsection{Producción}
+Una producción o regla de reescritura es un par ordenado de cadenas sobre un alfabeto((x,y):x,y$ \in\Sigma^{\ast}$). Se representa por $x\rightarrow y$. x es la parte izquierda o antecedente de la producción e y es la parte derecha o consecuente.
+\subsection{Derivacion directa}
+Sea $x\rightarrow y$ una producción y $v,w\in\Sigma^{*}$. Se dice que w deriva directamente de v y se escribe $v\Rightarrow w$ si y sólo si existen $z,u\in\Sigma^{*}$ tales que $v=zxu$, $w=zyu$ y $x\rightarrow y$. 
+\subsection{Derivacion (En uno o más pasos)}
+
+w deriva de v y se escribe $v\Rightarrow^{+}w$ cuando existen $u_{0},u_{1},...,u_{n}\in\Sigma^{*}$ tales que:
+
+$v=u_{0}$
+
+$u_{0}\Rightarrow u_{1}$
+
+$u_{1}\Rightarrow u_{2}$
+
+$\vdots$
+
+$u_{n-1}\Rightarrow u_{n}$
+
+$u_{n1}=w$
+
+A la secuencia $u_{0},u_{1},...,u_{n}$ se la llama cadena de dericación de longitud n.
+
+
+
+
+
+
+
+
+
+
+\imagen{thompson-vacio}{Autómata para una expresión vacía}
+
+
+
+\section{Listas de items}
+
+Existen tres posibilidades:
+
+\begin{itemize}
+	\item primer item.
+	\item segundo item.
+\end{itemize}
+
+\begin{enumerate}
+	\item primer item.
+	\item segundo item.
+\end{enumerate}
+
+\begin{description}
+	\item[Primer item] más información sobre el primer item.
+	\item[Segundo item] más información sobre el segundo item.
+\end{description}
+	
+
+
+\section{Tablas}
+
+Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
+
+\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
+{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
+HTML5 & X & & &\\
+CSS3 & X & & &\\
+BOOTSTRAP & X & & &\\
+JavaScript & X & & &\\
+AngularJS & X & & &\\
+Bower & X & & &\\
+PHP & & X & &\\
+Karma + Jasmine & X & & &\\
+Slim framework & & X & &\\
+Idiorm & & X & &\\
+Composer & & X & &\\
+JSON & X & X & &\\
+PhpStorm & X & X & &\\
+MySQL & & & X &\\
+PhpMyAdmin & & & X &\\
+Git + BitBucket & X & X & X & X\\
+Mik\TeX{} & & & & X\\
+\TeX{}Maker & & & & X\\
+Astah & & & & X\\
+Balsamiq Mockups & X & & &\\
+VersionOne & X & X & X & X\\
+} 
