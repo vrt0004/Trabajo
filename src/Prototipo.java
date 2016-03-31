@@ -14,13 +14,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 
-
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
 import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import gramatica.Gramatica;
+
 import parser.ParseException;
 import parser.ParserGramatica;
 import parser.ParserYacc;
@@ -31,13 +31,13 @@ import parser.ParserYacc;
  * Prototipo de línea de comandos utilizando clases de Burgram
  * <p>
  * <b>Detalles</b><br>
- * La idea es tener una pequeña aplicación en modo texto que:
+ * La idea es tener una pequeña aplicación en modo texto que:<br>
  * 
  * 1. Toma como argumento el nombre de un archivo con la especificación de una
- * gramática en el formato YACC
+ * gramática en el formato YACC<br>
  * 
  * 2. Utilice su contenido para utilizando las clases adecuadas de Burgram para
- * instanciar un objeto 'Gramatica'
+ * instanciar un objeto 'Gramatica'<br>
  * 
  * 3. Interrogue el objeto gramática para mostrar el first y follow de los
  * símbolos de la gramática.<br>
@@ -66,9 +66,9 @@ public class Prototipo {
 		///////////////////////////////////////////////////////////////////////
 
 		Options options = new Options();
-		options.addOption("gramatica", true, "Gramatica para analizar");
-		options.addOption("tipoanalisis", true, "Tipo de analisis a realizar ");
-		options.addOption("informe", true, "Extension del informe");
+		options.addOption("g", true, "Nombre de la gramatica a analizar");
+		options.addOption("t", true, "Tipo de analisis a realizar[LL,SLR,LARL,LR] ");
+		options.addOption("i", true, "Extension del informe [.TEX,.XML],por defecto .ALL");
 
 		options.addOption("h", "help", false, "Imprime el mensaje de ayuda");
 
@@ -93,31 +93,25 @@ public class Prototipo {
 
 			// Si está la opcion de ayuda, la imprimimos y salimos.
 			if (cmdLine.hasOption("h")) {
-
 				new HelpFormatter().printHelp(Prototipo.class.getCanonicalName(), options);
-
 			}
 
 			// Leemos la gramatica y el tipo de analisis. Sino existen generamos
 			// un error pues es un parámetro requerido.
 
-			System.out.println(cmdLine.getOptionValue("gramatica"));
-
-			String gramatica = cmdLine.getOptionValue("gramatica");
+			String gramatica = cmdLine.getOptionValue("g");
 			if (gramatica == null) {
 				throw new org.apache.commons.cli.ParseException("La gramatica es requerida");
 			}
-			String tipoanalisis = cmdLine.getOptionValue("tipoanalisis");
+			String tipoanalisis = cmdLine.getOptionValue("t");
 			if (tipoanalisis == null) {
 				throw new org.apache.commons.cli.ParseException("El tipo de analisis a realizar es requerido");
 			}
 
-			cmdLine.getOptionValue("tipoanalisis");
-
 			// Si el usuario ha especificado el informe lo leemos
 
-			if (cmdLine.hasOption("informe")) {
-				informe = cmdLine.getOptionValue("informe");
+			if (cmdLine.hasOption("i")) {
+				informe = cmdLine.getOptionValue("i");
 			} else {
 				informe = DEF_INFORME;
 			}
@@ -152,9 +146,7 @@ public class Prototipo {
 				System.out.println(g.obtenerFollow());
 				System.out.println();
 
-				String tipo = args[1];
-
-				switch (tipo) {
+				switch (tipoanalisis) {
 
 				case "LL":
 					analisis = new AnalisisLL1(g);
@@ -178,6 +170,7 @@ public class Prototipo {
 					break;
 				}
 			}
+
 			switch (informe) {
 			case "TEX":
 				creaTex(g, gramatica, analisis);
@@ -195,24 +188,54 @@ public class Prototipo {
 		} catch (org.apache.commons.cli.ParseException ex) {
 			System.out.println(ex.getMessage());
 
-			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName(), options); // Error,
-																						// imprimimos
-																						// la
-																						// ayuda
+			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
+			// imprimimos
+			// la
+			// ayuda
 		} catch (java.lang.NumberFormatException ex) {
-			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName(), options); // Error,
-																						// imprimimos
-																						// la
-																						// ayuda
+			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
+			// imprimimos
+			// la
+			// ayuda
 		}
 	}
 
+	/**
+	 * Método que genera el informe en .XML
+	 * 
+	 * @param g
+	 *            Gramática a anilizar
+	 * @param gramatica
+	 *            Nombre de la gramática
+	 * @param analisis
+	 *            Análisis de la gramática
+	 */
 	private static void creaXML(Gramatica g, String gramatica, Analisis analisis) {
 		// TODO Auto-generated method stub
-		File fichero = new File(System.getProperty("user.dir"), "fichero.XML");
+		File fichero = new File(System.getProperty("user.dir"), "fichero.HTML");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
+			bw.write("<!DOCTYPE html>\n");
 
+			bw.write("<html lang=\"es\">\n");
+			bw.write("<head>\n");
+			bw.write("<meta charset=\"UTF-8\"></meta>\n");
+			bw.write("<title>Moodle template for LL(1) exercises</title>\n");
+			bw.write("</head>\n");
+			bw.write("<body>\n");
+			bw.write("<h1>Moodle template for LL(1) exercises</h1>");
+			bw.write("<p style=\"width: 20%; -moz-border-bottom-colors: none; -moz-border-left-colors: none; "
+					+ "-moz-border-right-colors: none; -moz-border-top-colors: none; background-color: #fefef1; border-"
+					+ "bottom-right-radius: 12px; border-color: #f7a600; border-style: solid; border-width: 1px 1px 1px "
+					+ "5px; box-shadow: 2px 3px 5px #ccc; color: #222; display: table; line-height: 1.4em; margin: 10px "
+					+ "20px 20px; overflow: hidden; padding: 10px 16px;\">\n");
+			bw.write(" </p>\n");
+			bw.write("   <!-- This is the part that must be automatically generated -->\n");
+
+			bw.write("   <!-- END of automatically generated code -->\n");
+			bw.write("</body>\n");
+			bw.write("</html>");
+			bw.close();
 			System.out.println("Fichero.XML generado correctamente");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -220,18 +243,30 @@ public class Prototipo {
 
 	}
 
+	/**
+	 * Método que genera el informe en .TEX
+	 * 
+	 * @param g
+	 * @param gramatica
+	 * @param analisis
+	 */
 	private static void creaTex(Gramatica g, String gramatica, Analisis analisis) {
 		File fichero = new File(System.getProperty("user.dir"), "fichero.tex");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
 			bw.write("\\documentclass {article}\n" + "\\usepackage [spanish] {babel}\n"
-					+ "\n\\usepackage [T1]{fontenc}\n" + "\\usepackage [latin1]{inputenc}\n" + "\\begin{document} \n");
-			bw.write("\n\\title{" + gramatica + "}\n");
+					+ "\n\\usepackage [T1]{fontenc}\n" + "\\newcommand{\\h}[1]{#1}"
+					+ "\n%\\renewcommand{\\h}[1]{\\color{white}#1\\color{black}}" + "\\usepackage [latin1]{inputenc}\n"
+					+ "\\begin{document} \n");
+			bw.write("\n\\title{" + gramatica + "}\n\\maketitle");
 
 			bw.write("\n\\section{Gramatica}\n");
-			String gra = escribirgramatica(g.toString().toCharArray());
-			bw.write(gra);
 
+			bw.write("$\n");
+			String gram = escribir(g.toString().toCharArray());
+			bw.write(gram);
+
+			bw.write("$\n");
 			bw.write("\n\\section{First}\n");
 			bw.write("$\n");
 			String first = escribir(g.obtenerFirst().toString().toCharArray());
@@ -246,9 +281,8 @@ public class Prototipo {
 
 			bw.write("\n\\section{Tabla análisis sintáctico predictivo}\n");
 			bw.write("$\n");
-			// String TASP =
-			// escribir(analisis.obtenerTablaAnalisis().toString().toCharArray());
-			// bw.write(TASP);
+			String TASP = escribir(analisis.obtenerTablaAnalisis().toString().toCharArray());
+			bw.write(TASP);
 			bw.write("$\n");
 
 			bw.write("\n\\end{document}\n");
@@ -267,26 +301,14 @@ public class Prototipo {
 				y = y + ("\\$");
 			else if (x == '{')
 				y = y + ("\\{");
+			else if (x == '\\')
+				y = y + ("\\");
 			else if (x == '}')
 				y = y + ("\\}$\n\n$");
 			else
-				y = y + (x);
+				y = y + x;
 		}
 		return y;
 	}
 
-	private static String escribirgramatica(char[] cadena) {
-		String y = "";
-		for (char x : cadena) {
-			if (x == '$')
-				y = y + ("\\$");
-			else if (x == '{')
-				y = y + ("\\{");
-			else if (x == '}')
-				y = y + ("\\}$\n\n$");
-			else
-				y = y + (x) + "\n";
-		}
-		return y;
-	}
 }
