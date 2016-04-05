@@ -2,9 +2,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringReader;
+import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -13,6 +18,11 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
+
+import com.google.common.base.Charsets;
+import com.google.common.collect.Maps;
+import com.google.common.io.Resources;
+import com.hubspot.jinjava.Jinjava;
 
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
@@ -24,6 +34,7 @@ import gramatica.Gramatica;
 import parser.ParseException;
 import parser.ParserGramatica;
 import parser.ParserYacc;
+
 
 /**
  *
@@ -55,7 +66,7 @@ public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		final String DEF_INFORME = "ALL";
 		CommandLineParser parser = null;
@@ -209,9 +220,21 @@ public class Prototipo {
 	 *            Nombre de la gramática
 	 * @param analisis
 	 *            Análisis de la gramática
+	 * @throws IOException 
 	 */
-	private static void creaXML(Gramatica g, String gramatica, Analisis analisis) {
+	private static void creaXML(Gramatica g, String gramatica, Analisis analisis) throws IOException {
 		// TODO Auto-generated method stub
+		
+		Jinjava jinjava = new Jinjava();
+		Map<String, Object> context = Maps.newHashMap();
+		context.put("name", "Jared");
+
+		String template = Resources.toString(Resources.getResource("my-template.html"), Charsets.UTF_8);
+		String renderedTemplate = jinjava.render(template, context);
+	  
+		
+		
+		
 		File fichero = new File(System.getProperty("user.dir"), "fichero.HTML");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
@@ -236,7 +259,7 @@ public class Prototipo {
 			bw.write("</body>\n");
 			bw.write("</html>");
 			bw.close();
-			System.out.println("Fichero.XML generado correctamente");
+			System.out.println("Fichero.HTML generado correctamente");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -311,4 +334,7 @@ public class Prototipo {
 		return y;
 	}
 
+
+
 }
+
