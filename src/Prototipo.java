@@ -32,20 +32,20 @@ import parser.ParserYacc;
 
 /**
  *
- * <b>Descripción</b><br>
- * Prototipo de línea de comandos utilizando clases de Burgram
+ * <b>Descripciï¿½n</b><br>
+ * Prototipo de lï¿½nea de comandos utilizando clases de Burgram
  * <p>
  * <b>Detalles</b><br>
- * La idea es tener una pequeña aplicación en modo texto que:<br>
+ * La idea es tener una pequeï¿½a aplicaciï¿½n en modo texto que:<br>
  * 
- * 1. Toma como argumento el nombre de un archivo con la especificación de una
- * gramática en el formato YACC<br>
+ * 1. Toma como argumento el nombre de un archivo con la especificaciï¿½n de una
+ * gramï¿½tica en el formato YACC<br>
  * 
  * 2. Utilice su contenido para utilizando las clases adecuadas de Burgram para
  * instanciar un objeto 'Gramatica'<br>
  * 
- * 3. Interrogue el objeto gramática para mostrar el first y follow de los
- * símbolos de la gramática.<br>
+ * 3. Interrogue el objeto gramï¿½tica para mostrar el first y follow de los
+ * sï¿½mbolos de la gramï¿½tica.<br>
  * 
  * 4.Muestre la tabla de analisis sintactico predictivo
  * 
@@ -66,7 +66,7 @@ public class Prototipo {
 		CommandLine cmdLine = null;
 
 		///////////////////////////////////////////////////////////////////////
-		// Fase 1: Configuramos las opciones de validación de entrada.
+		// Fase 1: Configuramos las opciones de validaciï¿½n de entrada.
 		///////////////////////////////////////////////////////////////////////
 
 		Options options = new Options();
@@ -76,16 +76,16 @@ public class Prototipo {
 
 		options.addOption("h", "help", false, "Imprime el mensaje de ayuda");
 
-		// No pueden aparecen las dos opciones simultáneamente.
+		// No pueden aparecen las dos opciones simultï¿½neamente.
 		OptionGroup group = new OptionGroup();
-		group.addOption(new Option("err", "Salida estándar de errores"));
-		group.addOption(new Option("console", "Salida estándar"));
+		group.addOption(new Option("err", "Salida estï¿½ndar de errores"));
+		group.addOption(new Option("console", "Salida estï¿½ndar"));
 		options.addOptionGroup(group);
 
 		try {
 
 			///////////////////////////////////////////////////////////////////////
-			// Fase 2: Parseamos la entrada con la configuración establecida
+			// Fase 2: Parseamos la entrada con la configuraciï¿½n establecida
 			///////////////////////////////////////////////////////////////////////
 
 			parser = new DefaultParser();
@@ -95,13 +95,13 @@ public class Prototipo {
 			// Fase 3: Analizar los resultados y realizar las tareas pertinentes
 			///////////////////////////////////////////////////////////////////////
 
-			// Si está la opcion de ayuda, la imprimimos y salimos.
+			// Si estï¿½ la opcion de ayuda, la imprimimos y salimos.
 			if (cmdLine.hasOption("h")) {
 				new HelpFormatter().printHelp(Prototipo.class.getCanonicalName(), options);
 			}
 
 			// Leemos la gramatica y el tipo de analisis. Sino existen generamos
-			// un error pues es un parámetro requerido.
+			// un error pues es un parï¿½metro requerido.
 
 			String gramatica = cmdLine.getOptionValue("g");
 			if (gramatica == null) {
@@ -121,7 +121,7 @@ public class Prototipo {
 			}
 
 			// ..............................................................
-			// Aquí van las tareas que tiene que realizar la aplicación
+			// Aquï¿½ van las tareas que tiene que realizar la aplicaciï¿½n
 			// ..............................................................
 
 			Gramatica g = null;
@@ -156,22 +156,22 @@ public class Prototipo {
 
 				case "LL":
 					analisis = new AnalisisLL1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
+					System.out.println("Tabla de anï¿½lisis sintï¿½ctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "SLR":
 					analisis = new AnalisisSLR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
+					System.out.println("Tabla de anï¿½lisis sintï¿½ctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LALR":
 					analisis = new AnalisisLALR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
+					System.out.println("Tabla de anï¿½lisis sintï¿½ctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LR":
 					analisis = new AnalisisLR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
+					System.out.println("Tabla de anï¿½lisis sintï¿½ctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				}
@@ -203,16 +203,16 @@ public class Prototipo {
 	}
 
 	/**
-	 * Método que genera el informe en .XML
+	 * MÃ©todo que genera el informe en .XML
 	 * 
 	 * @param g
-	 *            Gramática a anilizar
+	 *            Gramï¿½tica a anilizar
 	 * @param gramatica
-	 *            Nombre de la gramática
+	 *            Nombre de la gramï¿½tica
 	 * @param analisis
-	 *            Análisis de la gramática
+	 *            Anï¿½lisis de la gramï¿½tica
 	 * @param tipoanalisis
-	 *            Tipo de análisis
+	 *            Tipo de anï¿½lisis
 	 * @throws IOException
 	 */
 	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis)
@@ -250,7 +250,7 @@ public class Prototipo {
 	}
 
 	/**
-	 * Método que genera el informe en .TEX
+	 * MÃ©todo que genera el informe en .TEX
 	 * 
 	 * @param g
 	 * @param gramatica
@@ -286,7 +286,7 @@ public class Prototipo {
 			bw.write(follow);
 			bw.write("$\n");
 
-			bw.write("\n\\section{Tabla análisis sintáctico predictivo}\n");
+			bw.write("\n\\section{Tabla anï¿½lisis sintï¿½ctico predictivo}\n");
 			bw.write("$\n");
 			String TASP = escribir(analisis.obtenerTablaAnalisis().toString().toCharArray());
 			bw.write(TASP);
