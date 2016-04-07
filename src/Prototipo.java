@@ -1,4 +1,3 @@
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -56,7 +55,6 @@ import parser.ParserYacc;
  * @author Victor Renuncio
  * @version 1.0
  */
-
 public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
@@ -135,7 +133,6 @@ public class Prototipo {
 			try {
 				g = pg.parsearGramaticaArchivo(path + System.getProperty("file.separator") + gramatica);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -214,6 +211,8 @@ public class Prototipo {
 	 *            Nombre de la gramática
 	 * @param analisis
 	 *            Análisis de la gramática
+	 * @param tipoanalisis
+	 *            Tipo de análisis
 	 * @throws IOException
 	 */
 	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis)
@@ -229,14 +228,12 @@ public class Prototipo {
 		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
 		context.put("NoTerminales", g.obtenerNoTerminales());
 		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
-		context.put("First", g.obtenerFirst());
-		context.put("Follow", g.obtenerFollow());
-
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
 		}
 		context.put("Producciones", producciones);
-
+		context.put("First", g.obtenerFirst());
+		context.put("Follow", g.obtenerFollow());
 		String template = Resources.toString(Resources.getResource("my-template.html"), Charsets.UTF_8);
 		String renderedTemplate = jinjava.render(template, context);
 

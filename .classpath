@@ -23,5 +23,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jinjava"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BURGRAM"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

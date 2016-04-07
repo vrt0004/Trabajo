@@ -112,7 +112,7 @@ B->id B
 			var filas = filas.split(",");
 			var col="end,tipo,begin,codigo,id"
 			var col = col.split(",");
-			for (var j = 0; j < 5; j++) {
+			for (var j = 0; j < 5+1; j++) {
 				var celda = document.createElement("td");
 				if (j==0 && i==0){
 					var textoCelda = document.createTextNode("");
@@ -199,13 +199,10 @@ B->id B
 </script>
 	<script>genera_tabla_Traza();</script>
 
-
-
-
-
-A,S,C,B
-end,tipo,begin,codigo,id
 	<!-- End automatically generated part-->
+	
+	
+	
 </body>
 </html>
 
