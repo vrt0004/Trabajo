@@ -79,6 +79,7 @@ public abstract class Informe
   **@param ruta Ruta donde se almacenará
   **@param raut Variable que indica si se rotará el automata.
   **@param rarb Variable que indica si se rotará el árbol de analisis.
+  ** @return boolean
   **/
   public boolean obtenerInforme(Analisis anl,String ruta,boolean raut,boolean rarb)
   {

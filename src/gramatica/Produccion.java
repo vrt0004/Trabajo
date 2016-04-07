@@ -92,6 +92,7 @@ public class Produccion
   	{
   	  cadena=cadena+pd.obtenerSimbolo(i).toString()+" ";
   	}
+  	cadena=cadena+"";
   	return cadena;
   }
   /**

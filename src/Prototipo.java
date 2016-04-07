@@ -1,13 +1,10 @@
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
-import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +27,9 @@ import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import gramatica.Gramatica;
-
 import parser.ParseException;
 import parser.ParserGramatica;
 import parser.ParserYacc;
-
 
 /**
  *
@@ -136,12 +131,15 @@ public class Prototipo {
 			Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir")
 					+ System.getProperty("file.separator") + "gramaticas" + System.getProperty("file.separator"));
 			ParserGramatica pg = new ParserGramatica(false, new ParserYacc());
+
 			try {
 				g = pg.parsearGramaticaArchivo(path + System.getProperty("file.separator") + gramatica);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
+
 			}
 			Analisis analisis = null;
 			if (args.length > 0) {
@@ -184,14 +182,14 @@ public class Prototipo {
 
 			switch (informe) {
 			case "TEX":
-				creaTex(g, gramatica, analisis);
+				creaTex(g, gramatica, analisis, tipoanalisis);
 				break;
 			case "XML":
-				creaXML(g, gramatica, analisis);
+				creaXML(g, gramatica, analisis, tipoanalisis);
 				break;
 			case "ALL":
-				creaTex(g, gramatica, analisis);
-				creaXML(g, gramatica, analisis);
+				creaTex(g, gramatica, analisis, tipoanalisis);
+				creaXML(g, gramatica, analisis, tipoanalisis);
 				break;
 
 			}
@@ -200,14 +198,10 @@ public class Prototipo {
 			System.out.println(ex.getMessage());
 
 			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
-			// imprimimos
-			// la
-			// ayuda
+			// imprimimos la ayuda
 		} catch (java.lang.NumberFormatException ex) {
 			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
-			// imprimimos
-			// la
-			// ayuda
+			// imprimimos la ayuda
 		}
 	}
 
@@ -220,44 +214,36 @@ public class Prototipo {
 	 *            Nombre de la gramática
 	 * @param analisis
 	 *            Análisis de la gramática
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	private static void creaXML(Gramatica g, String gramatica, Analisis analisis) throws IOException {
-		// TODO Auto-generated method stub
-		
+	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis)
+			throws IOException {
+
+		String producciones = "";
 		Jinjava jinjava = new Jinjava();
 		Map<String, Object> context = Maps.newHashMap();
-		context.put("name", "Jared");
+		context.put("NombreGramatica", gramatica);
+		context.put("TipoAnalisis", tipoanalisis);
+		context.put("SimboloInicio", g.getSimboloInicio());
+		context.put("Terminales", g.obtenerTerminales());
+		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
+		context.put("NoTerminales", g.obtenerNoTerminales());
+		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+		context.put("First", g.obtenerFirst());
+		context.put("Follow", g.obtenerFollow());
+
+		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
+			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
+		}
+		context.put("Producciones", producciones);
 
 		String template = Resources.toString(Resources.getResource("my-template.html"), Charsets.UTF_8);
 		String renderedTemplate = jinjava.render(template, context);
-	  
-		
-		
-		
+
 		File fichero = new File(System.getProperty("user.dir"), "fichero.HTML");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
-			bw.write("<!DOCTYPE html>\n");
-
-			bw.write("<html lang=\"es\">\n");
-			bw.write("<head>\n");
-			bw.write("<meta charset=\"UTF-8\"></meta>\n");
-			bw.write("<title>Moodle template for LL(1) exercises</title>\n");
-			bw.write("</head>\n");
-			bw.write("<body>\n");
-			bw.write("<h1>Moodle template for LL(1) exercises</h1>");
-			bw.write("<p style=\"width: 20%; -moz-border-bottom-colors: none; -moz-border-left-colors: none; "
-					+ "-moz-border-right-colors: none; -moz-border-top-colors: none; background-color: #fefef1; border-"
-					+ "bottom-right-radius: 12px; border-color: #f7a600; border-style: solid; border-width: 1px 1px 1px "
-					+ "5px; box-shadow: 2px 3px 5px #ccc; color: #222; display: table; line-height: 1.4em; margin: 10px "
-					+ "20px 20px; overflow: hidden; padding: 10px 16px;\">\n");
-			bw.write(" </p>\n");
-			bw.write("   <!-- This is the part that must be automatically generated -->\n");
-
-			bw.write("   <!-- END of automatically generated code -->\n");
-			bw.write("</body>\n");
-			bw.write("</html>");
+			bw.write(renderedTemplate);
 			bw.close();
 			System.out.println("Fichero.HTML generado correctamente");
 		} catch (IOException e) {
@@ -272,8 +258,9 @@ public class Prototipo {
 	 * @param g
 	 * @param gramatica
 	 * @param analisis
+	 * @param tipoanalisis
 	 */
-	private static void creaTex(Gramatica g, String gramatica, Analisis analisis) {
+	private static void creaTex(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis) {
 		File fichero = new File(System.getProperty("user.dir"), "fichero.tex");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
@@ -334,7 +321,4 @@ public class Prototipo {
 		return y;
 	}
 
-
-
 }
-

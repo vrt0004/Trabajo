@@ -42,6 +42,7 @@ public class ParserGramatica implements ParserGramaticaConstants {
    * Función que parsea una cadena de texto pasada como parámetro. 
    * @param datos Cadena de texto que contiene la gramática en formato YACC.
    * @return Gramática generada por la entrada. 
+   * @throws ParseException ParseException
   **/
   public Gramatica parsearGramaticaCadena(String datos)throws ParseException
   {
@@ -61,6 +62,9 @@ public class ParserGramatica implements ParserGramaticaConstants {
    * Función que parsea el contenido de un archivo de texto cuya ruta espasada como parámetro. 
    * @param origen Ruta del archivo de texto que contiene la gramática en formato YACC.
    * @return Gramática generada por la entrada. 
+   * @throws IOException IOException
+   * @throws ParseException ParseException
+
   **/
   public Gramatica parsearGramaticaArchivo(String origen)throws IOException,ParseException
   {

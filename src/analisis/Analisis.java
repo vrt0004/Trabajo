@@ -69,6 +69,7 @@ public abstract class Analisis
    * Mzzztodo abstracto que permite ir a un determinado estado de la simulaci�n.
    * @param it_inicio Iteraci�n de inicio.
    * @param it_fin Iteraci�n de fin.
+   * @return int
   **/
   public abstract int realizarIteracion(int it_inicio,int it_fin);
   /**

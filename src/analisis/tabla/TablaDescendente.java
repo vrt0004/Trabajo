@@ -51,6 +51,7 @@ public class TablaDescendente extends Tabla
    * Funcion que insertar una produccion en la tabla.
    * @param t Terminal de la producci�n.
    * @param nt NoTerminal de la producci�n.
+   * @param pr Produccion 
   **/
   public void insertar(Terminal t,NoTerminal nt, Produccion pr)
   {
@@ -69,6 +70,7 @@ public class TablaDescendente extends Tabla
   /**
    * Funcion que insertar una produccion en la tabla para el s�mbolo nulo.
    * @param nt NoTerminal de la producci�n.
+   * @param pr produccion.
   **/
   public void insertarColumnaNulo(NoTerminal nt,Produccion pr)
   {

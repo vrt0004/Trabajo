@@ -1,7 +1,6 @@
 package analisis.analisisSintactico;
 import gramatica.*;
 import java.util.Vector;
-import analisis.tabla.*;
 import java.util.Hashtable;
 import analisis.analisisSintactico.ascendente.*;
 /**
