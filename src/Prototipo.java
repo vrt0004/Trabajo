@@ -45,7 +45,7 @@ import parser.ParserYacc;
  * instanciar un objeto 'Gramatica'<br>
  * 
  * 3. Interrogue el objeto gram�tica para mostrar el first y follow de los
- * s�mbolos de la gram�tica.<br>
+ * símbolos de la gramática.<br>
  * 
  * 4.Muestre la tabla de analisis sintactico predictivo
  * 
@@ -58,7 +58,7 @@ import parser.ParserYacc;
 public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
-
+	public static String cadena;
 	public static void main(String[] args) throws IOException {
 
 		final String DEF_INFORME = "ALL";
@@ -73,7 +73,7 @@ public class Prototipo {
 		options.addOption("g", true, "Nombre de la gramatica a analizar");
 		options.addOption("t", true, "Tipo de analisis a realizar[LL,SLR,LARL,LR] ");
 		options.addOption("i", true, "Extension del informe [.TEX,.XML],por defecto .ALL");
-
+		options.addOption("ca", true, "Cadena a analizar");
 		options.addOption("h", "help", false, "Imprime el mensaje de ayuda");
 
 		// No pueden aparecen las dos opciones simult�neamente.
@@ -119,7 +119,9 @@ public class Prototipo {
 			} else {
 				informe = DEF_INFORME;
 			}
-
+			if (cmdLine.hasOption("ca")) {
+				cadena = cmdLine.getOptionValue("ca");
+			}
 			// ..............................................................
 			// Aqu� van las tareas que tiene que realizar la aplicaci�n
 			// ..............................................................
@@ -182,11 +184,11 @@ public class Prototipo {
 				creaTex(g, gramatica, analisis, tipoanalisis);
 				break;
 			case "XML":
-				creaXML(g, gramatica, analisis, tipoanalisis);
+				creaXML(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 			case "ALL":
 				creaTex(g, gramatica, analisis, tipoanalisis);
-				creaXML(g, gramatica, analisis, tipoanalisis);
+				creaXML(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 
 			}
@@ -194,10 +196,10 @@ public class Prototipo {
 		} catch (org.apache.commons.cli.ParseException ex) {
 			System.out.println(ex.getMessage());
 
-			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
+			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i][-ca] ", options); // Error,
 			// imprimimos la ayuda
 		} catch (java.lang.NumberFormatException ex) {
-			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i] ", options); // Error,
+			new HelpFormatter().printHelp(Prototipo.class.getCanonicalName() + " -g -t [-i][-ca] ", options); // Error,
 			// imprimimos la ayuda
 		}
 	}
@@ -215,7 +217,7 @@ public class Prototipo {
 	 *            Tipo de an�lisis
 	 * @throws IOException
 	 */
-	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis)
+	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis,String cadena)
 			throws IOException {
 
 		String producciones = "";
@@ -223,11 +225,13 @@ public class Prototipo {
 		Map<String, Object> context = Maps.newHashMap();
 		context.put("NombreGramatica", gramatica);
 		context.put("TipoAnalisis", tipoanalisis);
+		context.put("Cadena", cadena);
 		context.put("SimboloInicio", g.getSimboloInicio());
 		context.put("Terminales", g.obtenerTerminales());
 		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
 		context.put("NoTerminales", g.obtenerNoTerminales());
 		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+		
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
 		}
