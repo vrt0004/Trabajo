@@ -1,0 +1,169 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<quiz>
+<question type="cloze">
+<name>
+<text>{{NombreGramatica}}</text>
+</name>
+<questiontext format="html">
+<text>
+<![CDATA[
+						{{! Gramatica tipo LL }}
+{{#LL}}
+Completar las tablas que siguen, dada la siguiente gramática (
+<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, y se
+usa el símbolo ε para representar la cadena vacia):<br>
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	<p>{{Producciones}}</p>
+</pre> 
+	
+<span>Tabla de los conjuntos PRIMERO y SIGUIENTE</span>
+
+<table border="1"><thead>
+  <tr>
+    <th></th>
+    <th>Firts</th>
+    <th>Follow</th>
+  </tr>
+  </thead>
+ {{#Terminales}}
+  <tr>
+    <td>{{.}}</td>
+    <td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+    <td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  </tr>
+  {{/Terminales}}
+</table>
+</tbody>
+</table>
+
+<span>Tabla de Análisis sintáctico predictivo</span>
+
+<table border="1"><thead>
+  	<tr>
+    <th></th>
+    {{#NoTerminales}}
+ 	   <td>{{.}}</td>
+ 	{{/NoTerminales}}
+ 	 </tr>
+</thead>
+ 	{{#Terminales}}
+ 		<tr>
+  		<td>{{.}}</td>
+  		{{#NoTerminales}}
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	 	{{/NoTerminales}}
+  		</tr>
+   {{/Terminales}} 
+   </tr>
+</table>
+</tbody>
+</table>
+
+{{#Cadena}}
+<span>Primeros Pasos de la traza de análisis para la Cadena {{Cadena}}$</span>
+
+<table border="1"><thead>
+  	<tr>
+    {{#Traza}}
+ 	   <td>{{.}}</td>
+ 	{{/Traza}}
+ 	 </tr>
+</thead>
+ 	{{#Terminales}}
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+   {{/Terminales}} 
+   </tr>
+</table>
+</tbody>
+</table>
+{{/Cadena}}
+{{/LL}}
+						{{! Gramatica tipo LR }}						
+{{#LR}}
+
+Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos),
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+   ε para representar la cadena vacia):
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	<p>{{Producciones}}</p>
+</pre> 
+<span>Conjuntos de items marcados</span>
+
+{{Conjuntos}}
+
+
+<td>{3:SHORTANSWER:= $ P d}</td>
+
+
+{{/LR}}
+					{{! Gramatica tipo SLR }}						
+{{#SLR}}
+
+Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos),
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+   ε para representar la cadena vacia):
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	<p>{{Producciones}}</p>
+</pre> 
+<span>Conjuntos de items marcados</span>
+
+{{Conjuntos}}
+
+
+<td>{3:SHORTANSWER:= $ P d}</td>
+
+
+{{/SLR}}
+
+					{{! Gramatica tipo LARL }}						
+{{#LARL}}
+
+Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos),
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+   ε para representar la cadena vacia):
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	<p>{{Producciones}}</p>
+</pre> 
+<span>Conjuntos de items marcados</span>
+
+{{Conjuntos}}
+
+
+<td>{3:SHORTANSWER:= $ P d}</td>
+
+
+{{/LARL}}
+
+]]>
+</text>
+</questiontext>
+<generalfeedback format="html">
+<text></text>
+</generalfeedback>
+<penalty>0.3333333</penalty>
+<hidden>0</hidden>
+</question>
+</quiz>
+
+
+

@@ -2,8 +2,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +17,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 
-import com.google.common.base.Charsets;
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.Maps;
-import com.google.common.io.Resources;
-import com.hubspot.jinjava.Jinjava;
 
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
@@ -33,23 +35,23 @@ import parser.ParserYacc;
 /**
  *
  * <b>Descripci�n</b><br>
- * Prototipo de l�nea de comandos utilizando clases de Burgram
+ * Prototipo de línea de comandos utilizando clases de Burgram
  * <p>
  * <b>Detalles</b><br>
- * La idea es tener una peque�a aplicaci�n en modo texto que:<br>
+ * La idea es tener una pequeña aplicación en modo texto que:<br>
  * 
  * 1. Toma como argumento el nombre de un archivo con la especificaci�n de una
- * gram�tica en el formato YACC<br>
+ * gramática en el formato YACC<br>
  * 
  * 2. Utilice su contenido para utilizando las clases adecuadas de Burgram para
  * instanciar un objeto 'Gramatica'<br>
  * 
- * 3. Interrogue el objeto gram�tica para mostrar el first y follow de los
+ * 3. Interrogue el objeto gramática para mostrar el first y follow de los
  * símbolos de la gramática.<br>
  * 
  * 4.Muestre la tabla de analisis sintactico predictivo
  * 
- * Genere un informe de la extension deseada
+ * 5.Genere un informe de la extension deseada
  * </p>
  * 
  * @author Victor Renuncio
@@ -59,6 +61,7 @@ public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
 	public static String cadena;
+
 	public static void main(String[] args) throws IOException {
 
 		final String DEF_INFORME = "ALL";
@@ -127,7 +130,6 @@ public class Prototipo {
 			// ..............................................................
 
 			Gramatica g = null;
-			// GramaticaId ="GRAMATICA1.yc";
 			Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir")
 					+ System.getProperty("file.separator") + "gramaticas" + System.getProperty("file.separator"));
 			ParserGramatica pg = new ParserGramatica(false, new ParserYacc());
@@ -158,22 +160,22 @@ public class Prototipo {
 
 				case "LL":
 					analisis = new AnalisisLL1(g);
-					System.out.println("Tabla de an�lisis sint�ctico predictivo");
+					System.out.println("Tabla de análisis sintáctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "SLR":
 					analisis = new AnalisisSLR1(g);
-					System.out.println("Tabla de an�lisis sint�ctico predictivo");
+					System.out.println("Tabla de análisis sintáctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LALR":
 					analisis = new AnalisisLALR1(g);
-					System.out.println("Tabla de an�lisis sint�ctico predictivo");
+					System.out.println("Tabla de análisis sintáctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LR":
 					analisis = new AnalisisLR1(g);
-					System.out.println("Tabla de an�lisis sint�ctico predictivo");
+					System.out.println("Tabla de análisis sintáctico predictivo");
 					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				}
@@ -208,49 +210,120 @@ public class Prototipo {
 	 * Método que genera el informe en .XML
 	 * 
 	 * @param g
-	 *            Gram�tica a anilizar
+	 *            Gramática a anilizar
 	 * @param gramatica
-	 *            Nombre de la gram�tica
+	 *            Nombre de la gramática
 	 * @param analisis
-	 *            An�lisis de la gram�tica
+	 *            Análisis de la gramática
 	 * @param tipoanalisis
-	 *            Tipo de an�lisis
+	 *            Tipo de análisis
 	 * @throws IOException
 	 */
-	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis,String cadena)
+	private static void creaXML(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis, String cadena)
 			throws IOException {
 
 		String producciones = "";
-		Jinjava jinjava = new Jinjava();
+		List<Object> traza = new ArrayList<>();
+		List<Object> terminales = new ArrayList<>();
+		List<Object> noterminales = new ArrayList<>();
+		List<Object> conjuntos = new ArrayList<>();
+		traza.add("Pila");
+		traza.add("Entrada");
+		traza.add("Salida");
+		MustacheFactory mf = new DefaultMustacheFactory();
+
 		Map<String, Object> context = Maps.newHashMap();
 		context.put("NombreGramatica", gramatica);
 		context.put("TipoAnalisis", tipoanalisis);
+		if (cadena == null) {
+			context.put("Cadena", false);
+		} else {
+			context.put("Cadena", cadena);
+		}
+		switch (tipoanalisis) {
+
+		case "LL":
+			context.put("LL", true);
+			context.put("LR", false);
+			context.put("SLR", false);
+			context.put("LALR", false);
+			break;
+		case "SLR":
+			context.put("LL", false);
+			context.put("LR", false);
+			context.put("SLR", true);
+			context.put("LALR", false);
+			break;
+		case "LALR":
+			context.put("LL", false);
+			context.put("LR", false);
+			context.put("SLR", false);
+			context.put("LALR", true);
+			break;
+		case "LR":
+			context.put("LL", false);
+			context.put("LR", true);
+			context.put("SLR", false);
+			context.put("LALR", false);
+			for (int i = 0; i < analisis.obtenerAlgoritmoAnalisis().obtenerAutomata().numeroNodosAutomata(); i++) {
+				conjuntos.add(analisis.obtenerAlgoritmoAnalisis().obtenerAutomata().obtenerNodoAutomata(i));
+			}
+			
+			System.out.println(conjuntos);
+			for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
+				terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
+			}
+
+			context.put("Conjuntos", conjuntos);
+			break;
+		}
 		context.put("Cadena", cadena);
-		context.put("SimboloInicio", g.getSimboloInicio());
-		context.put("Terminales", g.obtenerTerminales());
-		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
-		context.put("NoTerminales", g.obtenerNoTerminales());
-		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
 		
+		context.put("SimboloInicio", g.getSimboloInicio());
+		
+		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
+			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
+		}
+		
+		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
+			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
+		}
+
+		context.put("Terminales", terminales);
+		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
+		context.put("NoTerminales", noterminales);
+		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+
+		context.put("First", g.obtenerFirst());
+		context.put("Follow", g.obtenerFollow());
+		context.put("Traza", traza);
+		
+		
+		
+		
+		
+		
+		context.put("Respuestas", "Respuestas");
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
 		}
 		context.put("Producciones", producciones);
-		context.put("First", g.obtenerFirst());
-		context.put("Follow", g.obtenerFollow());
-		String template = Resources.toString(Resources.getResource("my-template.html"), Charsets.UTF_8);
-		String renderedTemplate = jinjava.render(template, context);
+		Mustache mustache = mf.compile("my-template2.xml");
 
-		File fichero = new File(System.getProperty("user.dir"), "fichero.HTML");
+		File fichero = new File(System.getProperty("user.dir"), "fichero.xml");
+		File fichero1 = new File(System.getProperty("user.dir"), "fichero.html");
 		try {
+
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
-			bw.write(renderedTemplate);
+			BufferedWriter bw1 = new BufferedWriter(new FileWriter(fichero1));
+			mustache.execute(bw, context);
 			bw.close();
-			System.out.println("Fichero.HTML generado correctamente");
+			mustache.execute(bw1, context);
+			bw1.close();
+			System.out.println("Fichero.XML generado correctamente");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
