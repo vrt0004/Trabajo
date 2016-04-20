@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -27,7 +30,9 @@ import analisis.AnalisisLALR1;
 import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
+import analisis.analisisSintactico.ascendente.Automata;
 import gramatica.Gramatica;
+import gramatica.VectorSimbolos;
 import parser.ParseException;
 import parser.ParserGramatica;
 import parser.ParserYacc;
@@ -58,6 +63,7 @@ import parser.ParserYacc;
  * @version 1.0
  */
 public class Prototipo {
+	
 	public static List<String> argumentos = null;
 	public static String informe;
 	public static String cadena;
@@ -226,7 +232,10 @@ public class Prototipo {
 		List<Object> traza = new ArrayList<>();
 		List<Object> terminales = new ArrayList<>();
 		List<Object> noterminales = new ArrayList<>();
+		List<Object> TodosSimbolos = new ArrayList<>();
 		List<Object> conjuntos = new ArrayList<>();
+		List<Object> respuestasalternativas = new ArrayList<>();
+		List<Object> correcta  = new ArrayList<>();
 		traza.add("Pila");
 		traza.add("Entrada");
 		traza.add("Salida");
@@ -265,45 +274,45 @@ public class Prototipo {
 			context.put("LR", true);
 			context.put("SLR", false);
 			context.put("LALR", false);
-			for (int i = 0; i < analisis.obtenerAlgoritmoAnalisis().obtenerAutomata().numeroNodosAutomata(); i++) {
-				conjuntos.add(analisis.obtenerAlgoritmoAnalisis().obtenerAutomata().obtenerNodoAutomata(i));
-			}
-			
-			System.out.println(conjuntos);
-			for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
-				terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
+
+			Automata ana = analisis.obtenerAlgoritmoAnalisis().obtenerAutomata();
+
+			System.out.println(ana.numeroNodosAutomata());
+			for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
+				conjuntos.add(ana.obtenerNodoAutomata(i).codigo());
 			}
 
 			context.put("Conjuntos", conjuntos);
 			break;
+
 		}
 		context.put("Cadena", cadena);
-		
+
 		context.put("SimboloInicio", g.getSimboloInicio());
-		
+
 		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
+			TodosSimbolos.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 		}
-		
+		TodosSimbolos.add("$");
 		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
+			TodosSimbolos.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 		}
 
 		context.put("Terminales", terminales);
 		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
 		context.put("NoTerminales", noterminales);
 		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+		context.put("TodosSimbolos", TodosSimbolos);
 
 		context.put("First", g.obtenerFirst());
 		context.put("Follow", g.obtenerFollow());
 		context.put("Traza", traza);
+
 		
 		
 		
-		
-		
-		
-		context.put("Respuestas", "Respuestas");
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
 		}
@@ -393,6 +402,103 @@ public class Prototipo {
 				y = y + x;
 		}
 		return y;
+	}
+
+	/**
+	 * Método para generar una cadena de respuestas incorrectas similares a la
+	 * solucion correcta para su posterior uso en la plantilla.
+	 * 
+	 * @param correcta
+	 * @param terminales
+	 * @return
+	 */
+	private static List<Object> GeneraRespuestas(List<Object> correcta, List<Object> terminales) {
+		int n = terminales.size();
+		List<Object> toadd= new ArrayList<>();
+		List<Object> del1 = new ArrayList<>();
+		List<Object> del2 = new ArrayList<>();
+		List<Object> del3 = new ArrayList<>();
+		List<Object> add1 = new ArrayList<>();
+		List<Object> add2 = new ArrayList<>();
+		List<Object> add12 = new ArrayList<>();
+		List<Object> sub1 = new ArrayList<>();
+		List<Object> sub2 = new ArrayList<>();
+		List<Object> sub3 = new ArrayList<>();
+		List<Object> rs = new ArrayList<>();
+		List<Object> asets = new ArrayList<>();
+		
+		toadd.addAll(terminales);
+		toadd.remove(correcta.get(0));//eliminar la correcta
+		for (int i = 0; i < toadd.size(); i++){
+			rs.add(i);
+		}
+		Collections.shuffle(rs);
+	
+		
+		if (n>1){
+			del1 = terminales.subList(1, n); // delete first one
+            del2 = terminales.subList(0, n-1); // delete last one
+           
+		}
+		
+		if (n>2){
+			int r = (int)(Math.random() * n); 
+			
+            del3.addAll(terminales.subList(0, r));
+            del3.addAll(terminales.subList(r+1, n));// delete other
+		}
+
+		
+		if (rs.size()>1){
+			
+		
+			add1.add(toadd.get(0));//add one
+		
+			add2.add(toadd.get(1));//add other
+			
+			add12.add(toadd.get(0));
+			add12.add(toadd.get(1));//add two
+			sub1.addAll(terminales.subList(1, n-1));
+			sub1.add(toadd.get((int) rs.get(0)));
+			sub2.addAll(terminales.subList(1, n-1));
+			sub2.add(toadd.get((int) rs.get(1)));
+		}
+    		
+		if (rs.size()>0){
+			sub1.clear();
+			sub1.addAll(terminales.subList(1, n-1));
+			sub1.add(toadd.get((int) rs.get(0)));	
+			// substitute first one
+		}
+        if (rs.size()>2){
+        	
+            sub3.addAll(terminales.subList(0, n-1));
+			sub3.add(toadd.get((int) rs.get(2)));	
+        }
+        
+        if (n==1){
+           
+			asets.add(add1);
+			asets.add(add12);
+			asets.add(sub1);
+			asets.add(sub2);
+			
+        }else{
+        	if (n==2){
+        		asets.add(del1);
+    			asets.add(del2);
+    			asets.add(add1);
+    			asets.add(sub1);
+    			
+            }else{
+            	asets.add(del1);
+    			asets.add(add1);
+    			asets.add(del2);
+    			asets.add(add2);
+    		
+            }
+        }
+		return asets;
 	}
 
 }
