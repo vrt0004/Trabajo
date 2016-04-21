@@ -31,6 +31,7 @@ import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import analisis.analisisSintactico.ascendente.Automata;
+import gramatica.First;
 import gramatica.Gramatica;
 import gramatica.VectorSimbolos;
 import parser.ParseException;
@@ -67,7 +68,7 @@ public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
 	public static String cadena;
-
+	private First first = null;
 	public static void main(String[] args) throws IOException {
 
 		final String DEF_INFORME = "ALL";
@@ -312,6 +313,46 @@ public class Prototipo {
 
 		
 		
+		correcta.add("tipo");
+		context.put("RespuestasalternativasFirst", respuestasalternativas);
+		respuestasalternativas = GeneraRespuestas(correcta, terminales);
+		
+		
+		
+		//crear "diccionario"
+		
+		/*Template:
+
+		{{#repo}}
+		  <b>{{name}}</b>
+		{{/repo}}
+		Hash:
+
+		{
+		  "repo": [
+		    { "name": "resque" },
+		    { "name": "hub" },
+		    { "name": "rip" }
+		  ]
+		}
+		Output:
+
+		<b>resque</b>
+		<b>hub</b>
+		<b>rip</b>*/
+		
+		
+		
+		
+		
+		
+		String RespuestaFirst = obtenerMultichoice(respuestasalternativas, correcta);
+		context.put("RespuestaFirst",RespuestaFirst );
+		context.put("RespuestasalternativasFirst", respuestasalternativas);
+		
+		
+		
+		
 		
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones = producciones + g.obtenerProduccionGramatica(i) + "\n";
@@ -333,6 +374,15 @@ public class Prototipo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static String obtenerMultichoice(List<Object> respuestasalternativas, List<Object> correcta) {
+		String RespuestaFirst = "{1:MULTICHOICE:="+correcta+"#OK";
+		for (int i = 0; i < respuestasalternativas.size(); i++) {
+			RespuestaFirst=RespuestaFirst+"~"+respuestasalternativas.get(i).toString()+"#Wrong";
+		}
+		RespuestaFirst=RespuestaFirst+"}";
+		return RespuestaFirst;
 	}
 
 	/**
