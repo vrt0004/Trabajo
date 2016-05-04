@@ -24,19 +24,17 @@ usa el símbolo ε para representar la cadena vacia):<br>
 <table border="1"><thead>
   <tr>
     <th></th>
-    <th>Firts</th>
+    <th>First</th>
     <th>Follow</th>
   </tr>
   </thead>
- {{#Terminales}}
+ {{#FirstFollow}}
   <tr>
-    <td>{{.}}</td>
-    <td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-    <td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+    <td>{{name}}</td>
+    <td>{{firts}}</td>
+    <td>{{follow}}</td>
   </tr>
-  {{/Terminales}}
-</table>
-</tbody>
+  {{/FirstFollow}}
 </table>
 
 <span>Tabla de Análisis sintáctico predictivo</span>
@@ -49,17 +47,15 @@ usa el símbolo ε para representar la cadena vacia):<br>
  	{{/NoTerminales}}
  	 </tr>
 </thead>
- 	{{#Terminales}}
+ 	{{#NoTerminales}}
  		<tr>
   		<td>{{.}}</td>
-  		{{#NoTerminales}}
+  		{{#Terminales}}
  	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	 	{{/NoTerminales}}
+ 	 	{{/Terminales}}
   		</tr>
-   {{/Terminales}} 
+   {{/NoTerminales}} 
    </tr>
-</table>
-</tbody>
 </table>
 
 {{#Cadena}}
@@ -82,14 +78,19 @@ usa el símbolo ε para representar la cadena vacia):<br>
    {{/Terminales}} 
    </tr>
 </table>
-</tbody>
-</table>
 {{/Cadena}}
 {{/LL}}
+
+
+
+
+
+
+
 						{{! Gramatica tipo LR }}						
 {{#LR}}
 
-Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos),
+Completar los conjuntos de items {{TipoAnalisis}}(1),
  las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
   para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
    ε para representar la cadena vacia):
@@ -100,14 +101,117 @@ Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos)
 	<p>{{Producciones}}</p>
 </pre> 
 <span>Conjuntos de items marcados</span>
+<span>Faltan cabeceras</span>
+<p> </p>
+{{#Conjuntos}}
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<td>{3:SHORTANSWER:= falta{{cabecera}}}</td>
+	 	 </tr>
+	</thead>
+	<tbody>
+	{{#SubConjuntos}}
+	  	<tr>
+	    	<td>{3:SHORTANSWER:= $falta }	</td>
+	 	 </tr>
+	 {{/SubConjuntos}} 
+	</tbody>
+ 		
 
-{{Conjuntos}}
+</table>
+{{/Conjuntos}}
 
 
-<td>{3:SHORTANSWER:= $ P d}</td>
+<div style="clear: both;" id="tables">
+<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+especificar las acciones se utiliza una codificación similar a la vista en
+clase:</p>
+<ul>
+<li>dj: significa desplazar e ir al estado j.</li>
+<li>rj: significa reducir utilizando la producción j-ésima.</li>
+<li>A!: representa la acción de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla está vacía (no tiene
+acción).</li>
+<li>En la parte de acción se específica únicamente el estado al que pasa el
+autómata.</li>
+</ul>
+</div>
+<table border="1"><thead>
+  	<tr>
+    <th></th>
+    {{#TodosSimbolos}}
+ 	   <td>{{.}}</td>
+ 	{{/TodosSimbolos}}
+ 	 </tr>
+</thead>
+ 	{{#Conjuntos}}
+ 	
+ 		<tr>
+ 		
+  			<td>1...{{Conjuntos}}</td>
+  			{{#TodosSimbolos}}
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   		{{/TodosSimbolos}}
+  		</tr>
+  		
+   {{/Conjuntos}} 
+   </tr>
+</table>
 
+{{#Cadena}}
+<span>Primeros Pasos de la traza de análisis para la Cadena {{Cadena}}$</span>
 
+<table border="1"><thead>
+  	<tr>
+    {{#Traza}}
+ 	   <td>{{.}}</td>
+ 	{{/Traza}}
+ 	 </tr>
+</thead>
+ 	{{#Terminales}}
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+   {{/Terminales}} 
+   </tr>
+</table>
+{{/Cadena}}
 {{/LR}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					{{! Gramatica tipo SLR }}						
 {{#SLR}}
 
@@ -130,6 +234,20 @@ Completar los conjuntos de items {{TipoAnalisis}}(1) (sólo se muestran algunos)
 
 
 {{/SLR}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					{{! Gramatica tipo LARL }}						
 {{#LARL}}

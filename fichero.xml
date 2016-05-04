@@ -1,0 +1,208 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<quiz>
+<question type="cloze">
+<name>
+<text>gramatica1.yc</text>
+</name>
+<questiontext format="html">
+<text>
+<![CDATA[
+						
+Completar las tablas que siguen, dada la siguiente gramática (
+<span style="font-style: italic;">S</span> es el axioma, y se
+usa el símbolo ε para representar la cadena vacia):<br>
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	<p>S-&gt;B A end &#10;A-&gt;begin C &#10;C-&gt;codigo &#10;B-&gt;tipo &#10;B-&gt;id B &#10;</p>
+</pre> 
+	
+<span>Tabla de los conjuntos PRIMERO y SIGUIENTE</span>
+
+<table border="1"><thead>
+  <tr>
+    <th></th>
+    <th>First</th>
+    <th>Follow</th>
+  </tr>
+  </thead>
+  <tr>
+    <td>A</td>
+    <td>{1:MULTICHOICE:=[begin]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+    <td>{1:MULTICHOICE:=[end]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>{1:MULTICHOICE:=[tipo,id]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+    <td>{1:MULTICHOICE:=[$]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td>{1:MULTICHOICE:=[codigo]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+    <td>{1:MULTICHOICE:=[end]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+  </tr>
+  <tr>
+    <td>B</td>
+    <td>{1:MULTICHOICE:=[tipo,id]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+    <td>{1:MULTICHOICE:=[begin]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
+  </tr>
+</table>
+
+<span>Tabla de Análisis sintáctico predictivo</span>
+
+<table border="1"><thead>
+  	<tr>
+    <th></th>
+ 	   <td>A</td>
+ 	   <td>S</td>
+ 	   <td>C</td>
+ 	   <td>B</td>
+ 	 </tr>
+</thead>
+ 		<tr>
+  		<td>A</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+ 		<tr>
+  		<td>S</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+ 		<tr>
+  		<td>C</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+ 		<tr>
+  		<td>B</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+    </tr>
+</table>
+
+<span>Primeros Pasos de la traza de análisis para la Cadena cadena$</span>
+
+<table border="1"><thead>
+  	<tr>
+ 	   <td>Pila</td>
+ 	   <td>Entrada</td>
+ 	   <td>Salida</td>
+ 	 </tr>
+</thead>
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+ 		<tr>
+ 	   		<td>{3:SHORTANSWER:= $ P d}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+  		</tr>
+  		
+    </tr>
+</table>
+
+
+
+
+
+
+
+												
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											
+
+]]>
+</text>
+</questiontext>
+<generalfeedback format="html">
+<text></text>
+</generalfeedback>
+<penalty>0.3333333</penalty>
+<hidden>0</hidden>
+</question>
+</quiz>
+
+
+

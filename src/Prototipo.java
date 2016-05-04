@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -24,6 +24,7 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.Maps;
+import com.hubspot.jinjava.interpret.TemplateError;
 
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
@@ -31,8 +32,8 @@ import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import analisis.analisisSintactico.ascendente.Automata;
-import gramatica.First;
 import gramatica.Gramatica;
+import gramatica.NoTerminal;
 import gramatica.VectorSimbolos;
 import parser.ParseException;
 import parser.ParserGramatica;
@@ -64,11 +65,11 @@ import parser.ParserYacc;
  * @version 1.0
  */
 public class Prototipo {
-	
+
 	public static List<String> argumentos = null;
 	public static String informe;
 	public static String cadena;
-	private First first = null;
+
 	public static void main(String[] args) throws IOException {
 
 		final String DEF_INFORME = "ALL";
@@ -236,7 +237,7 @@ public class Prototipo {
 		List<Object> TodosSimbolos = new ArrayList<>();
 		List<Object> conjuntos = new ArrayList<>();
 		List<Object> respuestasalternativas = new ArrayList<>();
-		List<Object> correcta  = new ArrayList<>();
+		List<Object> correcta = new ArrayList<>();
 		traza.add("Pila");
 		traza.add("Entrada");
 		traza.add("Salida");
@@ -277,25 +278,23 @@ public class Prototipo {
 			context.put("LALR", false);
 
 			Automata ana = analisis.obtenerAlgoritmoAnalisis().obtenerAutomata();
-
 			System.out.println(ana.numeroNodosAutomata());
 			for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
 				conjuntos.add(ana.obtenerNodoAutomata(i).codigo());
 			}
-
 			context.put("Conjuntos", conjuntos);
 			break;
 
 		}
 		context.put("Cadena", cadena);
-
 		context.put("SimboloInicio", g.getSimboloInicio());
-
+		TodosSimbolos.add("$");
+		
 		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 		}
-		TodosSimbolos.add("$");
+		
 		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
@@ -306,50 +305,13 @@ public class Prototipo {
 		context.put("NoTerminales", noterminales);
 		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
 		context.put("TodosSimbolos", TodosSimbolos);
-
 		context.put("First", g.obtenerFirst());
 		context.put("Follow", g.obtenerFollow());
 		context.put("Traza", traza);
-
-		
-		
-		correcta.add("tipo");
+		Object value = creacadenasFirtsFollow(g.first.tabla, g.follow.tabla, noterminales, terminales);
+		context.put("FirstFollow", value);
 		context.put("RespuestasalternativasFirst", respuestasalternativas);
-		respuestasalternativas = GeneraRespuestas(correcta, terminales);
-		
-		
-		
-		//crear "diccionario"
-		
-		/*Template:
 
-		{{#repo}}
-		  <b>{{name}}</b>
-		{{/repo}}
-		Hash:
-
-		{
-		  "repo": [
-		    { "name": "resque" },
-		    { "name": "hub" },
-		    { "name": "rip" }
-		  ]
-		}
-		Output:
-
-		<b>resque</b>
-		<b>hub</b>
-		<b>rip</b>*/
-		
-		
-		
-		
-		
-		
-		String RespuestaFirst = obtenerMultichoice(respuestasalternativas, correcta);
-		context.put("RespuestaFirst",RespuestaFirst );
-		context.put("RespuestasalternativasFirst", respuestasalternativas);
-		
 		
 		
 		
@@ -361,27 +323,53 @@ public class Prototipo {
 		Mustache mustache = mf.compile("my-template2.xml");
 
 		File fichero = new File(System.getProperty("user.dir"), "fichero.xml");
-		File fichero1 = new File(System.getProperty("user.dir"), "fichero.html");
 		try {
 
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
-			BufferedWriter bw1 = new BufferedWriter(new FileWriter(fichero1));
 			mustache.execute(bw, context);
 			bw.close();
-			mustache.execute(bw1, context);
-			bw1.close();
 			System.out.println("Fichero.XML generado correctamente");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static String obtenerMultichoice(List<Object> respuestasalternativas, List<Object> correcta) {
-		String RespuestaFirst = "{1:MULTICHOICE:="+correcta+"#OK";
-		for (int i = 0; i < respuestasalternativas.size(); i++) {
-			RespuestaFirst=RespuestaFirst+"~"+respuestasalternativas.get(i).toString()+"#Wrong";
+	private static Object creacadenasFirtsFollow(Hashtable<String, VectorSimbolos> tabla,
+			Hashtable<String, VectorSimbolos> tabla2, List<Object> noterminales, List<Object> terminales) {
+		// TODO
+
+		List<Object> cadena = new ArrayList<>();
+		List<Object> firts = new ArrayList<>();
+		List<Object> follow = new ArrayList<>();
+		for (Object j : noterminales) {
+			firts.add(tabla.get(j));
+			follow.add(tabla2.get(j));
+			List<Object> alternativafirst = GeneraRespuestas(firts, terminales);
+			List<Object> alternativafollow = GeneraRespuestas(follow, terminales);
+			String RespuestaFirst = obtenerMultichoice(alternativafirst, firts);
+			String RespuestaFollow = obtenerMultichoice(alternativafollow, follow);
+			Noterminal e = new Noterminal(j.toString(), RespuestaFirst, RespuestaFollow);
+			cadena.add(e);
+			firts.clear();
+			follow.clear();
 		}
-		RespuestaFirst=RespuestaFirst+"}";
+		return cadena;
+	}
+
+	/**
+	 * 
+	 * @param respuestasalternativas
+	 *            Respuestas alternativas
+	 * @param correcta
+	 *            Respuesta correcta
+	 * @return Cadena con el multichoice
+	 */
+	private static String obtenerMultichoice(List<Object> respuestasalternativas, List<Object> correcta) {
+		String RespuestaFirst = "{1:MULTICHOICE:=" + correcta;
+		for (int i = 0; i < respuestasalternativas.size(); i++) {
+			RespuestaFirst = RespuestaFirst + "~" + respuestasalternativas.get(i).toString();
+		}
+		RespuestaFirst = RespuestaFirst + "}";
 		return RespuestaFirst;
 	}
 
@@ -464,7 +452,7 @@ public class Prototipo {
 	 */
 	private static List<Object> GeneraRespuestas(List<Object> correcta, List<Object> terminales) {
 		int n = terminales.size();
-		List<Object> toadd= new ArrayList<>();
+		List<Object> toadd = new ArrayList<>();
 		List<Object> del1 = new ArrayList<>();
 		List<Object> del2 = new ArrayList<>();
 		List<Object> del3 = new ArrayList<>();
@@ -476,79 +464,102 @@ public class Prototipo {
 		List<Object> sub3 = new ArrayList<>();
 		List<Object> rs = new ArrayList<>();
 		List<Object> asets = new ArrayList<>();
-		
+
 		toadd.addAll(terminales);
-		toadd.remove(correcta.get(0));//eliminar la correcta
-		for (int i = 0; i < toadd.size(); i++){
+		toadd.remove(correcta.get(0));// eliminar la correcta
+		for (int i = 0; i < toadd.size(); i++) {
 			rs.add(i);
 		}
 		Collections.shuffle(rs);
-	
-		
-		if (n>1){
+
+		if (n > 1) {
 			del1 = terminales.subList(1, n); // delete first one
-            del2 = terminales.subList(0, n-1); // delete last one
-           
-		}
-		
-		if (n>2){
-			int r = (int)(Math.random() * n); 
-			
-            del3.addAll(terminales.subList(0, r));
-            del3.addAll(terminales.subList(r+1, n));// delete other
+			del2 = terminales.subList(0, n - 1); // delete last one
+
 		}
 
-		
-		if (rs.size()>1){
-			
-		
-			add1.add(toadd.get(0));//add one
-		
-			add2.add(toadd.get(1));//add other
-			
+		if (n > 2) {
+			int r = (int) (Math.random() * n);
+
+			del3.addAll(terminales.subList(0, r));
+			del3.addAll(terminales.subList(r + 1, n));// delete other
+		}
+
+		if (rs.size() > 1) {
+
+			add1.add(toadd.get(0));// add one
+			add2.add(toadd.get(1));// add other
+
 			add12.add(toadd.get(0));
-			add12.add(toadd.get(1));//add two
-			sub1.addAll(terminales.subList(1, n-1));
+			add12.add(toadd.get(1));// add two
+			sub1.addAll(terminales.subList(1, n - 1));
 			sub1.add(toadd.get((int) rs.get(0)));
-			sub2.addAll(terminales.subList(1, n-1));
+			sub2.addAll(terminales.subList(1, n - 1));
 			sub2.add(toadd.get((int) rs.get(1)));
 		}
-    		
-		if (rs.size()>0){
+
+		if (rs.size() > 0) {
 			sub1.clear();
-			sub1.addAll(terminales.subList(1, n-1));
-			sub1.add(toadd.get((int) rs.get(0)));	
+			sub1.addAll(terminales.subList(1, n - 1));
+			sub1.add(toadd.get((int) rs.get(0)));
 			// substitute first one
 		}
-        if (rs.size()>2){
-        	
-            sub3.addAll(terminales.subList(0, n-1));
-			sub3.add(toadd.get((int) rs.get(2)));	
-        }
-        
-        if (n==1){
-           
+		if (rs.size() > 2) {
+
+			sub3.addAll(terminales.subList(0, n - 1));
+			sub3.add(toadd.get((int) rs.get(2)));
+		}
+
+		if (n == 1) {
+
 			asets.add(add1);
 			asets.add(add12);
 			asets.add(sub1);
 			asets.add(sub2);
-			
-        }else{
-        	if (n==2){
-        		asets.add(del1);
-    			asets.add(del2);
-    			asets.add(add1);
-    			asets.add(sub1);
-    			
-            }else{
-            	asets.add(del1);
-    			asets.add(add1);
-    			asets.add(del2);
-    			asets.add(add2);
-    		
-            }
-        }
+
+		} else {
+			if (n == 2) {
+				asets.add(del1);
+				asets.add(del2);
+				asets.add(add1);
+				asets.add(sub1);
+
+			} else {
+				asets.add(del1);
+				asets.add(add1);
+				asets.add(del2);
+				asets.add(add2);
+
+			}
+		}
 		return asets;
+	}
+
+	/**
+	 * Clase que permite conocer el first y el follow de un No terminal
+	 * 
+	 * @author Victor
+	 *
+	 */
+	static class Noterminal {
+		/**
+		 * Constructor de la clase
+		 * 
+		 * @param name
+		 *            nombre del No terminal
+		 * @param firts
+		 *            first
+		 * @param follow
+		 *            follow
+		 */
+		Noterminal(String name, String firts, String follow) {
+			this.name = name;
+			this.firts = firts;
+			this.follow = follow;
+		}
+
+		String name, firts, follow;
+
 	}
 
 }
