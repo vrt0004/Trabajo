@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -30,7 +28,6 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.Maps;
 
-
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
 import analisis.AnalisisLL1;
@@ -38,10 +35,9 @@ import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import analisis.analisisSintactico.ascendente.Automata;
 import analisis.tabla.Tabla;
-
+import analisis.tabla.TablaAscendente;
 import analisis.tabla.TablaDescendente;
 import gramatica.Gramatica;
-
 import gramatica.VectorSimbolos;
 import parser.ParseException;
 import parser.ParserGramatica;
@@ -247,7 +243,7 @@ public class Prototipo {
 		List<Object> noterminales = new ArrayList<>();
 		List<Object> TodosSimbolos = new ArrayList<>();
 		List<Object> orden = new ArrayList<>();
-		List<Object> conjuntos = new ArrayList<>();
+
 		traza.add("Pila");
 		traza.add("Entrada");
 		traza.add("Salida");
@@ -293,11 +289,8 @@ public class Prototipo {
 			producciones.add(g.obtenerProduccionGramatica(i));
 		}
 		context.put("Producciones", producciones);
-
 		List<Object> RowTraza = creacadenasTraza(g, analisis, noterminales, terminales, producciones);
-
 		context.put("RowTraza", RowTraza);
-
 		switch (tipoanalisis) {
 
 		case "LL":
@@ -306,9 +299,7 @@ public class Prototipo {
 			context.put("SLR", false);
 			context.put("LALR", false);
 			List<TASP> RowTASP = creacadenasTASP(g, analisis, noterminales, terminales, producciones);
-
 			context.put("RowTASP", RowTASP);
-
 			break;
 		case "SLR":
 			context.put("LL", false);
@@ -327,15 +318,13 @@ public class Prototipo {
 			context.put("LR", true);
 			context.put("SLR", false);
 			context.put("LALR", false);
-
-			// TODO
-			conjuntos = creacadenasconjuntosLR(analisis, producciones, terminales);
-
+			List<Object> conjuntos = creacadenasconjuntosLR(analisis, producciones, terminales);
+			
 			context.put("Conjuntos", conjuntos);
+			
+
 			break;
-
 		}
-
 		Mustache mustache = mf.compile("my-template2.xml");
 		File fichero = new File(System.getProperty("user.dir"), "fichero.xml");
 		try {
@@ -348,18 +337,26 @@ public class Prototipo {
 			e.printStackTrace();
 		}
 	}
-/**
- * Metodo que crea las cadenas de los conjuntos para la plantilla
- * @param analisis analisis de la gramatica
- * @param producciones producciones de la gramatica
- * @param terminales terminales de la gramatica
- * @return Lista con las cadenas
- */
+
 	
+
+
+	/**
+	 * Metodo que crea las cadenas de los conjuntos para la plantilla
+	 * 
+	 * @param analisis
+	 *            analisis de la gramatica
+	 * @param producciones
+	 *            producciones de la gramatica
+	 * @param terminales
+	 *            terminales de la gramatica
+	 * @return Lista con las cadenas
+	 */
+
 	@SuppressWarnings("unchecked")
 	private static List<Object> creacadenasconjuntosLR(Analisis analisis, List<Object> producciones,
 			List<Object> terminales) {
-		
+
 		List<Object> theconjuntos = new ArrayList<Object>();
 		Automata ana = analisis.obtenerAutomataAnalisis();
 		ArrayList<Object> itemmarcado = new ArrayList<Object>();
@@ -425,21 +422,19 @@ public class Prototipo {
 		hashSet.add(item);
 		hashSet.remove(item);
 		alt.addAll((Collection<? extends Object>) hashSet.clone());
-		
-		int aleatorio = (int) (Math.random()*alt.size()-4);
-		if (aleatorio<0){
-			aleatorio=0;
+		int aleatorio = (int) (Math.random() * alt.size() - 4);
+		if (aleatorio < 0) {
+			aleatorio = 0;
 		}
-		for (int i = aleatorio;i<aleatorio+4;i++){
+		for (int i = aleatorio; i < aleatorio + 4; i++) {
 			alt2.add(alt.get(i));
 		}
-		
 		return alt2;
 	}
 
 	@SuppressWarnings("unchecked")
 	private static List<Object> creaAlternativassimbolo(String h, List<Object> terminales) {
-	
+
 		List<Object> alt = new ArrayList<Object>();
 		HashSet<Object> hashSet = new HashSet<Object>();
 		h = h.replace("[", " ");
@@ -471,7 +466,6 @@ public class Prototipo {
 		fin = x.indexOf('}');
 		String sim = x.substring(init, fin);
 		thesimb.add(sim);
-
 		return thesimb;
 	}
 
@@ -489,7 +483,6 @@ public class Prototipo {
 			List<Object> terminales, List<Object> producciones) {
 		// TODO Auto-generated method stub
 		List<Object> thetraza = new ArrayList<Object>();
-
 		return thetraza;
 	}
 
@@ -516,16 +509,12 @@ public class Prototipo {
 			List<Object> terminales, List<Object> producciones) {
 
 		List<TASP> theTASP = new ArrayList<TASP>();
-
 		Tabla tabla = analisis.obtenerTablaAnalisis();
 		TablaDescendente tabla_principal = (TablaDescendente) tabla;
 		Object elemento;
-
 		List<Object> correctas = new ArrayList<>();
 		ArrayList<Object> produccion = new ArrayList<Object>();
-
 		for (Object j : noterminales) {
-
 			for (Object i : terminales) {
 				elemento = tabla_principal.tabla_principal.get(i).get(j);
 
@@ -545,6 +534,7 @@ public class Prototipo {
 				}
 				correctas.clear();
 			}
+
 			@SuppressWarnings("unchecked")
 			TASP e = new TASP(j.toString(), (List<Object>) produccion.clone());
 			theTASP.add(e);
@@ -580,7 +570,6 @@ public class Prototipo {
 			List<Object> alternativafollow = GeneraRespuestasAleatorias(follow, terminales);
 			String RespuestaFirst = obtenerMultichoice(alternativafirst, firts);
 			String RespuestaFollow = obtenerMultichoice(alternativafollow, follow);
-
 			Noterminal e = new Noterminal(j.toString(), RespuestaFirst, RespuestaFollow);
 			cadena.add(e);
 			firts.clear();
@@ -590,6 +579,7 @@ public class Prototipo {
 	}
 
 	/**
+	 * Metodo para obtener las cadenas de multiples respuestas
 	 * 
 	 * @param respuestasalternativas
 	 *            Respuestas alternativas
@@ -598,13 +588,26 @@ public class Prototipo {
 	 * @return Cadena con el multichoice
 	 */
 	private static String obtenerMultichoice(List<Object> respuestasalternativas, List<Object> correcta) {
-		String RespuestaFirst = "{1:MULTICHOICE:=" + correcta.get(0);
+		String Respuesta = "{1:MULTICHOICE:=" + correcta.get(0);
 		for (int i = 0; i < respuestasalternativas.size(); i++) {
-
-			RespuestaFirst = RespuestaFirst + "~" + respuestasalternativas.get(i);
+			Respuesta = Respuesta + "~" + respuestasalternativas.get(i);
 		}
-		RespuestaFirst = RespuestaFirst + "}";
-		return RespuestaFirst;
+		Respuesta = Respuesta + "}";
+		return Respuesta;
+	}
+
+	/**
+	 * Metodo para obtener las cadenas para una unica solución
+	 * 
+	 * 
+	 * @param elemento
+	 *            Respuesta correcta
+	 * @return Cadena con el multichoice
+	 */
+	private static String obtenerShortanswer(String elemento) {
+		String Respuesta = "{1:SHORTANSWER:=" + elemento;
+		Respuesta = Respuesta + "}";
+		return Respuesta;
 	}
 
 	/**
@@ -823,5 +826,23 @@ public class Prototipo {
 		Object item;
 		Object simbolo;
 
+	}
+
+	/**
+	 * Clase que permite conocer la tabla de accion e ir
+	 * 
+	 * @author Victor
+	 *
+	 */
+	static class Taccioneir {
+
+		Taccioneir(int num, List<Object> accion) {
+			this.num = num;
+			this.accion = accion;
+
+		}
+
+		int num;
+		List<Object> accion;
 	}
 }
