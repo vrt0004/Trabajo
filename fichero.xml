@@ -8,142 +8,483 @@
 <text>
 <![CDATA[
 						
-Completar las tablas que siguen, dada la siguiente gramática (
-<span style="font-style: italic;">S</span> es el axioma, y se
-usa el símbolo ε para representar la cadena vacia):<br>
+											
 
-<caption style="caption-side: top"><text><p> 
+<p>Completar los conjuntos de items LR(1),las tablas LR(1) ,
+  para la gramatica que sigue (<span style="font-style: italic;">S</span> es el axioma, se usa el símbolo
+   ε para representar la cadena vacia):</p>
+
+<caption style="caption-side: top">
 
 <pre>
-	<p>S-&gt;B A end &#10;A-&gt;begin C &#10;C-&gt;codigo &#10;B-&gt;tipo &#10;B-&gt;id B &#10;</p>
+		S-&gt;B A end 
+		A-&gt;begin C 
+		C-&gt;codigo 
+		B-&gt;tipo 
+		B-&gt;id B 
 </pre> 
-	
-<span>Tabla de los conjuntos PRIMERO y SIGUIENTE</span>
+<span>Conjuntos de items marcados
 
-<table border="1"><thead>
-  <tr>
-    <th></th>
-    <th>First</th>
-    <th>Follow</th>
-  </tr>
-  </thead>
-  <tr>
-    <td>A</td>
-    <td>{1:MULTICHOICE:=[begin]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-    <td>{1:MULTICHOICE:=[end]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-  </tr>
-  <tr>
-    <td>S</td>
-    <td>{1:MULTICHOICE:=[tipo,id]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-    <td>{1:MULTICHOICE:=[$]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-  </tr>
-  <tr>
-    <td>C</td>
-    <td>{1:MULTICHOICE:=[codigo]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-    <td>{1:MULTICHOICE:=[end]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-  </tr>
-  <tr>
-    <td>B</td>
-    <td>{1:MULTICHOICE:=[tipo,id]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-    <td>{1:MULTICHOICE:=[begin]~[tipo, begin, codigo, id]~[end]~[end, tipo, begin, codigo]~[tipo]}</td>
-  </tr>
+En la operación de lectura, la lectura de símbolos se hace en el orden [A, S, C, B, end, tipo, begin, codigo, id].
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática.</span>
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 0</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=S&#39;-&gt;.S ~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	S-&gt;.B A end ~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end }</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
 </table>
 
-<span>Tabla de Análisis sintáctico predictivo</span>
 
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 1</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=S&#39;-&gt;S .~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C }</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 2</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=S-&gt;B .A end ~S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .}</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	A-&gt;.begin C~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 3</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=B-&gt;tipo .~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 4</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=B-&gt;id .B ~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 5</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=S-&gt;B A .end~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 6</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=A-&gt;begin .C ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end }</td>
+	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=	C-&gt;.codigo~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end}</td>
+	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 7</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=B-&gt;id B .~A-&gt;begin C .~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C }</td>
+	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 8</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=S-&gt;B A end .~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end }</td>
+	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 9</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=A-&gt;begin C .~C-&gt;codigo .~B-&gt;id .B ~B-&gt;id B .~	B-&gt;.tipo }</td>
+	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+	<table border="1">
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto 10</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	<tr>	
+	 			<td>{1:MULTICHOICE:=C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo }</td>
+	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
+	 	 </tr>
+	</tbody>	
+<p></p>
+</table>
+
+
+
+<div style="clear: both;" id="tables">
+<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+especificar las acciones se utiliza una codificacion similar a la vista en
+clase:</p>
+<ul>
+<li>dj: significa desplazar e ir al estado j.</li>
+<li>rj: significa reducir utilizando la producción j-ésima.</li>
+<li>A!: representa la acción de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla está vacía (no tiene
+acción).</li>
+<li>En la parte de acción se específica únicamente el estado al que pasa el
+autómata.</li>
+</ul>
+</div>
 <table border="1"><thead>
   	<tr>
     <th></th>
+ 	   <td>end</td>
+ 	   <td>tipo</td>
+ 	   <td>begin</td>
+ 	   <td>codigo</td>
+ 	   <td>id</td>
+ 	   <td>$</td>
  	   <td>A</td>
  	   <td>S</td>
  	   <td>C</td>
  	   <td>B</td>
  	 </tr>
 </thead>
+ 	
  		<tr>
-  		<td>A</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 		
+  			<td>0</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
   		</tr>
+  		
+ 	
  		<tr>
-  		<td>S</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 		
+  			<td>1</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
   		</tr>
+  		
+ 	
  		<tr>
-  		<td>C</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 		
+  			<td>2</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
   		</tr>
+  		
+ 	
  		<tr>
-  		<td>B</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
+ 		
+  			<td>3</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
   		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>4</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>5</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>6</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>7</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>8</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>9</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
+ 	
+ 		<tr>
+ 		
+  			<td>10</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+ 	   			<td>{3:SHORTANSWER:= $falta }</td>
+  		</tr>
+  		
     </tr>
 </table>
 
-<span>Primeros Pasos de la traza de análisis para la Cadena cadena$</span>
-
-<table border="1"><thead>
-  	<tr>
- 	   <td>Pila</td>
- 	   <td>Entrada</td>
- 	   <td>Salida</td>
- 	 </tr>
-</thead>
- 		<tr>
- 	   		<td>{3:SHORTANSWER:= $ P d}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{3:SHORTANSWER:= $ P d}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{3:SHORTANSWER:= $ P d}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{3:SHORTANSWER:= $ P d}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{3:SHORTANSWER:= $ P d}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
- 	   		<td>{1:MULTICHOICE:=Respuestaok#OK~RespuestaMal#Wrong}</td>
-  		</tr>
-  		
-    </tr>
-</table>
-
-
-
-
-
-
-
-												
 
 
 

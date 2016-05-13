@@ -1,4 +1,5 @@
-import java.awt.Color;
+
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,11 +8,14 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -25,12 +29,7 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.Maps;
-import com.lowagie.text.Cell;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Table;
+
 
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
@@ -39,7 +38,7 @@ import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
 import analisis.analisisSintactico.ascendente.Automata;
 import analisis.tabla.Tabla;
-import analisis.tabla.TablaAscendente;
+
 import analisis.tabla.TablaDescendente;
 import gramatica.Gramatica;
 
@@ -247,6 +246,7 @@ public class Prototipo {
 		List<Object> terminales = new ArrayList<>();
 		List<Object> noterminales = new ArrayList<>();
 		List<Object> TodosSimbolos = new ArrayList<>();
+		List<Object> orden = new ArrayList<>();
 		List<Object> conjuntos = new ArrayList<>();
 		traza.add("Pila");
 		traza.add("Entrada");
@@ -261,10 +261,9 @@ public class Prototipo {
 		} else {
 			context.put("Cadena", cadena);
 		}
-		
+
 		context.put("Cadena", cadena);
 		context.put("SimboloInicio", g.getSimboloInicio());
-		
 
 		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
@@ -275,7 +274,9 @@ public class Prototipo {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 		}
-
+		orden.addAll(noterminales);
+		orden.addAll(terminales);
+		context.put("Orden", orden);
 		context.put("Terminales", terminales);
 		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
 		context.put("NoTerminales", noterminales);
@@ -284,7 +285,7 @@ public class Prototipo {
 		context.put("First", g.obtenerFirst());
 		context.put("Follow", g.obtenerFollow());
 		context.put("Traza", traza);
-		
+
 		List<Object> FirstFollow = creacadenasFirtsFollow(g.first.tabla, g.follow.tabla, noterminales, terminales);
 		context.put("FirstFollow", FirstFollow);
 
@@ -293,23 +294,10 @@ public class Prototipo {
 		}
 		context.put("Producciones", producciones);
 
-		
-		
 		List<Object> RowTraza = creacadenasTraza(g, analisis, noterminales, terminales, producciones);
 
 		context.put("RowTraza", RowTraza);
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		switch (tipoanalisis) {
 
 		case "LL":
@@ -340,15 +328,14 @@ public class Prototipo {
 			context.put("SLR", false);
 			context.put("LALR", false);
 
-			
-			//TODO
-			conjuntos=creacadenasconjuntos(analisis,producciones);
-			
+			// TODO
+			conjuntos = creacadenasconjuntosLR(analisis, producciones, terminales);
+
 			context.put("Conjuntos", conjuntos);
 			break;
 
 		}
-		
+
 		Mustache mustache = mf.compile("my-template2.xml");
 		File fichero = new File(System.getProperty("user.dir"), "fichero.xml");
 		try {
@@ -361,54 +348,130 @@ public class Prototipo {
 			e.printStackTrace();
 		}
 	}
-
-	private static List<Object> creacadenasconjuntos(Analisis analisis, List<Object> producciones) {
-		// TODO Auto-generated method stub
+/**
+ * Metodo que crea las cadenas de los conjuntos para la plantilla
+ * @param analisis analisis de la gramatica
+ * @param producciones producciones de la gramatica
+ * @param terminales terminales de la gramatica
+ * @return Lista con las cadenas
+ */
+	
+	@SuppressWarnings("unchecked")
+	private static List<Object> creacadenasconjuntosLR(Analisis analisis, List<Object> producciones,
+			List<Object> terminales) {
+		
 		List<Object> theconjuntos = new ArrayList<Object>();
 		Automata ana = analisis.obtenerAutomataAnalisis();
-		ArrayList<Object> itemmarcado= new ArrayList<Object>();
-		ArrayList<Object> simboloanticipacion= new ArrayList<Object>();
-		
+		ArrayList<Object> itemmarcado = new ArrayList<Object>();
+		ArrayList<Object> simboloanticipacioncadena = new ArrayList<Object>();
+		ArrayList<Object> item = new ArrayList<Object>();
+		ArrayList<Object> simb = new ArrayList<Object>();
+		ArrayList<Object> simboloanticipacion = new ArrayList<Object>();
+
+		ArrayList<Object> itemmarcadocadena = new ArrayList<Object>();
+		ArrayList<Object> todositems = new ArrayList<Object>();
+		ArrayList<Object> todossub = new ArrayList<Object>();
 		for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
-		
-			String x = ana.obtenerNodoAutomata(i).toString();
-			String e = ana.obtenerNodoAutomata(i).toStringSA();
-			
-			itemmarcado.add(e);
-			int num = ana.obtenerNodoAutomata(i).numeroElementosCjtoConfig();
-			simboloanticipacion.add(obtenersimboloanticipacion(x,num));
-			String itemmarcadocadena ;
-			//for (List<Object> j : itemmarcado) {
-				 itemmarcadocadena = obtenerMultichoice(producciones, itemmarcado);
-		//	}
-			
-			Conjunto c=new Conjunto(i, itemmarcadocadena, simboloanticipacion.clone().toString());
+			for (String j : ana.obtenerNodoAutomata(i).toStringSA().trim().split("\n")) {
+				todossub.add(j);
+			}
+		}
+		for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
+
+			int numitems = ana.obtenerNodoAutomata(i).numeroElementosCjtoConfig();
+			for (String j : ana.obtenerNodoAutomata(i).toString().trim().split("\n")) {
+				simboloanticipacion.add(obtenersimboloanticipacion(j));
+			}
+			for (String j : ana.obtenerNodoAutomata(i).toStringSA().trim().split("\n")) {
+				itemmarcado.add(j);
+			}
+			for (Object j : itemmarcado) {
+				item.add(j);
+				List<Object> alternativas = creaAlternativasitems(item.toString(), todossub);
+				itemmarcadocadena.add(obtenerMultichoice(alternativas, (List<Object>) item.clone()));
+				item.clear();
+				alternativas.clear();
+			}
+			for (Object h : simboloanticipacion) {
+				simb.add(h);
+				List<Object> alternativas = creaAlternativassimbolo(h.toString(), terminales);
+				simboloanticipacioncadena.add(obtenerMultichoice(alternativas, (List<Object>) simb.get(0)));
+
+				simb.clear();
+			}
+			for (int j = 0; j < numitems; j++) {
+				todositems.add(new Items(itemmarcadocadena.get(j), simboloanticipacioncadena.get(j)));
+			}
+			Conjunto c = new Conjunto(i, (ArrayList<Items>) todositems.clone());
+			todositems.clear();
 			simboloanticipacion.clear();
+			simboloanticipacioncadena.clear();
+			itemmarcadocadena.clear();
 			itemmarcado.clear();
 			theconjuntos.add(c);
 		}
-		//System.out.println(theconjuntos);
 		return theconjuntos;
 	}
-/**
- * Metodo que obtiene los simbolos de anticipacion
- * @param x items del conjunto
- * @param num numero de simbolos a obtener
- * @return Lista con los simbolos
- */
-	private static List<Object> obtenersimboloanticipacion(String x, int num) {
-		// TODO Comprobar los simbolos que devuelve
-		List<Object> thesimb= new ArrayList<Object>();
-		int init=0;
-		int fin=0;
-		for (int i=0;i<num;i++){
-			init = x.indexOf('{')+1;
-			fin = x.indexOf('}');
-			String sim = x.substring(init, fin);
-			thesimb.add(sim);
-			
+
+	@SuppressWarnings("unchecked")
+	private static List<Object> creaAlternativasitems(String item, ArrayList<Object> todossub) {
+		List<Object> alt = new ArrayList<Object>();
+		List<Object> alt2 = new ArrayList<Object>();
+		HashSet<Object> hashSet = new HashSet<Object>();
+		item = item.replace("[", " ");
+		item = item.replace("]", " ");
+		item = item.trim();
+		hashSet.addAll(todossub);
+		hashSet.add(item);
+		hashSet.remove(item);
+		alt.addAll((Collection<? extends Object>) hashSet.clone());
+		
+		int aleatorio = (int) (Math.random()*alt.size()-4);
+		if (aleatorio<0){
+			aleatorio=0;
+		}
+		for (int i = aleatorio;i<aleatorio+4;i++){
+			alt2.add(alt.get(i));
 		}
 		
+		return alt2;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static List<Object> creaAlternativassimbolo(String h, List<Object> terminales) {
+	
+		List<Object> alt = new ArrayList<Object>();
+		HashSet<Object> hashSet = new HashSet<Object>();
+		h = h.replace("[", " ");
+		h = h.replace("]", " ");
+		h = h.trim();
+		hashSet.addAll(terminales);
+		hashSet.add(h);
+		hashSet.remove(h);
+		alt.addAll((Collection<? extends Object>) hashSet.clone());
+		hashSet.clear();
+		return alt;
+	}
+
+	/**
+	 * Metodo que obtiene los simbolos de anticipacion
+	 * 
+	 * @param x
+	 *            items del conjunto
+	 * @param num
+	 *            numero de simbolos a obtener
+	 * @return Lista con los simbolos
+	 */
+	private static List<Object> obtenersimboloanticipacion(String x) {
+
+		List<Object> thesimb = new ArrayList<Object>();
+		int init = 0;
+		int fin = 0;
+		init = x.indexOf('{') + 1;
+		fin = x.indexOf('}');
+		String sim = x.substring(init, fin);
+		thesimb.add(sim);
+
 		return thesimb;
 	}
 
@@ -425,8 +488,8 @@ public class Prototipo {
 	private static List<Object> creacadenasTraza(Gramatica g, Analisis analisis, List<Object> noterminales,
 			List<Object> terminales, List<Object> producciones) {
 		// TODO Auto-generated method stub
-		List<Object> thetraza= new ArrayList<Object>();
-		
+		List<Object> thetraza = new ArrayList<Object>();
+
 		return thetraza;
 	}
 
@@ -460,7 +523,7 @@ public class Prototipo {
 
 		List<Object> correctas = new ArrayList<>();
 		ArrayList<Object> produccion = new ArrayList<Object>();
-		
+
 		for (Object j : noterminales) {
 
 			for (Object i : terminales) {
@@ -537,7 +600,7 @@ public class Prototipo {
 	private static String obtenerMultichoice(List<Object> respuestasalternativas, List<Object> correcta) {
 		String RespuestaFirst = "{1:MULTICHOICE:=" + correcta.get(0);
 		for (int i = 0; i < respuestasalternativas.size(); i++) {
-			
+
 			RespuestaFirst = RespuestaFirst + "~" + respuestasalternativas.get(i);
 		}
 		RespuestaFirst = RespuestaFirst + "}";
@@ -736,19 +799,29 @@ public class Prototipo {
 		List<Object> prod = new ArrayList<>();
 
 	}
-	static class Conjunto {
-		
-		Conjunto(int numero,String Itemmarcado, String items) {
-			this.numero = numero;
-			this.Itemmarcado = Itemmarcado;
-			this.simboloanticipacion = items;
 
+	static class Conjunto {
+
+		Conjunto(int numero, ArrayList<Items> items) {
+			this.numero = numero;
+			this.items = items;
 		}
+
 		int numero;
-	
-		String Itemmarcado;
-		String simboloanticipacion;
+		ArrayList<Items> items;
 
 	}
 
+	static class Items {
+
+		Items(Object object, Object object2) {
+			this.item = object;
+			this.simbolo = object2;
+
+		}
+
+		Object item;
+		Object simbolo;
+
+	}
 }
