@@ -319,9 +319,9 @@ public class Prototipo {
 			context.put("SLR", false);
 			context.put("LALR", false);
 			List<Object> conjuntos = creacadenasconjuntosLR(analisis, producciones, terminales);
-			
+			List<Taccioneir> accioneira = creacadenasaccioneiraLR(analisis, TodosSimbolos);
 			context.put("Conjuntos", conjuntos);
-			
+			context.put("Accioneira", accioneira);
 
 			break;
 		}
@@ -338,8 +338,61 @@ public class Prototipo {
 		}
 	}
 
-	
+	private static List<Taccioneir> creacadenasaccioneiraLR(Analisis analisis, List<Object> todosSimbolos) {
 
+		Tabla tabla = analisis.obtenerTablaAnalisis();
+		TablaAscendente tabla_principal1 = (TablaAscendente) tabla;
+		Object elemento;
+		List<Taccioneir> theTAeir = new ArrayList<Taccioneir>();
+		List<Object> correctas = new ArrayList<>();
+		ArrayList<Object> accion = new ArrayList<Object>();
+
+		int num = analisis.obtenerAutomataAnalisis().numeroNodosAutomata();
+		for (int i = 0; i < num; i++) {
+			for (Object j : todosSimbolos) {
+				elemento = tabla_principal1.tabla_principal.get(i).get(j);
+				if (elemento == null) {
+					correctas.add("-");
+					int aleatorio = (int) (Math.random() * 10 + 1);
+
+					String Respuestaprod;
+					if (aleatorio > 9) {
+						Respuestaprod = obtenerShortanswer(correctas.get(0).toString());
+					} else {
+						Respuestaprod = "-";
+					}
+					accion.add(Respuestaprod);
+
+				} else {
+
+					elemento = eliminarparentesis(elemento);
+					String Respuestaprod = obtenerShortanswer(elemento.toString());
+					accion.add(Respuestaprod);
+				}
+				correctas.clear();
+			}
+			@SuppressWarnings("unchecked")
+			Taccioneir e = new Taccioneir(i, (List<Object>) accion.clone());
+
+			theTAeir.add(e);
+			accion.clear();
+
+		}
+
+		return theTAeir;
+	}
+
+	private static String eliminarparentesis(Object elemento) {
+		String a = "";
+		a = a.concat(elemento.toString());
+		a = a.replace("(", "");
+		a = a.replace("[", "");
+		a = a.replace(")", "");
+		a = a.replace("]", "");
+		a = a.trim();
+
+		return a;
+	}
 
 	/**
 	 * Metodo que crea las cadenas de los conjuntos para la plantilla
