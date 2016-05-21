@@ -33,11 +33,16 @@ import analisis.AnalisisLALR1;
 import analisis.AnalisisLL1;
 import analisis.AnalisisLR1;
 import analisis.AnalisisSLR1;
+
 import analisis.analisisSintactico.ascendente.Automata;
 import analisis.tabla.Tabla;
 import analisis.tabla.TablaAscendente;
 import analisis.tabla.TablaDescendente;
+
 import gramatica.Gramatica;
+
+import gramatica.Nulo;
+import gramatica.Terminal;
 import gramatica.VectorSimbolos;
 import parser.ParseException;
 import parser.ParserGramatica;
@@ -205,6 +210,7 @@ public class Prototipo {
 				break;
 			case "ALL":
 				creaTex(g, gramatica, analisis, tipoanalisis);
+
 				creaXML(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 
@@ -238,27 +244,17 @@ public class Prototipo {
 			throws IOException {
 
 		List<Object> producciones = new ArrayList<>();
-		List<Object> traza = new ArrayList<>();
+
 		List<Object> terminales = new ArrayList<>();
 		List<Object> noterminales = new ArrayList<>();
 		List<Object> TodosSimbolos = new ArrayList<>();
 		List<Object> orden = new ArrayList<>();
 
-		traza.add("Pila");
-		traza.add("Entrada");
-		traza.add("Salida");
 		MustacheFactory mf = new DefaultMustacheFactory();
 
 		Map<String, Object> context = Maps.newHashMap();
 		context.put("NombreGramatica", gramatica);
 		context.put("TipoAnalisis", tipoanalisis);
-		if (cadena == null) {
-			context.put("Cadena", false);
-		} else {
-			context.put("Cadena", cadena);
-		}
-
-		context.put("Cadena", cadena);
 		context.put("SimboloInicio", g.getSimboloInicio());
 
 		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
@@ -275,22 +271,16 @@ public class Prototipo {
 		context.put("Orden", orden);
 		context.put("Terminales", terminales);
 		context.put("NumTerminales", g.obtenerTerminales().simbolosIntroducidos());
+		context.put("NumTerminalesmas1", g.obtenerTerminales().simbolosIntroducidos() + 1);
 		context.put("NoTerminales", noterminales);
 		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
 		context.put("TodosSimbolos", TodosSimbolos);
-		context.put("First", g.obtenerFirst());
-		context.put("Follow", g.obtenerFollow());
-		context.put("Traza", traza);
-
-		List<Object> FirstFollow = creacadenasFirtsFollow(g.first.tabla, g.follow.tabla, noterminales, terminales);
-		context.put("FirstFollow", FirstFollow);
 
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
 			producciones.add(g.obtenerProduccionGramatica(i));
 		}
 		context.put("Producciones", producciones);
-		List<Object> RowTraza = creacadenasTraza(g, analisis, noterminales, terminales, producciones);
-		context.put("RowTraza", RowTraza);
+
 		switch (tipoanalisis) {
 
 		case "LL":
@@ -298,31 +288,78 @@ public class Prototipo {
 			context.put("LR", false);
 			context.put("SLR", false);
 			context.put("LALR", false);
+			context.put("First", g.obtenerFirst());
+			context.put("Follow", g.obtenerFollow());
+			List<Object> FirstFollow = creacadenasFirtsFollow(g.first.tabla, g.follow.tabla, noterminales, terminales);
+			context.put("FirstFollow", FirstFollow);
 			List<TASP> RowTASP = creacadenasTASP(g, analisis, noterminales, terminales, producciones);
 			context.put("RowTASP", RowTASP);
+			if (cadena == null) {
+				context.put("Cadena", false);
+			} else {
+				context.put("Cadena", cadena);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				context.put("RowTraza", RowTraza);
+			}
+			context.put("Cadena", cadena);
 			break;
+
 		case "SLR":
 			context.put("LL", false);
 			context.put("LR", false);
 			context.put("SLR", true);
 			context.put("LALR", false);
+			List<Object> conjuntosSLR = creacadenasconjuntosSLR(analisis, producciones, terminales);
+			List<Taccioneir> accioneiraSLR = creacadenasaccioneiraLR(analisis, TodosSimbolos);
+			context.put("ConjuntosSLR", conjuntosSLR);
+			context.put("AccioneiraSLR", accioneiraSLR);
+			if (cadena == null) {
+				context.put("Cadena", false);
+			} else {
+				context.put("Cadena", cadena);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				context.put("RowTraza", RowTraza);
+			}
+			context.put("Cadena", cadena);
 			break;
+
 		case "LALR":
 			context.put("LL", false);
 			context.put("LR", false);
 			context.put("SLR", false);
 			context.put("LALR", true);
+
+			List<Object> conjuntosLALR = creacadenasconjuntosLR(analisis, producciones, terminales);
+			List<Taccioneir> accioneiraLALR = creacadenasaccioneiraLR(analisis, TodosSimbolos);
+			context.put("ConjuntosLALR", conjuntosLALR);
+			context.put("AccioneiraLALR", accioneiraLALR);
+			if (cadena == null) {
+				context.put("Cadena", false);
+			} else {
+				context.put("Cadena", cadena);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				context.put("RowTraza", RowTraza);
+			}
+			context.put("Cadena", cadena);
 			break;
+
 		case "LR":
 			context.put("LL", false);
 			context.put("LR", true);
 			context.put("SLR", false);
 			context.put("LALR", false);
-			List<Object> conjuntos = creacadenasconjuntosLR(analisis, producciones, terminales);
-			List<Taccioneir> accioneira = creacadenasaccioneiraLR(analisis, TodosSimbolos);
-			context.put("Conjuntos", conjuntos);
-			context.put("Accioneira", accioneira);
-
+			List<Object> conjuntosLR = creacadenasconjuntosLR(analisis, producciones, terminales);
+			List<Taccioneir> accioneiraLR = creacadenasaccioneiraLR(analisis, TodosSimbolos);
+			context.put("ConjuntosLR", conjuntosLR);
+			context.put("AccioneiraLR", accioneiraLR);
+			if (cadena == null) {
+				context.put("Cadena", false);
+			} else {
+				context.put("Cadena", cadena);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				context.put("RowTraza", RowTraza);
+			}
+			context.put("Cadena", cadena);
 			break;
 		}
 		Mustache mustache = mf.compile("my-template2.xml");
@@ -336,6 +373,53 @@ public class Prototipo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private static List<Object> creacadenasconjuntosSLR(Analisis analisis, List<Object> producciones,
+			List<Object> terminales) {
+
+		List<Object> theconjuntos = new ArrayList<Object>();
+		Automata ana = analisis.obtenerAutomataAnalisis();
+		ArrayList<Object> itemmarcado = new ArrayList<Object>();
+		ArrayList<Object> item = new ArrayList<Object>();
+
+		ArrayList<Object> itemmarcadocadena = new ArrayList<Object>();
+		ArrayList<Object> todositems = new ArrayList<Object>();
+		ArrayList<Object> todossub = new ArrayList<Object>();
+		for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
+			for (String j : ana.obtenerNodoAutomata(i).toString().trim().split("\n")) {
+				todossub.add(j);
+			}
+		}
+		for (int i = 0; i < ana.numeroNodosAutomata(); i++) {
+
+			int numitems = ana.obtenerNodoAutomata(i).numeroElementosCjtoConfig();
+
+			for (String j : ana.obtenerNodoAutomata(i).toString().trim().split("\n")) {
+				itemmarcado.add(j);
+			}
+			for (Object j : itemmarcado) {
+				item.add(j);
+				List<Object> alternativas = creaAlternativasitems(item.toString(), todossub);
+				itemmarcadocadena.add(obtenerMultichoice(alternativas, (List<Object>) item.clone()));
+				item.clear();
+				alternativas.clear();
+			}
+
+			for (int j = 0; j < numitems; j++) {
+				todositems.add(new Items(itemmarcadocadena.get(j), null));
+			}
+
+			ConjuntoLR c = new ConjuntoLR(i, (ArrayList<Items>) todositems.clone());
+			todositems.clear();
+
+			itemmarcadocadena.clear();
+			itemmarcado.clear();
+			theconjuntos.add(c);
+		}
+		return theconjuntos;
+
 	}
 
 	private static List<Taccioneir> creacadenasaccioneiraLR(Analisis analisis, List<Object> todosSimbolos) {
@@ -452,7 +536,7 @@ public class Prototipo {
 			for (int j = 0; j < numitems; j++) {
 				todositems.add(new Items(itemmarcadocadena.get(j), simboloanticipacioncadena.get(j)));
 			}
-			Conjunto c = new Conjunto(i, (ArrayList<Items>) todositems.clone());
+			ConjuntoLR c = new ConjuntoLR(i, (ArrayList<Items>) todositems.clone());
 			todositems.clear();
 			simboloanticipacion.clear();
 			simboloanticipacioncadena.clear();
@@ -527,16 +611,77 @@ public class Prototipo {
 	 * 
 	 * @param g
 	 * @param analisis
+	 * @param cadena
+	 * @param producciones
 	 * @param noterminales
 	 * @param terminales
 	 * @param producciones
+	 * @param cadena2
 	 * @return
 	 */
-	private static List<Object> creacadenasTraza(Gramatica g, Analisis analisis, List<Object> noterminales,
-			List<Object> terminales, List<Object> producciones) {
-		// TODO Auto-generated method stub
+
+	private static List<Object> creacadenasTraza(Analisis analisis, String cadena, List<Object> producciones) {
+
 		List<Object> thetraza = new ArrayList<Object>();
+		List<Object> salida = new ArrayList<Object>();
+
+		List<Object> alter = new ArrayList<Object>();
+		try {
+
+			VectorSimbolos ent = new VectorSimbolos();
+
+			for (String j : cadena.split(" ")) {
+				Terminal a = new Terminal(j);
+				ent.insertarSimbolo(a);
+
+			}
+			Nulo nulo = new Nulo();
+			ent.insertarSimbolo(nulo);
+			analisis.iniciarAnalisis(ent);
+
+			int i = 0;
+
+			while (true) {
+
+				analisis.realizarIteracion(i, i + 1);
+				if (i == 0) {
+					Traza e = new Traza(analisis.obtenerEstadoPilaAnalisis().toString(),
+							analisis.obtenerEstadoEntradaAnalisis().toString(), analisis.obtenerProduccionSalida());
+					thetraza.add(e);
+
+				} else {
+					String pila = analisis.obtenerEstadoPilaAnalisis().toString();
+					String entrada = analisis.obtenerEstadoEntradaAnalisis().toString();
+					salida.add(analisis.obtenerProduccionSalida());
+					alter = creaAlternativasProd(salida, producciones);
+					String salidamul = obtenerMultichoice(alter, (List<Object>) salida);
+					Traza e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada),
+							salidamul);
+					salida.remove(analisis.obtenerProduccionSalida());
+					thetraza.add(e);
+				}
+				i++;
+			}
+		} catch (Exception de) {
+			String pila = analisis.obtenerEstadoPilaAnalisis().toString();
+			String entrada = analisis.obtenerEstadoEntradaAnalisis().toString();
+			Traza e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada), "");
+			thetraza.set(thetraza.size() - 1, e);
+
+		}
+
 		return thetraza;
+	}
+
+	private static List<Object> creaAlternativasProd(List<Object> salida, List<Object> producciones) {
+
+		ArrayList<Object> alter = new ArrayList<Object>();
+		for (int i = 0; i < producciones.size(); i++) {
+			if (!salida.get(0).toString().equals(producciones.get(i).toString())) {
+				alter.add(producciones.get(i).toString());
+			}
+		}
+		return alter;
 	}
 
 	/**
@@ -581,7 +726,9 @@ public class Prototipo {
 				} else {
 
 					correctas.add(elemento.toString());
-					String Respuestaprod = obtenerMultichoice(producciones, correctas);
+					List<Object> alter = creaAlternativasProd(correctas, producciones);
+					alter.add("---");
+					String Respuestaprod = obtenerMultichoice(alter, correctas);
 					produccion.add(Respuestaprod);
 
 				}
@@ -621,8 +768,12 @@ public class Prototipo {
 			follow.add(tabla2.get(j));
 			List<Object> alternativafirst = GeneraRespuestasAleatorias(firts, terminales);
 			List<Object> alternativafollow = GeneraRespuestasAleatorias(follow, terminales);
+
 			String RespuestaFirst = obtenerMultichoice(alternativafirst, firts);
+			RespuestaFirst = eliminarparentesis(RespuestaFirst);
+
 			String RespuestaFollow = obtenerMultichoice(alternativafollow, follow);
+			RespuestaFollow = eliminarparentesis(RespuestaFollow);
 			Noterminal e = new Noterminal(j.toString(), RespuestaFirst, RespuestaFollow);
 			cadena.add(e);
 			firts.clear();
@@ -755,7 +906,7 @@ public class Prototipo {
 		List<Object> rs = new ArrayList<>();
 		List<Object> asets = new ArrayList<>();
 		toadd.addAll(terminales);
-		toadd.remove(correcta.get(0));// eliminar la correcta
+		toadd.remove(correcta.get(0).toString());// eliminar la correcta
 		for (int i = 0; i < toadd.size(); i++) {
 			rs.add(i);
 		}
@@ -783,7 +934,6 @@ public class Prototipo {
 			sub1.clear();
 			sub1.addAll(terminales.subList(1, n - 1));
 			sub1.add(toadd.get((int) rs.get(0)));
-			// substitute first one
 		}
 		if (rs.size() > 2) {
 			sub3.addAll(terminales.subList(0, n - 1));
@@ -856,9 +1006,9 @@ public class Prototipo {
 
 	}
 
-	static class Conjunto {
+	static class ConjuntoLR {
 
-		Conjunto(int numero, ArrayList<Items> items) {
+		ConjuntoLR(int numero, ArrayList<Items> items) {
 			this.numero = numero;
 			this.items = items;
 		}
@@ -897,5 +1047,32 @@ public class Prototipo {
 
 		int num;
 		List<Object> accion;
+	}
+
+	/**
+	 * Clase que permite conocer la tabla de accion e ir
+	 * 
+	 * @author Victor
+	 *
+	 */
+	static class Traza {
+		/**
+		 * Constructor de la clase
+		 * 
+		 * @param name
+		 *            nombre del No terminal
+		 * @param firts
+		 *            first
+		 * @param follow
+		 *            follow
+		 */
+		Traza(String pila, String entrada, String salida) {
+			this.pila = pila;
+			this.entrada = entrada;
+			this.salida = salida;
+		}
+
+		String pila, entrada, salida;
+
 	}
 }
