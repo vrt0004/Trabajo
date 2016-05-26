@@ -9,9 +9,8 @@
 <![CDATA[
 						{{! Gramatica tipo LL }}
 {{#LL}}
-Completar las tablas que siguen, dada la siguiente gramática (
-<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, y se
-usa el simbolo ε para representar la cadena vacia):<br>
+Completar las tablas que siguen, dada la siguiente gramatica (
+<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, y se usa el simbolo $ para representar la cadena vacia):<br>
 
 <caption style="caption-side: top">
 
@@ -39,7 +38,7 @@ usa el simbolo ε para representar la cadena vacia):<br>
   {{/FirstFollow}}
 </table>
 
-<span>Tabla de Análisis sintáctico predictivo</span>
+<span>Tabla de Analisis sintactico predictivo</span>
 
 <table border="1"><thead>
   	<tr>
@@ -62,7 +61,7 @@ usa el simbolo ε para representar la cadena vacia):<br>
 </table>
 
 {{#Cadena}}
-<span>Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"</span>
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
 
 <table border="1"><thead>
   	<tr>
@@ -96,8 +95,8 @@ usa el simbolo ε para representar la cadena vacia):<br>
 					{{! Gramatica tipo LR }}						
 {{#LR}}
 
-<p>Completar los conjuntos de items {{TipoAnalisis}}(1),las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
-  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+<p>Completar los conjuntos de items {{TipoAnalisis}}(1),las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
    ε para representar la cadena vacia):</p>
 
 <caption style="caption-side: top">
@@ -109,8 +108,8 @@ usa el simbolo ε para representar la cadena vacia):<br>
 </pre> 
 <span>Conjuntos de items marcados
 <div>
-En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}.
-En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática.</span>
+En la operacion de lectura, la lectura de simbolos se hace en el orden {{Orden}}.
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramatica.</span>
 </div>
 {{#ConjuntosLR}}
 <div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
@@ -124,7 +123,7 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	{{#items}}
 	 	<tr>	
@@ -141,15 +140,15 @@ En las operaciones de cierre las producciones con el item al principio se añade
 
 
 <div style="clear: both;" id="tables">
-<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
 especificar las acciones se utiliza una codificacion similar a la vista en
 clase:</p>
 <ul>
 <li>dj: significa desplazar e ir al estado j.</li>
-<li>rj: significa reducir utilizando la producción j-ésima.</li>
-<li>ACP: representa la acción de aceptar la cadena.</li>
-<li>-: se utiliza para indicar que la casilla está vacía (no tiene acción).</li>
-<li>En la parte de acción se específica únicamente el estado al que pasa el autómata.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
 </ul>
 </div>
 <table border="1">
@@ -182,7 +181,7 @@ clase:</p>
    </tr>
 </table>
 {{#Cadena}}
-<span>Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"</span>
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
 
 <table border="1"><thead>
   	<tr>
@@ -220,8 +219,8 @@ clase:</p>
 {{#SLR}}
 
 Completar los conjuntos de items {{TipoAnalisis}}(1),
- las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
-  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
    ε para representar la cadena vacia):
 
 <caption style="caption-side: top"><text><p> 
@@ -235,14 +234,14 @@ Completar los conjuntos de items {{TipoAnalisis}}(1),
 
 <span>Conjuntos de items marcados
 
-En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}.
-En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática.</span>
+En la operacion de lectura, la lectura de simbolos se hace en el orden {{Orden}}.
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramatica.</span>
 {{#ConjuntosSLR}}
 <div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
 	<table style="table-layout: fixed; width: 6.5cm; " text-align:="" left;="" border="1">
 	<thead>
 	  	<tr>
-	    	<th colspan="2">Conjunto {{numero}}</th>
+	    	<th>Conjunto {{numero}}</th>
 	 	 </tr>
 	</thead>
 	<tbody>
@@ -262,15 +261,15 @@ En las operaciones de cierre las producciones con el item al principio se añade
 </div>
 {{/ConjuntosSLR}}
 <div style="clear: both;" id="tables">
-<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
 especificar las acciones se utiliza una codificacion similar a la vista en
 clase:</p>
 <ul>
 <li>dj: significa desplazar e ir al estado j.</li>
-<li>rj: significa reducir utilizando la producción j-ésima.</li>
-<li>ACP: representa la acción de aceptar la cadena.</li>
-<li>-: se utiliza para indicar que la casilla está vacía (no tiene acción).</li>
-<li>En la parte de acción se específica únicamente el estado al que pasa el autómata.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
 </ul>
 </div>
 <table border="1">
@@ -303,7 +302,7 @@ clase:</p>
    </tr>
 </table>
 {{#Cadena}}
-<span>Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"</span>
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
 
 <table border="1"><thead>
   	<tr>
@@ -345,8 +344,8 @@ clase:</p>
 {{#LALR}}
 
 Completar los conjuntos de items {{TipoAnalisis}}(1),
- las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}},
-  para la gramática que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el símbolo
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
    ε para representar la cadena vacia):
 
 <caption style="caption-side: top"><text><p> 
@@ -371,7 +370,7 @@ Completar los conjuntos de items {{TipoAnalisis}}(1),
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	{{#items}}
 	 	<tr>	
@@ -386,15 +385,15 @@ Completar los conjuntos de items {{TipoAnalisis}}(1),
 {{/ConjuntosLALR}}
 
 <div style="clear: both;" id="tables">
-<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
 especificar las acciones se utiliza una codificacion similar a la vista en
 clase:</p>
 <ul>
 <li>dj: significa desplazar e ir al estado j.</li>
-<li>rj: significa reducir utilizando la producción j-ésima.</li>
-<li>ACP: representa la acción de aceptar la cadena.</li>
-<li>-: se utiliza para indicar que la casilla está vacía (no tiene acción).</li>
-<li>En la parte de acción se específica únicamente el estado al que pasa el autómata.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
 </ul>
 </div>
 <table border="1">
@@ -427,7 +426,7 @@ clase:</p>
    </tr>
 </table>
 {{#Cadena}}
-<span>Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"</span>
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
 
 <table border="1"><thead>
   	<tr>

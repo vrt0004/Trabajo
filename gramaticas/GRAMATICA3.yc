@@ -1,0 +1,16 @@
+
+%start A /*SIMBOLO DE INICIO*/
+
+%token a
+
+%token b
+
+%token c
+
+%%
+
+A : b A c ;
+
+A : a ;
+
+%%

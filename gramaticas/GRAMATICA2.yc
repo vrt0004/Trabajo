@@ -1,0 +1,25 @@
+/***********************
+** PROGRAMA DE PRUEBA **
+***********************/
+
+%{
+  int prueba;
+  int prueba2;   
+%}
+%start S /*SIMBOLO DE INICIO*/
+%token x
+%token y
+%token z 
+%token u
+%token v
+%token w
+%%
+S : u B D z ;
+B : B v ;
+B : w ;
+D : E F ;
+E : y ;
+E : EPS ;
+F : x ;
+F : EPS ;
+%%

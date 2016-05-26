@@ -1,204 +1,762 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Moodle template for {{TipoAnalisis}}(1) exercises</title>
-</head>
-<body>
-	<h1>Moodle template for {{TipoAnalisis}}(1) exercises</h1>
+ 									{{! Gramatica tipo LL }} 
+ 
+{{#LL}} 
+ 
+ Completar las tablas que siguen, dada la siguiente gramática ({{SimboloInicio}} es el axioma, y se usa el simbolo &#949; para representar la cadena vacia):
 
-	<p
-		style="width: 20%; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-right-colors: none; -moz-border-top-colors: none; background-color: #fefef1; border-bottom-right-radius: 12px; border-color: #f7a600; border-style: solid; border-width: 1px 1px 1px 5px; box-shadow: 2px 3px 5px #ccc; color: #222; display: table; line-height: 1.4em; margin: 10px 20px 20px; overflow: hidden; padding: 10px 16px;">
-		Lo único que hay que generar automáticamente es lo que está indicado
-		más abajo. Todo este html entorno a lo de bajo es para posibilitar el
-		visualizado en el navegador sin necesidad de instalar una copia local
-		de Moodle. </br>
-		<del style="color: gray;">De todos modos la visualización que se
-			obtiene en el navegador no es muy elegante por todo el código Moodle
-			que el navegador no es capaz de interpretar.</del>
-		</br>
-		<ins style="color: green;">Ahora, después de añadir algo de
-			JavaScript, el marcado Moodle no se visualiza.</ins>
-	</p>
-	<!-- This is the part that must be automatically generated -->
-	<p>&nbsp;</p>
-	<!-- Gramatica -->
-	<p>
-		Completar las tablas que siguen, dada la siguiente gramática (<span
-			style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, y
-		se usa el símbolo ε para representar la cadena vacia):
-		
-		
-	</p>
+<br>
+
+<br>
+
+{{#Producciones}}
+
+ {{.}}
+ 
+<br>
+
+{{/Producciones}}
+
+<br>
+
+<br>
+
+Tabla de los conjuntos PRIMERO y SIGUIENTE
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<th></th>
+
+			<th>First</th>
+
+			<th>Follow</th>
+
+		</tr>
+
+	</thead>
+
+	{{#FirstFollowSin}}
+
+	<tr>
+
+		<td>{{name}}</td>
+
+		<td>{{firts}}</td>
+
+		<td>{{follow}}</td>
+
+	</tr>
+
+	{{/FirstFollowSin}}
+
+</table>
+
+<br>
+
+<br>
+
+Tabla de Análisis sintáctico predictivo
+
+<br>
+
+<br>
+
+<table border="1">
 	
-	<p>Producciones</p>
-	<pre>
-		<p>{{Producciones}}</p>
-	</pre>
+	<thead>
 
-<p><span style="font-weight: bold;"> Tabla del first y follow</span></p>
-	<script>function genera_tabla_First_Follow() {
-		// Obtener la referencia del elemento body
-		var body = document.getElementsByTagName("body")[0];
+		<tr>
 
-		// Crea un elemento <table> y un elemento <tbody>
-		var tabla = document.createElement("table");
-		var tblBody = document.createElement("tbody");
-
-		// Crea las filas
-		for (var i = 0; i < {{NumNoTerminales}}+1; i++) {
-			// Crea las columnas de la tabla
-			var hilera = document.createElement("tr");
-			var A="{{NoTerminales}}"
-			var A = A.split(",");
-			for (var j = 0; j < 3; j++) {
-				var celda = document.createElement("td");
-				if (j==0 && i==0){
-					var textoCelda = document.createTextNode("");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (j==1 && i==0){
-					var textoCelda = document.createTextNode("First");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (j==2 && i==0){
-					var textoCelda = document.createTextNode("Follow");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (j==0){
-					var textoCelda = document.createTextNode(A[i-1]);
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else{
-					var textoCelda = document.createTextNode("escribir_solucion"	);
-				celda.appendChild(textoCelda);
-				hilera.appendChild(celda);
-				}
-			}
-
-			// agrega la hilera al final de la tabla (al final del elemento tblbody)
-			tblBody.appendChild(hilera);
-		}
-
-		// posiciona el <tbody> debajo del elemento <table>
-		tabla.appendChild(tblBody);
-		// appends <table> into <body>
-		body.appendChild(tabla);
-		// modifica el atributo "border" de la tabla y lo fija a "2";
-		tabla.setAttribute("border", "2");
-
-	}
-</script>
-	<script>genera_tabla_First_Follow();</script>
-<p><span style="font-weight: bold;"> Tabla de análisis sintáctico predictivo</span></p>
-	<script>function genera_tabla_TASP() {
-		// Obtener la referencia del elemento body
-		var body = document.getElementsByTagName("body")[0];
-
-		// Crea un elemento <table> y un elemento <tbody>
-		var tabla = document.createElement("table");
-		var tblBody = document.createElement("tbody");
-
-		// Crea las filas
-		for (var i = 0; i < {{NumNoTerminales}}+1; i++) {
-			// Crea las columnas de la tabla
-			var hilera = document.createElement("tr");
-			var filas="{{NoTerminales}}"
-			var filas = filas.split(",");
-			var col="{{Terminales}}"
-			var col = col.split(",");
-			for (var j = 0; j < {{NumTerminales}}+1; j++) {
-				var celda = document.createElement("td");
-				if (j==0 && i==0){
-					var textoCelda = document.createTextNode("");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (j==0){
-					var textoCelda = document.createTextNode(filas[i-1]);
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (i==0){
-					var textoCelda = document.createTextNode(col[j-1]);
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else{
-					var textoCelda = document.createTextNode("escribir_solucion" 	);
-				celda.appendChild(textoCelda);
-				hilera.appendChild(celda);
-				}
-			}
-
-			// agrega la hilera al final de la tabla (al final del elemento tblbody)
-			tblBody.appendChild(hilera);
-		}
-
-		// posiciona el <tbody> debajo del elemento <table>
-		tabla.appendChild(tblBody);
-		// appends <table> into <body>
-		body.appendChild(tabla);
-		// modifica el atributo "border" de la tabla y lo fija a "2";
-		tabla.setAttribute("border", "2");
-
-	}
-</script>
-	<script>genera_tabla_TASP();</script>
-<p><span style="font-weight: bold;"> Primeros pasos de la traza de análisis para la cadena {{cadenaAnallizar}}$</span></p>
-	<script>function genera_tabla_Traza() {
-		// Obtener la referencia del elemento body
-		var body = document.getElementsByTagName("body")[0];
-
-		// Crea un elemento <table> y un elemento <tbody>
-		var tabla = document.createElement("table");
-		var tblBody = document.createElement("tbody");
-
-		// Crea las filas
-		for (var i = 0; i < 5; i++) {
-			// Crea las columnas de la tabla
-			var hilera = document.createElement("tr");
+			<th></th> 
 			
-			var col="{{Terminales}}"
-			var col = col.split(",");
-			for (var j = 0; j < 3; j++) {
-				var celda = document.createElement("td");
-				if (i==0 && j==0){
-					var textoCelda = document.createTextNode("PILA");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (i==0 && j==1){
-					var textoCelda = document.createTextNode("ENTRADA");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else if (i==0 && j==2){
-					var textoCelda = document.createTextNode("SALIDA");
-					celda.appendChild(textoCelda);
-					hilera.appendChild(celda);
-				}else{
-					var textoCelda = document.createTextNode("escribir_solucion" 	);
-				celda.appendChild(textoCelda);
-				hilera.appendChild(celda);
-				}
-			}
+			{{#Terminales}}
 
-			// agrega la hilera al final de la tabla (al final del elemento tblbody)
-			tblBody.appendChild(hilera);
-		}
+			<td>{{.}}</td>
+			
+			 {{/Terminales}}
 
-		// posiciona el <tbody> debajo del elemento <table>
-		tabla.appendChild(tblBody);
-		// appends <table> into <body>
-		body.appendChild(tabla);
-		// modifica el atributo "border" de la tabla y lo fija a "2";
-		tabla.setAttribute("border", "2");
+		</tr>
 
-	}
-</script>
-	<script>genera_tabla_Traza();</script>
+	</thead>
 
-	<!-- End automatically generated part-->
-	
-	
-	
-</body>
-</html>
+	{{#RowTASPSin}}
+
+	<tr>
+
+		<td>{{name}}</td> 
+		
+		{{#prod}}
+
+		<td>{{.}}</td> 
+		
+		{{/prod}}
+
+	</tr>
+
+	{{/RowTASPSin}}
+
+	</tr>
+
+</table>
+
+
+
+{{#Cadena}} Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"
+
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td>PILA</td>
+
+			<td>ENTRADA</td>
+
+			<td>SALIDA</td>
+
+		</tr>
+
+	</thead>
+
+	{{#RowTrazaSin}}
+
+	<tr>
+
+		<td>{{pila}}</td>
+
+		<td>{{entrada}}</td>
+
+		<td>{{salida}}</td>
+
+	</tr>
+
+	{{/RowTrazaSin}}
+
+	</tr>
+
+</table>
+
+{{/Cadena}}
+
+{{/LL}} 
+
+									{{! Gramatica tipo LR }} 
+
+{{#LR}} 
+
+Completar los conjuntos de items {{TipoAnalisis}}(1), las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}}, para la gramática que sigue ({{SimboloInicio}} es el axioma, se usa el símbolo &#949; para representar la cadena vacia):
+
+<br> 
+
+{{#Producciones}}
+
+ {{.}}<br>
+
+{{/Producciones}} 
+
+<br>
+
+<br>
+
+Conjuntos de items marcados En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}. En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática.
+
+<br>
+
+{{#ConjuntosLRSin}}
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<th colspan="2">Conjunto {{numero}}</th>
+
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr>
+
+			<td>Item marcado</td>
+
+			<td>Símbolos de anticipacion</td>
+
+		</tr>
+
+		{{#items}}
+
+		<tr>
+
+			<td>{{item}}</td>
+
+			<td>{{simbolo}}</td>
+
+		</tr>
+
+		{{/items}}
+
+
+	</tbody>
+
+
+</table>
+
+<br>
+
+{{/ConjuntosLRSin}} Tabla Acción e ir a
+
+<br>
+
+<br>
+
+Para especificar las acciones se utiliza una codificacion similar a la vista en clase: 
+
+<br>
+
+dj: significa desplazar e ir al estado j. 
+
+<br>
+
+rj: significa reducir utilizando la producción j-ésima. 
+
+<br>
+
+ACP: representa la acción de aceptar la cadena. 
+
+<br>
+
+-: se utiliza para indicar que la casilla está vacía (no tiene acción). 
+
+<br>
+
+En la parte de acción se específica únicamente el
+estado al que pasa el autómata.
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+		<tr>
+
+			<td></td>
+
+			<td colspan="{{NumTerminalesmas1}}">Tabla de Acción</td>
+
+			<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+
+		</tr>
+
+	</thead>
+
+	<tr>
+
+		<th>estado</th> {{#TodosSimbolos}}
+
+		<td>{{.}}</td> {{/TodosSimbolos}}
+
+	</tr>
+
+	{{#AccioneiraLRSin}}
+
+	<tr>
+
+		<td>{{num}}</td> {{#accion}}
+
+		<td>{{.}}</td> {{/accion}}
+
+	</tr>
+
+	{{/AccioneiraLRSin}}
+
+	</tr>
+
+</table>
+
+<br>
+
+<br>
+
+{{#Cadena}} Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td>PILA</td>
+
+			<td>ENTRADA</td>
+
+			<td>SALIDA</td>
+
+		</tr>
+
+	</thead>
+
+	{{#RowTrazaSin}}
+
+	<tr>
+
+		<td>{{pila}}</td>
+
+		<td>{{entrada}}</td>
+
+		<td>{{salida}}</td>
+
+	</tr>
+
+	{{/RowTrazaSin}}
+
+	</tr>
+
+</table>
+
+<br>
+
+<br>
+
+
+
+
+{{/Cadena}} 
+
+{{/LR}}
+
+ 								{{! Gramatica tipo SLR }} 
+ 
+ {{#SLR}}
+ 
+  Completar los conjuntos de items {{TipoAnalisis}}(1), las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de análisis de la cadena {{Cadena}}${{/Cadena}}, para la gramática que sigue ({{SimboloInicio}} es el axioma, se usa el símbolo &#949; para representar la cadena vacia):
+  
+  <br>
+  
+  <br>
+  
+   {{#Producciones}}
+   
+    {{.}}<br>
+
+{{/Producciones}} 
+
+<br>
+
+<br>
+
+Conjuntos de items marcados 
+
+<br>
+
+En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}. 
+
+<br>
+
+<br>
+
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática. 
+
+<br>
+
+<br>
+
+{{#ConjuntosSLRSin}}
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<th>Conjunto {{numero}}</th>
+
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr>
+
+			<td>Item marcado</td>
+
+		</tr>
+
+		{{#items}}
+
+		<tr>
+
+			<td>{{item}}</td>
+
+		</tr>
+
+		{{/items}}
+
+	</tbody>
+
+<br>
+
+
+</table>
+
+<br>
+
+{{/ConjuntosSLRSin}} 
+
+<br>
+
+<br>
+
+Tabla Acción e ir a Para especificar las acciones se utiliza una codificacion similar a la vista en clase: 
+
+<br>
+
+<br>
+
+dj: significa desplazar e ir al estado j. 
+
+<br>
+
+<br>
+
+rj: significa reducir utilizando la producción j-ésima. 
+
+<br>
+
+<br>
+
+ACP: representa la acción de aceptar la cadena. 
+
+<br>
+
+<br>
+
+-: se utiliza para indicar que la casilla está vacía (no tiene acción).
+
+<br>
+
+<br>
+
+ En la parte de acción se específica únicamente el estado al que pasa el autómata.
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td></td>
+
+			<td colspan="{{NumTerminalesmas1}}">Tabla de Accion</td>
+
+			<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+
+		</tr>
+
+	</thead>
+
+	<tr>
+
+		<th>estado</th> {{#TodosSimbolos}}
+
+		<td>{{.}}</td> {{/TodosSimbolos}}
+
+	</tr>
+
+	{{#AccioneiraSLRSin}}
+
+	<tr>
+
+		<td>{{num}}</td> {{#accion}}
+
+		<td>{{.}}</td> {{/accion}}
+
+	</tr>
+
+	{{/AccioneiraSLRSin}}
+
+	</tr>
+
+</table>
+
+<br>
+
+<br>
+
+{{#Cadena}} Primeros Pasos de la traza de análisis para la Cadena "{{Cadena}} $"
+
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td>PILA</td>
+
+			<td>ENTRADA</td>
+
+			<td>SALIDA</td>
+
+		</tr>
+
+	</thead>
+
+	{{#RowTrazaSin}}
+
+	<tr>
+
+		<td>{{pila}}</td>
+
+		<td>{{entrada}}</td>
+
+		<td>{{salida}}</td>
+
+	</tr>
+
+	{{/RowTrazaSin}}
+
+	</tr>
+
+</table>
+
+
+<br>
+
+<br>
+
+{{/Cadena}} 
+
+{{/SLR}} 
+
+						{{! Gramatica tipo LALR }} 
+
+{{#LALR}} 
+
+Completar los conjuntos de items {{TipoAnalisis}}(1), las tablas {{TipoAnalisis}}(1) {{#Cadena}} y la traza de análisis de la cadena {{Cadena}}${{/Cadena}}, para la gramática que sigue ({{SimboloInicio}} es el axioma, se usa el símbolo &#949; para representar la cadena vacia): 
+
+<br>
+
+<br>
+
+{{#Producciones}}
+
+ {{.}}<br>
+
+{{/Producciones}} 
+
+<br>
+
+<br>
+
+Conjuntos de items marcados 
+
+{{#ConjuntosLALRSin}}
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<th colspan="2">Conjunto {{numero}}</th>
+
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr>
+
+			<td>Item marcado</td>
+
+			<td>Símbolos de anticipacion</td>
+
+		</tr>
+
+		{{#items}}
+
+		<tr>
+
+			<td>{{item}}</td>
+
+			<td>{{simbolo}}</td>
+
+		</tr>
+
+		{{/items}}
+
+	</tbody>
+
+</table>
+
+{{/ConjuntosLALRSin}} 
+
+<br>
+
+<br>
+
+Tabla Acción e Ir A 
+
+<br>
+
+<br>
+
+Para especificar las acciones se utiliza una codificacion similar a la vista en clase: 
+
+<br>
+
+<br>
+
+dj: significa desplazar e ir al estado j. 
+
+<br>
+
+rj: significa reducir utilizando la producción j-ésima.
+<br>
+
+ACP: representa la acción de aceptar la cadena. 
+
+<br>
+
+-: se utiliza para indicar que la casilla está vacía (no tiene acción). 
+
+<br>
+
+En la parte de acción se específica únicamente el estado al que pasa el autómata.
+
+<br>
+
+<br>
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td></td>
+
+			<td colspan="{{NumTerminalesmas1}}">Tabla de Accion</td>
+
+
+			<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+
+		</tr>
+
+	</thead>
+
+	<tr>
+
+		<th>estado</th> {{#TodosSimbolos}}
+
+		<td>{{.}}</td> {{/TodosSimbolos}}
+
+	</tr>
+
+	{{#AccioneiraLALRSin}}
+
+	<tr>
+
+		<td>{{num}}</td> {{#accion}}
+
+		<td>{{.}}</td> {{/accion}}
+
+	</tr>
+
+	{{/AccioneiraLALRSin}}
+
+	</tr>
+
+</table>
+
+<br>
+
+<br>
+
+{{#Cadena}}
+
+ Primeros Pasos de la traza de análisis para la Cadena
+ 
+<br>
+
+<br>
+ 
+"{{Cadena}} $"
+
+<table border="1">
+
+	<thead>
+
+		<tr>
+
+			<td>PILA</td>
+
+			<td>ENTRADA</td>
+
+			<td>SALIDA</td>
+
+		</tr>
+
+	</thead>
+
+	{{#RowTrazaSin}}
+
+	<tr>
+
+		<td>{{pila}}</td>
+
+		<td>{{entrada}}</td>
+
+		<td>{{salida}}</td>
+
+	</tr>
+
+	{{/RowTrazaSin}}
+
+	</tr>
+
+</table>
+
+<br>
+
+<br>
+
+{{/Cadena}} 
+
+{{/LALR}}
+
+
 
 

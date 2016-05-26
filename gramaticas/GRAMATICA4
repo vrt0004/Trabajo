@@ -1,0 +1,20 @@
+
+%start S /*SIMBOLO DE INICIO*/
+
+%token a
+
+%token b
+
+%nulo EPS
+
+%%
+
+S : A a A b ;
+
+S : B b B a ;
+
+A : EPS ;
+
+B : EPS ;
+
+%%
