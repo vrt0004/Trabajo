@@ -13,7 +13,7 @@ import java.util.Vector;
 public class VectorSimbolos
 {
   //Variable que almacena el vector de simbolos.
-  private Vector <Simbolo> v;
+  public Vector <Simbolo> v;
   
   /**
    * Constructor básico que crea un vector vacío de símbolos.

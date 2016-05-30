@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.util.Vector;
 import analisis.tabla.*;
 import com.lowagie.text.*;
-import java.io.IOException;
-import com.lowagie.text.Image;
+
 import com.lowagie.text.Table;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Paragraph;
@@ -73,7 +72,8 @@ public class InformeAscendente extends Informe
 	catch (DocumentException de) 
 	{System.err.println(de.getMessage());} 
   }
-  public Table crearTablaAscendente()
+  @SuppressWarnings("deprecation")
+public Table crearTablaAscendente()
   {
     TablaAscendente tabla_analisis=(TablaAscendente)analisis.obtenerTablaAnalisis();
 	int columnas_ir_a=tabla_analisis.obtenerNumeroNoTerminales();
@@ -127,7 +127,8 @@ public class InformeAscendente extends Informe
 	  	for(int j=0;j<columnas_accion;j++)
 	  	{
 		 
-		  Vector v=tabla_analisis.obtenerElementoTablaAscendente(tabla_analisis.obtenerTerminales().obtenerSimbolo(j),i);
+		  @SuppressWarnings("rawtypes")
+		Vector v=tabla_analisis.obtenerElementoTablaAscendente(tabla_analisis.obtenerTerminales().obtenerSimbolo(j),i);
 		  String valor_celda="";
 	  	  if(v!=null)
 	  	  {
@@ -140,7 +141,8 @@ public class InformeAscendente extends Informe
   	    }
   	    for(int j=0;j<columnas_ir_a;j++)
   	    {
-	  	  Vector v=tabla_analisis.obtenerElementoTablaAscendente(tabla_analisis.obtenerNoTerminales().obtenerSimbolo(j),i);
+	  	  @SuppressWarnings("rawtypes")
+		Vector v=tabla_analisis.obtenerElementoTablaAscendente(tabla_analisis.obtenerNoTerminales().obtenerSimbolo(j),i);
 	  	  String valor_celda="";
 	  	  if(v!=null)
 	  	  {

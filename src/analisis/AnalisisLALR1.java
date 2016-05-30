@@ -3,19 +3,19 @@ import gramatica.*;
 import analisis.informe.*;
 import analisis.analisisSintactico.*;
 /**
-* <b>Descripción</b><br>
-* Clase que implementa la simulación del analisis LALR1.
+* <b>Descripciï¿½n</b><br>
+* Clase que implementa la simulaciï¿½n del analisis LALR1.
 * <p>
 * <b>Detalles</b><br>
-* A través de esta clase se representan las operaciones  necesarias para una simulación de un analisis LALR1.<br>
+* A travÃ©s de esta clase se representan las operaciones  necesarias para una simulaciï¿½n de un analisis LALR1.<br>
 * </p> 
-* @author Carlos Gómez Palacios.
+* @author Carlos Gï¿½mez Palacios.
 * @version 1.0
 */
 public class AnalisisLALR1 extends AnalisisSLR1
 {
   /**
-   * Constructor básico de la simulación del analisis LAR1.
+   * Constructor bï¿½sico de la simulaciï¿½n del analisis LAR1.
    * @param gr Gramatica del analisis.
   **/
   public AnalisisLALR1(Gramatica gr)

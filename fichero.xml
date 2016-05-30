@@ -18,8 +18,8 @@
 
 											
 
-<p>Completar los conjuntos de items LR(1),las tablas LR(1) y la traza de análisis de la cadena tipo begin codigo end$,
-  para la gramática que sigue (<span style="font-style: italic;">S</span> es el axioma, se usa el símbolo
+<p>Completar los conjuntos de items LR(1),las tablas LR(1) y la traza de analisis de la cadena b a a c$,
+  para la gramatica que sigue (<span style="font-style: italic;">S</span> es el axioma, se usa el simbolo
    ε para representar la cadena vacia):</p>
 
 <caption style="caption-side: top">
@@ -33,8 +33,8 @@
 </pre> 
 <span>Conjuntos de items marcados
 <div>
-En la operación de lectura, la lectura de símbolos se hace en el orden [A, S, C, B, end, tipo, begin, codigo, id].
-En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramática.</span>
+En la operacion de lectura, la lectura de simbolos se hace en el orden [A, S, C, B, end, tipo, begin, codigo, id].
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramatica.</span>
 </div>
 <div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
 	<table style="table-layout: fixed; width: 6.5cm; " text-align:="" left;="" border="1">
@@ -47,22 +47,22 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=S&#39;-&gt;.S ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end}</td>
+	 			<td>{1:MULTICHOICE:=S&#39;-&gt;.S ~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo }</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	S-&gt;.B A end ~S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .}</td>
+	 			<td>{1:MULTICHOICE:=	S-&gt;.B A end ~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C~S&#39;-&gt;.S }</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C }</td>
+	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end }</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	</tbody>	
@@ -81,10 +81,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
+	 			<td>{1:MULTICHOICE:=S&#39;-&gt;S .~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -103,14 +103,14 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=S-&gt;B .A end ~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
+	 			<td>{1:MULTICHOICE:=S-&gt;B .A end ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end }</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	A-&gt;.begin C~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B}</td>
+	 			<td>{1:MULTICHOICE:=	A-&gt;.begin C~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
 	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -129,10 +129,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=B-&gt;tipo .~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=B-&gt;tipo .~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	</tbody>	
@@ -151,18 +151,18 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=B-&gt;id .B ~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
+	 			<td>{1:MULTICHOICE:=B-&gt;id .B ~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end~	S-&gt;.B A end }</td>
+	 			<td>{1:MULTICHOICE:=	B-&gt;.tipo ~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~S-&gt;B A .end~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C}</td>
+	 			<td>{1:MULTICHOICE:=	B-&gt;.id B~	S-&gt;.B A end ~S-&gt;B A end .~	A-&gt;.begin C~S&#39;-&gt;.S }</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	</tbody>	
@@ -181,10 +181,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=S-&gt;B A .end~	B-&gt;.id B~S&#39;-&gt;S .~	S-&gt;.B A end ~S-&gt;B A end .}</td>
+	 			<td>{1:MULTICHOICE:=S-&gt;B A .end~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B}</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -203,14 +203,14 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=A-&gt;begin .C ~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .}</td>
+	 			<td>{1:MULTICHOICE:=A-&gt;begin .C ~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo}</td>
 	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=	C-&gt;.codigo~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo }</td>
+	 			<td>{1:MULTICHOICE:=	C-&gt;.codigo~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .}</td>
 	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -229,10 +229,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C ~	C-&gt;.codigo}</td>
+	 			<td>{1:MULTICHOICE:=B-&gt;id B .~C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~	B-&gt;.tipo }</td>
 	 			<td>{1:MULTICHOICE:=begin~tipo~codigo~end~id}</td>
 	 	 </tr>
 	</tbody>	
@@ -251,10 +251,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=S-&gt;B A end .~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end ~A-&gt;begin .C }</td>
+	 			<td>{1:MULTICHOICE:=S-&gt;B A end .~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .~S-&gt;B A .end}</td>
 	 			<td>{1:MULTICHOICE:=$~tipo~codigo~end~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -273,10 +273,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=A-&gt;begin C .~C-&gt;codigo .~B-&gt;id .B ~B-&gt;id B .~	B-&gt;.tipo }</td>
+	 			<td>{1:MULTICHOICE:=A-&gt;begin C .~B-&gt;id .B ~B-&gt;id B .~	B-&gt;.tipo ~S-&gt;B .A end }</td>
 	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -295,10 +295,10 @@ En las operaciones de cierre las producciones con el item al principio se añade
 	<tbody>
 	  	<tr>
 	  		<td>Item marcado</td>
-	    	<td>Símbolos de anticipacion</td>
+	    	<td>Simbolos de anticipacion</td>
 	 	 </tr>
 	 	<tr>	
-	 			<td>{1:MULTICHOICE:=C-&gt;codigo .~B-&gt;id .B ~A-&gt;begin C .~B-&gt;id B .~	B-&gt;.tipo }</td>
+	 			<td>{1:MULTICHOICE:=C-&gt;codigo .~A-&gt;begin .C ~	C-&gt;.codigo~	B-&gt;.id B~S&#39;-&gt;S .}</td>
 	 			<td>{1:MULTICHOICE:=end~tipo~codigo~id~begin}</td>
 	 	 </tr>
 	</tbody>	
@@ -309,15 +309,15 @@ En las operaciones de cierre las producciones con el item al principio se añade
 
 
 <div style="clear: both;" id="tables">
-<p><span style="font-weight: bold;">Tabla Acción e ir a</span> <br> Para
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
 especificar las acciones se utiliza una codificacion similar a la vista en
 clase:</p>
 <ul>
 <li>dj: significa desplazar e ir al estado j.</li>
-<li>rj: significa reducir utilizando la producción j-ésima.</li>
-<li>ACP: representa la acción de aceptar la cadena.</li>
-<li>-: se utiliza para indicar que la casilla está vacía (no tiene acción).</li>
-<li>En la parte de acción se específica únicamente el estado al que pasa el autómata.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
 </ul>
 </div>
 <table border="1">
@@ -348,13 +348,19 @@ clase:</p>
   			<td>0</td>
  	   		
   				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=d3}</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=d4}</td>
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=1}</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=2}</td>
   		</tr>
@@ -366,11 +372,20 @@ clase:</p>
  	   		
   				<td>-</td>
   				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=ACP}</td>
+  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
@@ -383,11 +398,19 @@ clase:</p>
  	   		
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=d6}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=5}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
@@ -400,13 +423,22 @@ clase:</p>
  	   		
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=r5}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
-  				<td>-</td>
-  				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
   		</tr>
   		
@@ -416,10 +448,17 @@ clase:</p>
   			<td>4</td>
  	   		
   				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=d3}</td>
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=d4}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
@@ -433,9 +472,18 @@ clase:</p>
   			<td>5</td>
  	   		
   				<td>{1:SHORTANSWER:=d8}</td>
-  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
-  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
@@ -452,12 +500,20 @@ clase:</p>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=d10}</td>
-  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=9}</td>
+  				<td>-</td>
   				<td>-</td>
   		</tr>
   		
@@ -466,15 +522,24 @@ clase:</p>
  		
   			<td>7</td>
  	   		
-  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=r6}</td>
-  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
-  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   		</tr>
   		
@@ -483,6 +548,11 @@ clase:</p>
  		
   			<td>8</td>
  	   		
+  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
@@ -492,6 +562,10 @@ clase:</p>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>{1:SHORTANSWER:=-}</td>
   				<td>-</td>
   		</tr>
   		
@@ -506,10 +580,19 @@ clase:</p>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
-  				<td>{1:SHORTANSWER:=-}</td>
-  				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   		</tr>
   		
  	
@@ -525,13 +608,22 @@ clase:</p>
   				<td>-</td>
   				<td>-</td>
   				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>{1:SHORTANSWER:=-}</td>
+  				<td>-</td>
+  				<td>-</td>
   				<td>-</td>
   		</tr>
   		
     </tr>
 </table>
-<span>Primeros Pasos de la traza de análisis para la Cadena "tipo begin codigo end $"</span>
+<span>Primeros Pasos de la traza de analisis para la Cadena "b a a c $"</span>
 
 <table border="1"><thead>
   	<tr>
@@ -542,60 +634,6 @@ clase:</p>
  	
  	 </tr>
 </thead>
- 		<tr>
- 	   		<td>[0]</td>
- 	   		<td>tipo,begin,codigo,end,$</td>
- 	   		<td></td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, tipo, 3}</td>
- 	   		<td>{1:SHORTANSWER:=begin,codigo,end,$}</td>
- 	   		<td>{1:MULTICHOICE:=~S-&gt;B A end ~A-&gt;begin C ~C-&gt;codigo ~B-&gt;tipo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2}</td>
- 	   		<td>{1:SHORTANSWER:=begin,codigo,end,$}</td>
- 	   		<td>{1:MULTICHOICE:=B-&gt;tipo ~S-&gt;B A end ~A-&gt;begin C ~C-&gt;codigo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2, begin, 6}</td>
- 	   		<td>{1:SHORTANSWER:=codigo,end,$}</td>
- 	   		<td>{1:MULTICHOICE:=B-&gt;tipo ~S-&gt;B A end ~A-&gt;begin C ~C-&gt;codigo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2, begin, 6, codigo, 10}</td>
- 	   		<td>{1:SHORTANSWER:=end,$}</td>
- 	   		<td>{1:MULTICHOICE:=B-&gt;tipo ~S-&gt;B A end ~A-&gt;begin C ~C-&gt;codigo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2, begin, 6, C, 9}</td>
- 	   		<td>{1:SHORTANSWER:=end,$}</td>
- 	   		<td>{1:MULTICHOICE:=C-&gt;codigo ~S-&gt;B A end ~A-&gt;begin C ~B-&gt;tipo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2, A, 5}</td>
- 	   		<td>{1:SHORTANSWER:=end,$}</td>
- 	   		<td>{1:MULTICHOICE:=A-&gt;begin C ~S-&gt;B A end ~C-&gt;codigo ~B-&gt;tipo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, B, 2, A, 5, end, 8}</td>
- 	   		<td>{1:SHORTANSWER:=$}</td>
- 	   		<td>{1:MULTICHOICE:=A-&gt;begin C ~S-&gt;B A end ~C-&gt;codigo ~B-&gt;tipo ~B-&gt;id B }</td>
-  		</tr>
-  		
- 		<tr>
- 	   		<td>{1:SHORTANSWER:=0, S, 1}</td>
- 	   		<td>{1:SHORTANSWER:=$}</td>
- 	   		<td></td>
-  		</tr>
-  		
     </tr>
 </table>
 

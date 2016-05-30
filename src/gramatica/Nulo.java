@@ -1,18 +1,18 @@
 package gramatica;
 /**
-* <b>DescripciÛn</b><br>
+* <b>Descripci√≥n</b><br>
 * Clase que implementa el simbolo Nulo.
 * <p>
 * <b>Detalles</b><br>
 * Clase que implementa la clase Simbolo para el uso de simbolos nulos.<br>
 * </p> 
-* @author Carlos GÛmez Palacios.
+* @author Carlos G√≥mez Palacios.
 * @version 1.0
 */
 public class Nulo extends Simbolo
 {
   /**
-   * Constructor b·sico.
+   * Constructor b√°sico.
   **/	
   public Nulo()
   {super("$");}

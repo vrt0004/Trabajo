@@ -17,14 +17,14 @@ import java.util.Hashtable;
  * @version 1.0
  */
 public class Gramatica {
-	private String nombre = "";// Nombre de la gramática.
-	private Hashtable<String, Terminal> tTerminales;// Tabla de terminales.
-	private Hashtable<String, NoTerminal> tNoTerminales;// Tabla de no
+	public String nombre = "";// Nombre de la gramática.
+	public Hashtable<String, Terminal> tTerminales;// Tabla de terminales.
+	public Hashtable<String, NoTerminal> tNoTerminales;// Tabla de no
 														// terminales.
-	private VectorProducciones producciones;// Vector de producciones.
-	private NoTerminal simbolo_inicio;// Simbolo de inicio.
-	private First first = null;// First de la gramática.
-	private Follow follow = null;// Follow de la gramática.
+	public VectorProducciones producciones;// Vector de producciones.
+	public NoTerminal simbolo_inicio;// Simbolo de inicio.
+	public First first = null;// First de la gramática.
+	public Follow follow = null;// Follow de la gramática.
 
 	/** Constructor básico de la gramática. **/
 	public Gramatica() {
@@ -90,6 +90,7 @@ public class Gramatica {
 		// Inicializar el simbolo de inicio.
 		nueva.setSimboloInicio(getSimboloInicio().toString());
 		// Inicializar la tabla de terminales.
+		@SuppressWarnings("rawtypes")
 		Enumeration e = tTerminales.keys();
 		while (e.hasMoreElements()) {
 			String t = (String) e.nextElement();
@@ -139,6 +140,7 @@ public class Gramatica {
 	 **/
 	public VectorSimbolos obtenerTerminales() {
 		VectorSimbolos vt = new VectorSimbolos();
+		@SuppressWarnings("rawtypes")
 		Enumeration e = tTerminales.keys();
 		while (e.hasMoreElements()) {
 			Terminal t = (Terminal) tTerminales.get(e.nextElement());
@@ -187,6 +189,7 @@ public class Gramatica {
 	 **/
 	public VectorSimbolos obtenerNoTerminales() {
 		VectorSimbolos vnt = new VectorSimbolos();
+		@SuppressWarnings("rawtypes")
 		Enumeration e = this.tNoTerminales.keys();
 		while (e.hasMoreElements()) {
 			NoTerminal nt = (NoTerminal) tNoTerminales.get(e.nextElement());

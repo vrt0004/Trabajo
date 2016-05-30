@@ -13,8 +13,10 @@ import analisis.tabla.*;
 */
 public class LL1 extends AnalisisSintactico
 {
-  private VectorSimbolos VT;//Terminales de la gramática.
-  private VectorSimbolos VNT;//No terminales de la gramática.
+  @SuppressWarnings("unused")
+private VectorSimbolos VT;//Terminales de la gramática.
+  @SuppressWarnings("unused")
+private VectorSimbolos VNT;//No terminales de la gramática.
   /**
    * Constructor básico.
    * @param gr Gramatica
@@ -84,4 +86,5 @@ public class LL1 extends AnalisisSintactico
   **/
   public boolean esLL1()
   {return (((TablaDescendente)tabla).existeCasillaMultivalor());}
+
 }

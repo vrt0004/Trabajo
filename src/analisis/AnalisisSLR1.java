@@ -5,19 +5,19 @@ import java.util.Vector;
 import analisis.informe.*;
 import analisis.analisisSintactico.*;
 /**
-* <b>Descripción</b><br>
-* Clase que implementa la simulación del analisis SLR1.
+* <b>Descripciï¿½n</b><br>
+* Clase que implementa la simulaciï¿½n del analisis SLR1.
 * <p>
 * <b>Detalles</b><br>
-* A través de esta clase se representan las operaciones  necesarias para una simulación de un analisis SLR1.<br>
+* A travï¿½s de esta clase se representan las operaciones  necesarias para una simulaciï¿½n de un analisis SLR1.<br>
 * </p> 
-* @author Carlos Gómez Palacios.
+* @author Carlos Gï¿½mez Palacios.
 * @version 1.0
 */
 public class AnalisisSLR1 extends Analisis 
 {
   /**
-   * Constructor básico de la simulación del analisis SLR1.
+   * Constructor bï¿½sico de la simulaciï¿½n del analisis SLR1.
    * @param gr Gramatica del analisis.
   **/
   public AnalisisSLR1(Gramatica gr)
@@ -27,11 +27,13 @@ public class AnalisisSLR1 extends Analisis
   	informe=new InformeAscendente();
   }	
   /**
-   * Método que permite ir a un determinado estado de la simulación del análisis SLR1.
-   * @param it_inicio Iteración de inicio.
-   * @param it_fin Iteración de fin.
+   * Mï¿½todo que permite ir a un determinado estado de la simulaciï¿½n del anï¿½lisis SLR1.
+   * @param it_inicio Iteraciï¿½n de inicio.
+   * @param it_fin Iteraciï¿½n de fin.
   **/
-  public int realizarIteracion(int it_inicio,int it_fin)
+
+@SuppressWarnings({ "unused", "rawtypes" })
+public int realizarIteracion(int it_inicio,int it_fin)
   {
     Simbolo s_cima;//Simbolo que se encuentra en la cima de la pila.
     Simbolo s_actual;//Simbolo seleccionado de la cola de elementos.
@@ -51,7 +53,8 @@ public class AnalisisSLR1 extends Analisis
   	    //Se obtiene el elemento de la cima de la pila.
   	    s_cima=pi.obtenerCimaPila();
   	    //Obtiene de la tabla de acciones el contenido de [s_cima,s_actual]
-  	    Vector acciones=((TablaAscendente)obtenerTablaAnalisis()).obtenerElementoTablaAscendente(s_actual,Integer.valueOf(s_cima.toString()));
+  	    
+		Vector acciones=((TablaAscendente)obtenerTablaAnalisis()).obtenerElementoTablaAscendente(s_actual,Integer.valueOf(s_cima.toString()));
   	    //Si no hay acciones ERROR de analisis.
   	    if(acciones==null)
         {
@@ -87,7 +90,7 @@ public class AnalisisSLR1 extends Analisis
             
           
           
-          //Sacar dos veces la longitud de la parte derecha de la producción.
+          //Sacar dos veces la longitud de la parte derecha de la producciï¿½n.
           for(int i=0;i<simbolos_sacar;i++)
           {
             desapilarSimbolo();

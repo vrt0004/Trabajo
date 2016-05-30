@@ -129,7 +129,8 @@ public class SLR1 extends AnalisisAscendente
       	  Simbolo simb_actual=ppto_actual.simboloPunto();	
       	  if(!(simb_actual.esTerminal()))
       	    continue;
-      	 Vector arcos=automata.obtenerArcosAutomata(i,simb_actual.toString());
+      	 @SuppressWarnings("rawtypes")
+		Vector arcos=automata.obtenerArcosAutomata(i,simb_actual.toString());
       	 if(arcos==null)
       		  continue;
       	 //Se obtienen los arcos del terminal que salen hacia los nodos.

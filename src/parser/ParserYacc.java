@@ -1,6 +1,6 @@
 package parser;
 import gramatica.*;
-import java.util.Vector;
+
 /**
 * <b>Descripción</b><br>
 * Implementación de la interface IParserYacc.
@@ -17,7 +17,8 @@ public class ParserYacc implements IParserYacc
   private Gramatica gr;//Gramática que se está dando de alta.
   private static NoTerminal parte_izquierda;//Parte izquierda de la producción.
   private static VectorSimbolos parte_derecha;//Parte derecha de la producción.
-  private VectorSimbolos NoDeclarados;
+  @SuppressWarnings("unused")
+private VectorSimbolos NoDeclarados;
   /**
    * Constructor básico que genera una gramática.
   **/

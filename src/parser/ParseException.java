@@ -18,6 +18,7 @@ package parser;
  * You can modify this class to customize your error reporting mechanisms so
  * long as you retain the public fields.
  */
+@SuppressWarnings("serial")
 public class ParseException extends Exception {
 
 	/**
@@ -160,6 +161,7 @@ public class ParseException extends Exception {
 				return super.getMessage();
 			}
 		}
+		@SuppressWarnings("unused")
 		String expected = "";
 		int maxSize = 0;
 		for (int i = 0; i < expectedTokenSequences.length; i++) {

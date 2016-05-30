@@ -41,7 +41,6 @@ public class LRPanel extends ProblemaPanel<LR1> {
 
 	private JButton guardarButton;
 
-	@SuppressWarnings("rawtypes")
 	public LRPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;

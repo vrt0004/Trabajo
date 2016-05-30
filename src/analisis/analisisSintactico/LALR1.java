@@ -115,6 +115,7 @@ public class LALR1 extends AnalisisAscendente
       	  Simbolo simb_actual=pptoca_actual.simboloPunto();	
       	  if(!(simb_actual.esTerminal()))
       	    continue;
+      	@SuppressWarnings("rawtypes")
       	  Vector arcos=automata.obtenerArcosAutomata(i,simb_actual.toString());
       	  if(arcos==null)
       	    continue;
@@ -218,7 +219,8 @@ public class LALR1 extends AnalisisAscendente
      
      else
      {
-       Anticipacion test_ant=new Anticipacion();
+       @SuppressWarnings("unused")
+	Anticipacion test_ant=new Anticipacion();
        lanticipacion=pptoca_actual.obtenerAnticipacion().copiar();
      }
      //UNA VEZ CALCULADA LA ANTICIPACION SE CREA UNA PRODUCCION PUNTO CON ANTICIPACION Y SE INTRODUCE.

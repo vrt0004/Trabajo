@@ -6,37 +6,30 @@ import java.text.SimpleDateFormat;
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.awt.Color;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.*;
-import com.lowagie.text.Cell;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Table;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.html.HtmlWriter;
-import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ByteArrayOutputStream;
+
 /**
-* <b>Descripción</b><br>
-* Clase abstracta que implementa la realización de un informe.
+* <b>Descripciï¿½n</b><br>
+* Clase abstracta que implementa la realizaciï¿½n de un informe.
 * <p>
 * <b>Detalles</b><br>
-* A través de esta clase abstracta se representan las operaciones comunes a la generación de informes de un analisis sintáctico.<br>
+* A travï¿½s de esta clase abstracta se representan las operaciones comunes a la generaciï¿½n de informes de un analisis sintï¿½ctico.<br>
 * </p> 
-* @author Carlos Gómez Palacios.
+* @author Carlos Gï¿½mez Palacios.
 * @version 1.0
 */
 public abstract class Informe  
@@ -44,7 +37,7 @@ public abstract class Informe
   /**Variable de DEBUG
   **/	
   protected static  boolean DEBUG=false;	
-  /**Analisis que se realizará
+  /**Analisis que se realizarï¿½
   **/
   protected Analisis analisis;
   /**Variable donde se almacena el informe que se va generando.
@@ -56,29 +49,29 @@ public abstract class Informe
   /**Variable donde se almacena el informe.
   **/
   protected  String RUTA_INFORMES=System.getProperty("user.dir")+"/INFORMES";
-  /**Variable que accede a los componentes gráficos.
+  /**Variable que accede a los componentes grï¿½ficos.
   **/
   protected ISalidaAnalisis salida;
   /**Titulo del analisis
   **/
   protected String titulo="";
-  /**Variable que indica si el automata se rotará
+  /**Variable que indica si el automata se rotarï¿½
   **/
   protected boolean rotar_automata=false;
-  /**Variable que indica si se rota el árbol de analisis
+  /**Variable que indica si se rota el ï¿½rbol de analisis
   **/
   protected boolean rotar_arbol=false;
-  /**Metodo abstracto que en su implementacion añade al titulo al informe**/
+  /**Metodo abstracto que en su implementacion aï¿½ade al titulo al informe**/
   protected abstract String obtenerTitulo();
-  /**Metodo abstracto que en su implementacion añade el analisis al informe**/
+  /**Metodo abstracto que en su implementacion aï¿½ade el analisis al informe**/
   protected abstract void crearAnalisis();
-  /**Metodo abstracto que en su implementacion añade la simulacion al informe**/
+  /**Metodo abstracto que en su implementacion aï¿½ade la simulacion al informe**/
   protected abstract void crearSimulacionAnalisis();
   /**Genera el informe del analisis
   **@param anl Analisis del que se realiza el inform
-  **@param ruta Ruta donde se almacenará
-  **@param raut Variable que indica si se rotará el automata.
-  **@param rarb Variable que indica si se rotará el árbol de analisis.
+  **@param ruta Ruta donde se almacenarï¿½
+  **@param raut Variable que indica si se rotarï¿½ el automata.
+  **@param rarb Variable que indica si se rotarï¿½ el ï¿½rbol de analisis.
   ** @return boolean
   **/
   public boolean obtenerInforme(Analisis anl,String ruta,boolean raut,boolean rarb)
@@ -104,13 +97,13 @@ public abstract class Informe
 	  //Abre el documento.
 	  if(DEBUG==true)System.out.println("\t#DEBUG_INFORME# ABRE EL DOCUMENTO");
 	  document.open();
-	  //Se añade el titulo.
+	  //Se aï¿½ade el titulo.
 	  document.add(crearTitulo(analisis.obtenerGramaticaAnalisis().getNombreGramatica()));
-	  //Se añade la gramatica.
+	  //Se aï¿½ade la gramatica.
 	  document.add(crearGramatica());
-	  //Se añade el analisis.
+	  //Se aï¿½ade el analisis.
 	  crearAnalisis();
-	  //Se añade la simulacion si hay simbolos de entrada.
+	  //Se aï¿½ade la simulacion si hay simbolos de entrada.
 	  if(analisis.hayEntradaAnalisis())
 	    crearSimulacionAnalisis();
 	} 

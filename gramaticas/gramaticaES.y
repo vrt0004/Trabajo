@@ -1,5 +1,5 @@
 /***********************************
-** GRAMATICA CON ERROR SINTÁCTICO **
+** GRAMATICA CON ERROR SINTï¿½CTICO **
 ***********************************/
 %{
   int prueba;
@@ -12,6 +12,6 @@
 E : T J ;
 J : '+' T J | EPS ;
 T : F U ;
-U : '*' F U | EPS 
+U : '*' F U | EPS ;
 F : '(' E ')' | id ;
 %%

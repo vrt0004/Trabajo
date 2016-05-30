@@ -4,7 +4,7 @@ import java.util.Vector;
 import java.util.Hashtable;
 import java.util.Enumeration;
 /**
-* <b>Descripci�n</b><br>
+* <b>Descripción</b><br>
 * Clase que implementa una tabla de analisis descendente.
 * <p>
 * <b>Detalles</b><br>
@@ -15,15 +15,19 @@ import java.util.Enumeration;
 */
 public class TablaDescendente extends Tabla
 {
-  private int filas;//Filas que tiene la tabla.
-  private int columnas;//Columnas que tiene la tabla.
-  private Hashtable <String,Hashtable> tabla_principal;//Tabla hash donde se almecenan los elementos.
+  @SuppressWarnings("unused")
+private int filas;//Filas que tiene la tabla.
+  @SuppressWarnings("unused")
+private int columnas;//Columnas que tiene la tabla.
+  @SuppressWarnings("rawtypes")
+public Hashtable <String,Hashtable> tabla_principal;//Tabla hash donde se almecenan los elementos.
   /**
-   * Constructor b�sico.
+   * Constructor básico.
    * @param vt Terminales.
    * @param vnt No Terminales.
   **/
-  public TablaDescendente(VectorSimbolos vt,VectorSimbolos vnt)
+  @SuppressWarnings("rawtypes")
+public TablaDescendente(VectorSimbolos vt,VectorSimbolos vnt)
   {
     //Se inicializan los campos.
     VT=vt;
@@ -57,7 +61,8 @@ public class TablaDescendente extends Tabla
   {
   	String T=t.toString();
   	String NT=nt.toString();
-    Hashtable sub_tabla=  tabla_principal.get(T);
+    @SuppressWarnings("rawtypes")
+	Hashtable sub_tabla=  tabla_principal.get(T);
     if(sub_tabla!=null)
     {
       VectorProducciones vp= (VectorProducciones) sub_tabla.get(NT.toString());
@@ -75,7 +80,8 @@ public class TablaDescendente extends Tabla
   public void insertarColumnaNulo(NoTerminal nt,Produccion pr)
   {
 	String NT=nt.toString();
-    Hashtable sub_tabla=  tabla_principal.get(new Nulo().toString());
+    @SuppressWarnings("rawtypes")
+	Hashtable sub_tabla=  tabla_principal.get(new Nulo().toString());
     if(sub_tabla!=null)
     {
       VectorProducciones vp= (VectorProducciones) sub_tabla.get(NT.toString());
@@ -91,7 +97,8 @@ public class TablaDescendente extends Tabla
   */
   public VectorProducciones obtenerElemento(Simbolo t,NoTerminal nt)
   {
-  	Hashtable sub_tabla=  tabla_principal.get(t.toString());
+  	@SuppressWarnings("rawtypes")
+	Hashtable sub_tabla=  tabla_principal.get(t.toString());
   	VectorProducciones vp= (VectorProducciones) sub_tabla.get(nt.toString());
     return vp;
   }
@@ -100,7 +107,8 @@ public class TablaDescendente extends Tabla
   **@param nt No terminal
   **@return El vector que representan la casilla.
   **/
-  public Vector obtenerVectorElementos(Simbolo t,NoTerminal nt)
+  @SuppressWarnings("rawtypes")
+public Vector obtenerVectorElementos(Simbolo t,NoTerminal nt)
   {
     VectorProducciones vp=obtenerElemento(t,nt);
     Vector <Produccion> v=new Vector <Produccion> ();
@@ -116,13 +124,16 @@ public class TablaDescendente extends Tabla
   {
     String cadena="";
     cadena=cadena+"-----\n";
-  	Enumeration e1=tabla_principal.keys();
+  	@SuppressWarnings("rawtypes")
+	Enumeration e1=tabla_principal.keys();
   	while(e1.hasMoreElements())
   	{
   		String NT=(String)e1.nextElement();
   		cadena=cadena+NT+"\n";
-  		Hashtable sub_tabla=tabla_principal.get(NT);
-  		Enumeration e2=sub_tabla.keys();
+  		@SuppressWarnings("rawtypes")
+		Hashtable sub_tabla=tabla_principal.get(NT);
+  		@SuppressWarnings("rawtypes")
+		Enumeration e2=sub_tabla.keys();
   		while(e2.hasMoreElements())
   		{
   		  String VT=(String)e2.nextElement();

@@ -1,6 +1,6 @@
 \documentclass {article}
 \usepackage [spanish] {babel}
-
+\usepackage[utf8]{inputenc}
 \usepackage [T1]{fontenc}
 \newcommand{\h}[1]{#1}
 %\renewcommand{\h}[1]{\color{white}#1\color{black}}\usepackage [latin1]{inputenc}
@@ -70,21 +70,31 @@ B\{begin\}$
 $
 $
 
-\section{Tabla análisis sintáctico predictivo}
+\section{Tabla anÃ¡lisis sintÃ¡ctico predictivo}
 $
 -----
-end
-	A()	S()	C()	B()
-tipo
-	A()	S(S->B A end )	C()	B(B->tipo )
-begin
-	A(A->begin C )	S()	C()	B()
-\$
-	A()	S()	C()	B()
-codigo
-	A()	S()	C(C->codigo )	B()
-id
-	A()	S(S->B A end )	C()	B(B->id B )
+10
+	end(r(4))
+9
+	end(r(3))
+8
+	\$(r(2))
+7
+	begin(r(6))
+6
+	C(9)	codigo(d(10))
+5
+	end(d(8))
+4
+	tipo(d(3))	B(7)	id(d(4))
+3
+	begin(r(5))
+2
+	A(5)	begin(d(6))
+1
+	\$(ACP)
+0
+	S(1)	tipo(d(3))	B(2)	id(d(4))
 -----$
 
 \end{document}

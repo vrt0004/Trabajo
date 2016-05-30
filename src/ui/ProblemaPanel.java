@@ -36,7 +36,6 @@ public class ProblemaPanel<T> extends JPanel {
 	protected JSlider estadosSlider;
 	protected JLabel estadosEstadoLabel;
 	protected JLabel simbolosEstadoLabel;
-	@SuppressWarnings("rawtypes")
 	protected Main main;
 	protected JPanel contenedorPanel;
 	protected JPanel actualPanel = this;
@@ -156,14 +155,12 @@ public class ProblemaPanel<T> extends JPanel {
 	}
 
 	private class BotonArribaActionListener implements ActionListener {
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent event) {
 			main.moverProblemaArriba(ProblemaPanel.this);
 		}
 	}
 
 	private class BotonAbajoActionListener implements ActionListener {
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent event) {
 			main.moverProblemaAbajo(ProblemaPanel.this);
 		}

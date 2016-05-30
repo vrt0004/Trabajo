@@ -67,7 +67,8 @@ public class CjtoConfig
   **/
   public boolean estaProduccionCjtoConfig(ProduccionPTO p)
   {
-  	boolean resultado=false;
+  	@SuppressWarnings("unused")
+	boolean resultado=false;
   	for(int i=0;i<conjunto.produccionesIntroducidas();i++)
   	{
   	  if(((ProduccionPTO)conjunto.obtenerProduccion(i)).esIgual(p))

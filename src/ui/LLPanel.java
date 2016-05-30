@@ -38,7 +38,6 @@ public class LLPanel extends ProblemaPanel<LL1> {
 
 	private JButton cargarButton;
 
-	@SuppressWarnings("rawtypes")
 	public LLPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;

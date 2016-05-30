@@ -14,7 +14,7 @@ import java.util.Enumeration;
 public class Follow
 {
   Gramatica gramatica;//Gramática a la que pertenece el First.
-  private Hashtable <String,VectorSimbolos> tabla;//Tabla que almacen al conjunto de seguidores.
+  public Hashtable <String,VectorSimbolos> tabla;//Tabla que almacen al conjunto de seguidores.
   /**
    * Constructor básico.
    * @param gr Gramatica.
@@ -102,7 +102,8 @@ public class Follow
   public String toString()
   {
     String cadena="";
-    Enumeration e=tabla.keys();
+    @SuppressWarnings("rawtypes")
+	Enumeration e=tabla.keys();
     while(e.hasMoreElements())
     {
       String s=(String)e.nextElement();

@@ -15,9 +15,7 @@ import java.awt.event.AdjustmentListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.swing.Box;
@@ -45,7 +43,7 @@ import analisis.analisisSintactico.LL1;
 import analisis.analisisSintactico.LR1;
 import analisis.analisisSintactico.SLR1;
 
-public class Main<T> {
+public class Main {
 
 	private JFrame frmPlgram;
 	private JPanel controlPanel;
@@ -62,7 +60,8 @@ public class Main<T> {
 	private Component añadirIzquierdoStrut;
 	private JMenuBar menuBar;
 
-	@SuppressWarnings({ "rawtypes", "unused" })
+
+	@SuppressWarnings("unused")
 	private Main main = this;
 	private JMenuItem menuLL;
 	private JMenuItem menuLR;
@@ -88,7 +87,6 @@ public class Main<T> {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					@SuppressWarnings("rawtypes")
 					Main window = new Main();
 					window.frmPlgram.setVisible(true);
 				} catch (Exception e) {
@@ -424,7 +422,7 @@ public class Main<T> {
 
 	}
 
-	public void moverProblemaAbajo(ProblemaPanel<T> problema) {
+	public void moverProblemaAbajo(ProblemaPanel<?> problema) {
 		int index = this.panelesProblema.indexOf(problema);
 		if (index < this.panelesProblema.size() - 1) {
 
@@ -439,6 +437,7 @@ public class Main<T> {
 					panel.problemaActual.setNumero(num++);
 			}
 			contenedorPanel.revalidate();
+			actualizaVistaPrevia(problema.problemaActual);
 		}
 	}
 

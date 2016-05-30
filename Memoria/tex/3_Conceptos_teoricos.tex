@@ -1,7 +1,4 @@
 \capitulo{3}{Conceptos teóricos}
-
-
-
 \section{Gramática}
 
 El estudio de los lenguajes se puede hacer desde tres puntos de vista:
@@ -11,13 +8,15 @@ El estudio de los lenguajes se puede hacer desde tres puntos de vista:
 	\item La generación de lenguajes: consiste en encontrar los mecanismos que permitan enumerar las cadenas que pertenecen a un lenguaje. Estos mecanismo son las gramáticas.
 	
 	
-	\item El del reconocimiento del lenguaje: esta muy ligado a la teoría de autómatas y es << ... el estudio de algoritmos o estructuras de máquinas que permiten, dado un lenguaje L y una cadena x, determinar si $ x\in\L$ o  $x\not\in\L$ >> \footnote{ Fernández,1995} 
+	\item El del reconocimiento del lenguaje: esta muy ligado a la teoría de autómatas y es << ... el estudio de algoritmos o estructuras de máquinas que permiten, dado un lenguaje L y una cadena x, determinar si $ x\in L$ o  $x\not\in L$ >>. \footnote{ Fernández,1995} 
 	
 	
 \end{itemize}
+
 Una gramática formal es una cuádrupla$(\Sigma,N,P,S)$, donde:
+
 \begin{itemize}
-\item $\Sigma$ es un alfabero(conjunto finito y no vacío) simbolos terminales(o tokens/tokenes).
+\item $\Sigma$ es un alfabeto(conjunto finito y no vacío) símbolos terminales(o tokens/tokenes).
 \item $N$ es un alfabeto cuyos elementos se llaman símbolos no terminales.
 \item P es un alfabeto de producciones de la forma:
 
@@ -28,26 +27,157 @@ $\lbrace u\rightarrow v:  u=xAy\in(\Sigma\cup N)^{+}\wedge A \in N\wedge v\in(\S
 
 \
 \subsection{Producción}
-Una producción o regla de reescritura es un par ordenado de cadenas sobre un alfabeto((x,y):x,y$ \in\Sigma^{\ast}$). Se representa por $x\rightarrow y$. x es la parte izquierda o antecedente de la producción e y es la parte derecha o consecuente.
-\subsection{Derivacion directa}
+Una producción o regla de re-escritura es un par ordenado de cadenas sobre un alfabeto((x,y):x,y$ \in\Sigma^{\ast}$). Se representa por $x\rightarrow y$. x es la parte izquierda o antecedente de la producción e y es la parte derecha o consecuente.
+\subsection{Derivación directa}
 Sea $x\rightarrow y$ una producción y $v,w\in\Sigma^{*}$. Se dice que w deriva directamente de v y se escribe $v\Rightarrow w$ si y sólo si existen $z,u\in\Sigma^{*}$ tales que $v=zxu$, $w=zyu$ y $x\rightarrow y$. 
-\subsection{Derivacion (En uno o más pasos)}
+\subsection{Derivación (En uno o más pasos)}
 
 w deriva de v y se escribe $v\Rightarrow^{+}w$ cuando existen $u_{0},u_{1},...,u_{n}\in\Sigma^{*}$ tales que:
-
 $v=u_{0}$
-
 $u_{0}\Rightarrow u_{1}$
-
 $u_{1}\Rightarrow u_{2}$
-
 $\vdots$
-
 $u_{n-1}\Rightarrow u_{n}$
-
 $u_{n1}=w$
 
-A la secuencia $u_{0},u_{1},...,u_{n}$ se la llama cadena de dericación de longitud n.
+A la secuencia $u_{0},u_{1},...,u_{n}$ se la llama cadena de derivación de longitud n.
+
+
+En el contexto de las gramáticas el alfabeto ca a estar formado por la unión de los alfabetos de terminales y no terminales.Ademas el antecedente de una producción nunca va a poder ser epsilon y ha de contener al menos un no terminal. 
+
+\subsection{Derivación más a la izquierda}
+Cuando las producciones utilizadas en la derivación se aplican siempre a los símbolos más a la izquierda.
+
+\subsection{Derivación más a la derecha}
+Cuando las producciones se aplican a los símbolos más a la derecha.
+\subsection{Forma sentencial}
+Dada una gramática $(\Sigma,N,P,S)$. una cadena $\alpha\in(\Sigma\cupN)*$ es una forma sentencial de esa gramática si existe una derivación que produce $\alpha$ a partir del axioma S, es decir si $S\Rightarrow*a$.
+\subsection{Frase o sentencia}
+Es una forma sentencial $\alpha$ que solo contiene símbolos terminales($\alpha\in\Sigma* $).
+\subsection{Lenguaje generado por una gramática}
+El lenguaje generado por una gramática G se representa por L(G) y se define como el conjunto de todas las sentencias de la gramática G. 
+$L(G)={x\in\Sigma*:S\Rightarrow ^{+} x}$
+\subsection{Gramáticas equivalentes}
+Se dice que dos gramáticas son equivalentes si generan el mismo lenguaje $L(G{\small 1})=L(G{\small 2})$.
+Se representa por $G{\small 1}\equivG{\small 2}$
+\subsection{Gramáticas recursiva en un cierto símbolo no terminal U}
+Cuando existe una forma sentencial de U que contiene a U.
+$U\Rightarrow^{+}xUy con x,y\in(\Sigma\cupN)^{*}$
+La gramática será recursiva si es recursiva para algún no terminal.
+\begin{itemize}
+	\item Si $x=\varepsilon$ se dice que es una gramática recursiva a izquierdas.
+	\item Si $y=\varepsilon$ se dice que es una gramática recursiva a derechas.
+\end{itemize}
+
+
+
+\section{Clasificación de las gramáticas}
+\subsection{Gramáticas de tipo 0}
+
+Las gramáticas de tipo 0 o gramáticas de Chomsky, con reglas de producción de la forma:
+$u\rightarrowv con u=xAy \in (\Sigma\cupN)^{+}\wedgeA\inN\wedgex,y,v \in(\Sigma\cupN)^{*}$
+El conjunto de lenguajes de tipo 0 coincide con el de todos los lenguajes gramaticales posibles.
+Puede demostrarse que todo lenguaje generado por una gramatica de Chomsky puede generarse tambien por unas gramáticas más restrictivas llamadas gramáticas con estructura de frase, cuyas reglas de producción son de la forma:
+$xAy \rightarrowxvy con x,y,v\in(\Sigma\cupN)^{*}\wedgeA\inN$
+\subsection{Gramáticas de tipo 1}
+
+Tambien llamadas sensibles al contexto, con reglas de producción de la forma:
+$xAy \rightarrowxvy con x,y\in(\Sigma\cupN)^{*}\wedgeA\inN\wedgev\in(\Sigma\cupN)^{+}$
+En los lenguajes generados por estas gramáticas el significado de las "palabras" depende de su posición en la frase.
+A la x e y ses a lo que se le llama contexto( es decir, A sólo puede transformarse en v si va precedido de x y al mismo tiempo seguido de y).
+No tiene reglas compresoras, aunque se tolera la regla $S\rightarrow\varepsilon\varepsilon$.
+Son las gramáticas de mayor categoría que se suelen utilizar (la mayor parte de los lenguajes de ordenador pertenece a este grupo, aunque gran parte de las reglas de las gramáticas que los generan pueden reducirse  a las de tipo 2).
+Se caracteriza por que la longitud de las formas sentenciales partiendo de S es siempre no decreciente.
+
+\subsection{Gramáticas de tipo 2}
+También conocidas como gramáticas independientes del contexto tienen reglas de la forma:
+$A\rightarrowv con A\inN\wedgev\in(\Sigma\cupN)^{*}$
+Se vuelven a introducir leyes compresoras, pero es fácil demostrar que se puede obtener una gramática equivalente que no las tenga, obteniéndose una definición algo mas restrictiva:
+$A\rightarrowv con A \inN\wedge v\in(\Sigma\cupN)^{+}$
+además es posible que se tenga la regla $S\rightarrow\varepsilon$
+En los lenguajes generados por las gramáticas de este tipo el significado de las "palabras"  es independiente de su posición.
+Una última característica de este tipo de gramáticas es que las derivaciones obtenidas al utilizarlas se pueden representar utilizando árboles.
+\subsection{Gramáticas de tipo 3}
+También conocidas como gramáticas regulares, tienen reglas de la forma:
+$A\rightarrowaB \wedge A\rightarrowb o de la formaA\rightarrowBa \wedge A\rightarrowb con A,B\inN \wedgea,b\in\Sigma $
+
+A las gramáticas regulares del primer tipo se las llama gramáticas regulares a derechas, a las del segundo tipo gramáticas regulares a izquierdas, en realidad son totalmente equivalentes. Si $\varepsilon$ pertenece al lenguaje , se tolera la regla $S\rightarrow\varepsilon$
+
+Existe una generalización de este tipo de gramáticas llamadas gramáticas lineales con reglas de la forma:
+
+$A\rightarrowwB \wedge A\rightarrowv o de la forma A\rightarrowBw \wedgeA\rightarrowv con A,B\inN \wedgew,v\in\Sigma^{*}$
+
+son totalmente equivalentes a las gramáticas regulares normales, pero en muchos casos su notación es mas adecuada.
+
+\section{Análisis sintáctico descendente}
+
+La idea es generar una forma sentencial a partir del axioma,reconstruyendo una derivación más a la izquierda en orden inverso. $S\Rightarrow_{l}^{*}w$
+
+\subsection{Conjunto FIRST}
+
+$FIRST_{k}:(\Sigma\cupN)^{*}\rightarrow\Sigma^{i\leqk}$ los primeros k símbolos de una casi forma sentencial.
+$FIRST_{1}(\alpha)$: conjunto de terminales que inician las cadenas derivadas de $\alpha$
+
+Propiedades del FIRST:
+\begin{itemize}
+	\item $FIRST_{k}(aw)=a FIRST_{k-1}(w)  a\in\Sigma   w\in(\Sigma\cupN)^{*}$
+	\item $FIRST_{k}(\varepsilon)={\varepsilon}$
+	\item $FIRST_{k}(xy) = FIRST_{k}(FIRST_{k}(x)FIRST_{k}(y)) =
+	FIRST_{k}(x FIRST_{k}(y))  x,y\in(\Sigma\cupN)^{*} =FIRST_{k}(FIRST_{k}(x)y)$
+	\item  Si tengo una regla de producción $A\rightarroww$ 
+	$FIRST_{k}(w)\subseteq FIRST_{k}(A)$
+\end{itemize}
+
+Calculo del FIRST:
+\begin{itemize}
+	\item Si X es un terminal $FIRST(X)={X}$.
+	\item Si $X\rightarrow\varepsilon$ es una producción$\varepsilon\inFIRST(X)$
+	\itemSi $X\rightarrowY_{1},Y_{2}...Y_{n}$ es una producción
+	\begin{enumerate}
+	\item $FIRST(Y_{1})-{\varepsilon}\subseteq FIRST(X)$
+	\item $Si \varepsilon\inFIRST(Y_{k})\forallk<i FIRST(Y_{i})-{\varepsilon}\subseteq FIRST(X) $
+	\item $Si \varepsilon\inFIRST(Y_{k})\foralli\leqn \varepsilon \in FIRST(X) $
+	\end{enumerate}
+\end{itemize}
+
+\subsection{Conjunto FOLLOW}
+$FOLLOW_{k}:N\rightarrow\Sigma^{i\leqk}$ símbolos que siguen  a A en las diferentes formas sentenciales.
+$FOLLOW_{k}(A)={x:S\Rightarrow^{*}wAy \wedge x\inFIRST_{k}(y)}$
+$FOLLOW_{1}(A):$ conjunto de terminales a que pueden aparecer inmediatamente a la derecha del no terminal A en alguna forma sentencial,es decir, el conjunto de terminales a tal que haya una derivación de la forma $S\Rightarrow^{*}\alphaAa\beta$ para algún $\alpha$ y  $\beta$.
+
+Propiedades del FOLLOW:
+
+Si tengo una regla $A\rightarrowxXy  X\inN  x,y\in(\Sigma\cupN)^{*}$
+$FIRTS_{k}(y FOLLOW_{k}(A))\subseteq FOLLOW_{k}(X)$
+
+Calculo del FOLLOW:
+\begin{itemize}
+	\item Si S es e axioma $$\inFOLLOW(S)$
+	\item Si $A\rightarrow\alphaB\beta$ es una producción $FIRST(\beta)-{\varepsilon}\subseteqFOLLOW(B)$
+	\itemSi hay una producción $A\rightarrow\alphaB\beta con \varepsilon\inFIRST(\beta)$
+	$FOLLOW(A)\subseteqFOLLOW(B)  A,B\inN  \alpha\in(\Sigma\cupN)^{*}  \beta\in(\Sigma\cupN)^{+}$
+\end{itemize}
+
+\subsection{Tabla de análisis sintáctico predictivo}
+
+A la vista del tope de pila y del símbolo nos dice que acción llevar a cabo.
+Está compuesta por entradas de la forma $M[a,X]=(X\rightarroww) a\inFIRST(w.FOLLOW(X))$
+ 
+
+
+
+\section{Análisis sintáctico ascendente}
+
+La idea es generar una forma sentencial a partir del axioma,reconstruyendo una derivación más a la derecha en orden inverso. $S\Rightarrow_{r}^{*}w$
+
+
+
+
+
+
+
+
+
 
 
 
@@ -97,17 +227,5 @@ AngularJS & X & & &\\
 Bower & X & & &\\
 PHP & & X & &\\
 Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
+
 } 

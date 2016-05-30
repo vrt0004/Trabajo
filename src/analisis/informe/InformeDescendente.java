@@ -47,7 +47,8 @@ public class InformeDescendente extends Informe
 	catch (DocumentException de) 
 	{System.err.println(de.getMessage());} 
   }
-  public Table crearTablaDescendente()
+  @SuppressWarnings("deprecation")
+public Table crearTablaDescendente()
   {
     TablaDescendente tabla_analisis=(TablaDescendente)analisis.obtenerTablaAnalisis();
     int filas=(tabla_analisis.obtenerNoTerminales().simbolosIntroducidos())+1;
@@ -86,7 +87,8 @@ public class InformeDescendente extends Informe
 	  	{
 		  Simbolo t_actual=tabla_analisis.obtenerTerminales().obtenerSimbolo(j);
 	  	  NoTerminal nt_actual=(NoTerminal)tabla_analisis.obtenerNoTerminales().obtenerSimbolo(i);
-	  	  Vector v=tabla_analisis.obtenerVectorElementos(t_actual,nt_actual);
+	  	  @SuppressWarnings("rawtypes")
+		Vector v=tabla_analisis.obtenerVectorElementos(t_actual,nt_actual);
 	  	  String valor_celda="";
 	  	  if(v!=null)
 	  	  {

@@ -14,7 +14,7 @@ import java.util.Enumeration;
 public class First
 {
   Gramatica gramatica;//Gramática a la que pertenece el First.
-  private Hashtable <String,VectorSimbolos> tabla;//Tabla que almacen al conjunto de iniciales.
+  public Hashtable <String,VectorSimbolos> tabla;//Tabla que almacen al conjunto de iniciales.
   private tablaAnulable tablaAnulables;//Tabla que almacena los simbolos anulables.
   /**
    * Constructor básico.
@@ -169,7 +169,8 @@ public class First
   public String toString()
   {
   	String cadena="";
-  	Enumeration e=tabla.keys();
+  	@SuppressWarnings("rawtypes")
+	Enumeration e=tabla.keys();
   	while(e.hasMoreElements())
   	{
   	  String s=(String)e.nextElement();
@@ -240,14 +241,16 @@ public class First
       VectorSimbolos terminales=gramatica.obtenerTerminales();
       for(int i=0;i<gramatica.numeroTerminales();i++)
       {
-        VectorSimbolos vs=new VectorSimbolos();
+        @SuppressWarnings("unused")
+		VectorSimbolos vs=new VectorSimbolos();
         tAnulables.put(terminales.obtenerSimbolo(i).toString(),false);
       }
       //Añade a la tabla con "false" los no terminales.
       VectorSimbolos noTerminales=gramatica.obtenerNoTerminales();
       for(int i=0;i<gramatica.numeroNoTerminales();i++)
       {
-        VectorSimbolos vs=new VectorSimbolos();
+        @SuppressWarnings("unused")
+		VectorSimbolos vs=new VectorSimbolos();
         tAnulables.put(noTerminales.obtenerSimbolo(i).toString(),false);
       }
       boolean modificado=true;
@@ -303,7 +306,8 @@ public class First
     public String toString()
     {
       String cadena="\n------\nANULABLES\n";
-      Enumeration e=tAnulables.keys();
+      @SuppressWarnings("rawtypes")
+	Enumeration e=tAnulables.keys();
       while(e.hasMoreElements())
       {
         String s=(String)e.nextElement();

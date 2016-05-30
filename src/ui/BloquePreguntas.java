@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 public class BloquePreguntas extends JDialog {
 
 	
-	@SuppressWarnings({ "unused", "rawtypes" })
+	@SuppressWarnings({ "unused" })
 	private Main main;
 	private JPanel controlesPanel;
 	private JButton añadeButton;
@@ -25,8 +25,7 @@ public class BloquePreguntas extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	
-	@SuppressWarnings("rawtypes")
+
 	public BloquePreguntas(Main main) {
 		this.main = main;
 

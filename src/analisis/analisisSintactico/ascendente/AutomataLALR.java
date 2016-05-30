@@ -1,6 +1,5 @@
 package analisis.analisisSintactico.ascendente;
-import java.util.Vector;
-import java.util.Hashtable;
+
 /**
 * <b>Descripción</b><br>
 * Clase que implementa un autómata LALR.

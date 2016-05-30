@@ -79,6 +79,7 @@ public class Prototipo {
 	public static List<String> argumentos = null;
 	public static String informe;
 	public static String cadena;
+	public static String ficherosalida="";
 	public static String ruta;
 
 	public static void main(String[] args) throws IOException {
@@ -99,6 +100,7 @@ public class Prototipo {
 		options.addOption("t", true, "Tipo de análisis a realizar[LL,SLR,LARL,LR] ");
 		options.addOption("i", true, "Extensión del informe [.TEX,.XML],por defecto .ALL");
 		options.addOption("ca", true, "Cadena a analizar");
+		options.addOption("o", true, "Nombre fichero de salida");
 		options.addOption("h", "help", false, "Imprime el mensaje de ayuda");
 
 		// No pueden aparecen las dos opciones simultaneamente.
@@ -120,9 +122,9 @@ public class Prototipo {
 			// Fase 3: Analizar los resultados y realizar las tareas pertinentes
 			///////////////////////////////////////////////////////////////////////
 
-			// Si est� la opcion de ayuda, la imprimimos y salimos.
+			// Si está la opcion de ayuda, la imprimimos y salimos.
 			if (cmdLine.hasOption("h")) {
-				new HelpFormatter().printHelp(Prototipo.class.getCanonicalName(), options);
+				new HelpFormatter().printHelp("java -jar PLGRAMlineComand.jar" + " -g -t [-i][-ca][-o] ", options);
 			}
 
 			// Leemos la gramatica y el tipo de analisis. Sino existen generamos
@@ -147,8 +149,11 @@ public class Prototipo {
 			if (cmdLine.hasOption("ca")) {
 				cadena = cmdLine.getOptionValue("ca");
 			}
+			if (cmdLine.hasOption("o")) {
+				ficherosalida = cmdLine.getOptionValue("o");
+			}
 			// ..............................................................
-			// Aqu� van las tareas que tiene que realizar la aplicaci�n
+			// Aquí van las tareas que tiene que realizar la aplicación
 			// ..............................................................
 
 			Gramatica g = null;
@@ -182,23 +187,15 @@ public class Prototipo {
 
 				case "LL":
 					analisis = new AnalisisLL1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
-					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "SLR":
 					analisis = new AnalisisSLR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
-					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LALR":
 					analisis = new AnalisisLALR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
-					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				case "LR":
 					analisis = new AnalisisLR1(g);
-					System.out.println("Tabla de análisis sintáctico predictivo");
-					System.out.println(analisis.obtenerTablaAnalisis());
 					break;
 				}
 			}
@@ -220,11 +217,10 @@ public class Prototipo {
 		} catch (org.apache.commons.cli.ParseException ex) {
 			System.out.println(ex.getMessage());
 
-			new HelpFormatter().printHelp("java -jar PLGRAMlineComand.jar" + " -g -t [-i][-ca] ", options); // Error,
+			new HelpFormatter().printHelp("java -jar PLGRAMlineComand.jar" + " -g -t [-i][-ca][-o] ", options); // Error,
 			// imprimimos la ayuda
 		} catch (java.lang.NumberFormatException ex) {
-			new HelpFormatter().printHelp("java -jar PLGRAMlineComand.jar"
-		+ " -g -t [-i][-ca] ", options); // Error,
+			new HelpFormatter().printHelp("java -jar PLGRAMlineComand.jar" + " -g -t [-i][-ca][-o]", options); // Error,
 			// imprimimos la ayuda
 		}
 	}
@@ -309,8 +305,10 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones,true);
 				context.put("RowTraza", RowTraza);
+				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones,false);
+				context.put("RowTrazaSin", RowTrazaSin);
 			}
 			context.put("Cadena", cadena);
 			break;
@@ -332,8 +330,10 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones,true);
 				context.put("RowTraza", RowTraza);
+				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones,false);
+				context.put("RowTrazaSin", RowTrazaSin);
 			}
 			context.put("Cadena", cadena);
 			break;
@@ -357,8 +357,10 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones,true);
 				context.put("RowTraza", RowTraza);
+				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones,false);
+				context.put("RowTrazaSin", RowTrazaSin);
 			}
 			context.put("Cadena", cadena);
 			break;
@@ -380,15 +382,20 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones);
+				List<Object> RowTraza = creacadenasTraza(analisis, cadena, producciones,true);
 				context.put("RowTraza", RowTraza);
+				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones,false);
+				context.put("RowTrazaSin", RowTrazaSin);
 			}
 			context.put("Cadena", cadena);
 			break;
 		}
 		Mustache mustache = mf.compile("my-template2.xml");
-		File fichero = new File(System.getProperty("user.dir"), "fichero.xml");
-		File fichero2 = new File(System.getProperty("user.dir"), "ficherosin.tmp");
+		if(ficherosalida==""){
+			ficherosalida=tipoanalisis+""+gramatica;
+		}
+		File fichero = new File(System.getProperty("user.dir"), ficherosalida+".xml");
+		File fichero2 = new File(System.getProperty("user.dir"), ficherosalida+".tmp");
 
 		try {
 
@@ -676,11 +683,12 @@ public class Prototipo {
 	 * @param noterminales
 	 * @param terminales
 	 * @param producciones
+	 * @param b 
 	 * @param cadena2
 	 * @return
 	 */
 
-	private static List<Object> creacadenasTraza(Analisis analisis, String cadena, List<Object> producciones) {
+	private static List<Object> creacadenasTraza(Analisis analisis, String cadena, List<Object> producciones, boolean b) {
 
 		List<Object> thetraza = new ArrayList<Object>();
 		List<Object> salida = new ArrayList<Object>();
@@ -710,11 +718,19 @@ public class Prototipo {
 					thetraza.add(e);
 
 				} else {
+					
 					String pila = analisis.obtenerEstadoPilaAnalisis().toString();
 					String entrada = analisis.obtenerEstadoEntradaAnalisis().toString();
 					salida.add(analisis.obtenerProduccionSalida());
-					alter = creaAlternativasProd(salida, producciones);
-					String salidamul = obtenerMultichoice(alter, (List<Object>) salida);
+					String salidamul;
+					if(b){
+						alter = creaAlternativasProd(salida, producciones);
+						salidamul = obtenerMultichoice(alter, (List<Object>) salida);
+					}else{
+						salidamul= salida.toString();
+					}
+						
+					
 					Traza e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada),
 							salidamul);
 					salida.remove(analisis.obtenerProduccionSalida());
@@ -723,11 +739,13 @@ public class Prototipo {
 				i++;
 			}
 		} catch (Exception de) {
+			try {
 			String pila = analisis.obtenerEstadoPilaAnalisis().toString();
 			String entrada = analisis.obtenerEstadoEntradaAnalisis().toString();
 			Traza e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada), "");
 			thetraza.set(thetraza.size() - 1, e);
-
+			}catch(NullPointerException s){	
+			}
 		}
 
 		return thetraza;
@@ -899,11 +917,20 @@ public class Prototipo {
 	 * @param analisis
 	 * @param tipoanalisis
 	 */
-	private static void creaTex(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis) {
-		File fichero = new File(System.getProperty("user.dir"), "fichero.tex");
+	public static void creaTex(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis) {
+		String gramaticasin = gramatica;
+		if(ficherosalida==""){
+			for (char x : gramatica.toCharArray()) 
+				if(x=='.'){
+					gramaticasin=gramatica.substring(0, gramatica.indexOf('.'));
+					break;
+				}
+			ficherosalida=tipoanalisis+""+gramaticasin;
+		}
+		File fichero = new File(System.getProperty("user.dir"), ficherosalida+".tex");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
-			bw.write("\\documentclass {article}\n" + "\\usepackage [spanish] {babel}\n"
+			bw.write("\\documentclass {article}\n" + "\\usepackage [spanish] {babel}\n" + "\\usepackage[utf8]{inputenc}"
 					+ "\n\\usepackage [T1]{fontenc}\n" + "\\newcommand{\\h}[1]{#1}"
 					+ "\n%\\renewcommand{\\h}[1]{\\color{white}#1\\color{black}}" + "\\usepackage [latin1]{inputenc}\n"
 					+ "\\begin{document} \n");
@@ -928,7 +955,7 @@ public class Prototipo {
 			bw.write(follow);
 			bw.write("$\n");
 
-			bw.write("\n\\section{Tabla an�lisis sint�ctico predictivo}\n");
+			bw.write("\n\\section{Tabla análisis sintáctico predictivo}\n");
 			bw.write("$\n");
 			String TASP = escribir(analisis.obtenerTablaAnalisis().toString().toCharArray());
 			bw.write(TASP);
@@ -936,7 +963,7 @@ public class Prototipo {
 
 			bw.write("\n\\end{document}\n");
 			bw.close();
-			System.out.println("Fichero.TEX generado correctamente");
+			System.out.println("Fichero.TEX generado correctamente en "+ fichero.getPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

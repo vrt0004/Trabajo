@@ -38,7 +38,6 @@ public class LALRPanel extends ProblemaPanel<LALR1> {
 	private JButton cargarButton;
 	private JButton guardarButton;
 
-	@SuppressWarnings("rawtypes")
 	public LALRPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;

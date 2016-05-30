@@ -116,7 +116,8 @@ public class Automata
    * @param etiqueta Etiqueta del arco
    * @return Vector de los arcos con el origen y la etiqueta indicados.
   **/
-  public Vector obtenerArcosAutomata(int origen,String etiqueta)
+  @SuppressWarnings("rawtypes")
+public Vector obtenerArcosAutomata(int origen,String etiqueta)
   {
   	Vector <Integer> v=new Vector <Integer> ();
   	for(int i=0;i<arcos.size();i++)

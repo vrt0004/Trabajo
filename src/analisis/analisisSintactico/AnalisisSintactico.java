@@ -16,7 +16,7 @@ public abstract class AnalisisSintactico
 {
   /**Tabla de analisis sintactico.
   **/
-  protected Tabla tabla;
+  public Tabla tabla;
   /**Automata.
   **/
   protected Automata automata;

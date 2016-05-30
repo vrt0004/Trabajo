@@ -45,7 +45,6 @@ public class SLRPanel extends ProblemaPanel<SLR1> {
 	
 
 
-	@SuppressWarnings("rawtypes")
 	public SLRPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;

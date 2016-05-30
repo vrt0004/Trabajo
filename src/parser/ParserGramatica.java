@@ -21,8 +21,10 @@ import gramatica.*;
 public class ParserGramatica implements ParserGramaticaConstants {
   private static boolean DEBUG=false;//Permite mostrar en pantalla mensajes de estado.
   private  ParserGramaticaTokenManager TokMan;
-  private  ParserGramatica parser;
-  private   ParserGramatica nuevo;
+  @SuppressWarnings("unused")
+private  ParserGramatica parser;
+  @SuppressWarnings("unused")
+private   ParserGramatica nuevo;
   private  static String s_nulo="EPS";
   private  IParserYacc implementacion=null;//Implementacion para dar de alta la gramática.
 
@@ -46,7 +48,8 @@ public class ParserGramatica implements ParserGramaticaConstants {
   **/
   public Gramatica parsearGramaticaCadena(String datos)throws ParseException
   {
-    JavaCharStream jcs;
+    @SuppressWarnings("unused")
+	JavaCharStream jcs;
     TokMan=new ParserGramaticaTokenManager(jcs=new JavaCharStream(new StringReader(datos)),DEFAULT);
     if(DEBUG==true)System.out.println("\tDEBUG:Comienza a parsear la cadena.");
     token_source=TokMan;
@@ -69,7 +72,8 @@ public class ParserGramatica implements ParserGramaticaConstants {
   public Gramatica parsearGramaticaArchivo(String origen)throws IOException,ParseException
   {
         FileReader fr;
-    JavaCharStream jcs;
+    @SuppressWarnings("unused")
+	JavaCharStream jcs;
     try
     {fr=new FileReader(origen);}
     catch(IOException e){throw (e);}
@@ -584,11 +588,13 @@ public class ParserGramatica implements ParserGramaticaConstants {
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.Vector jj_expentries = new java.util.Vector();
+  @SuppressWarnings("rawtypes")
+private java.util.Vector jj_expentries = new java.util.Vector();
   private int[] jj_expentry;
   private int jj_kind = -1;
 
-  public ParseException generateParseException() {
+  @SuppressWarnings("unchecked")
+public ParseException generateParseException() {
     jj_expentries.removeAllElements();
     boolean[] la1tokens = new boolean[30];
     for (int i = 0; i < 30; i++) {
