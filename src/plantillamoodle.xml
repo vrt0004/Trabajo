@@ -1,0 +1,468 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<quiz>
+<question type="cloze">
+<name>
+<text>{{ficherosalida}}</text>
+</name>
+<questiontext format="html">
+<text>
+<![CDATA[
+						{{! Gramatica tipo LL }}
+{{#LL}}
+Completar las tablas que siguen, dada la siguiente gramática (
+<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, y se usa el símbolo $ para representar la cadena vacia):<br>
+
+<caption style="caption-side: top">
+
+<pre>
+{{#Producciones}}
+	{{.}}
+	{{/Producciones}}
+</pre> 
+	<br>
+	<br>
+<span>Tabla de los conjuntos PRIMERO y SIGUIENTE</span>
+<br>
+<br>
+<table border="1"><thead>
+  <tr>
+    <th></th>
+    <th>First</th>
+    <th>Follow</th>
+  </tr>
+  </thead>
+ {{#FirstFollow}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{firts}}</td>
+    <td>{{follow}}</td>
+  </tr>
+  {{/FirstFollow}}
+</table>
+<br>
+<br>
+<span>Tabla de Analisis sintactico predictivo</span>
+<br>
+<br>
+<table border="1"><thead>
+  	<tr>
+    <th></th>
+    {{#Terminales}}
+ 	   <td>{{.}}</td>
+ 	{{/Terminales}}
+ 	 </tr>
+</thead>
+ 	{{#RowTASP}}
+ 		<tr>
+  		<td>{{name}}</td>
+  		
+  			{{#prod}}
+  				<td>{{.}}</td>
+  			{{/prod}}
+  		</tr>
+   {{/RowTASP}} 
+   </tr>
+</table>
+
+{{#Cadena}}
+<br>
+<br>
+<span>Traza de analisis para la Cadena "{{Cadena}} $"</span>
+<br>
+<br>
+<table border="1"><thead>
+  	<tr>
+    
+ 	   <td>PILA</td>
+ 	   <td>ENTRADA</td>
+ 	   <td>SALIDA</td>
+ 	
+ 	 </tr>
+</thead>
+ 	{{#RowTrazaXML}}
+ 		<tr>
+ 	   		<td>{{pila}}</td>
+ 	   		<td>{{entrada}}</td>
+ 	   		<td>{{salida}}</td>
+  		</tr>
+  		
+   {{/RowTrazaXML}} 
+   </tr>
+</table>
+{{/Cadena}}
+{{/LL}}
+
+
+
+					{{! Gramatica tipo LR }}						
+{{#LR}}
+
+<p>Completar los conjuntos de items {{TipoAnalisis}}(1),las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena " {{Cadena}} $"{{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
+   ε para representar la cadena vacia):</p>
+
+<caption style="caption-side: top">
+
+<pre>
+	{{#Producciones}}
+		{{.}}
+	{{/Producciones}}
+</pre> 
+<br>
+<br>
+<span>Conjuntos de items marcados
+
+En la operacion de lectura, la lectura de simbolos se hace en el orden {{Orden}}.
+En las operaciones de cierre las producciones con el item al principio se añaden en el mismo orden en que aparecen en la gramatica.</span>
+
+<br></br>
+{{#ConjuntosLR}}
+<div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
+	<table style="table-layout: fixed; width: 6.5cm; " text-align:="" left;="" border="1">
+	
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto {{numero}}</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	{{#items}}
+	 	<tr>	
+	 			<td>{{item}}</td>
+	 			<td>{{simbolo}}</td>
+	 	 </tr>
+	 	{{/items}}
+	</tbody>	
+<p></p>
+</table>
+</div>
+
+{{/ConjuntosLR}}
+
+
+<div style="clear: both;" id="tables">
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
+especificar las acciones se utiliza una codificacion similar a la vista en
+clase:</p>
+<ul>
+<li>dj: significa desplazar e ir al estado j.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
+</ul>
+</div>
+<table border="1">
+
+<thead>
+  	<tr>
+  			<td></td>
+	    	<td colspan="{{NumTerminalesmas1}}">Tabla de Accion</td>
+	    	<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+	 	 </tr>
+</thead>
+<tr>
+    <th>estado</th>
+    {{#TodosSimbolos}}
+ 	   <td>{{.}}</td>
+ 	{{/TodosSimbolos}}
+ 	 </tr>
+ 	{{#AccioneiraLR}}
+ 	
+ 		<tr>
+  			<td>{{num}}</td>
+ 	   	{{#accion}}
+  			<td>{{.}}</td>
+  		{{/accion}}
+  		</tr>
+  		
+   {{/AccioneiraLR}} 
+   </tr>
+</table>
+{{#Cadena}}
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
+
+<table border="1"><thead>
+  	<tr>
+    
+ 	   <td>PILA</td>
+ 	   <td>ENTRADA</td>
+ 	   <td>SALIDA</td>
+ 	
+ 	 </tr>
+</thead>
+ 	{{#RowTrazaXML}}
+ 		<tr>
+ 	   		<td>{{pila}}</td>
+ 	   		<td>{{entrada}}</td>
+ 	   		<td>{{salida}}</td>
+  		</tr>
+  		
+   {{/RowTrazaXML}} 
+   </tr>
+</table>
+{{/Cadena}}
+
+{{/LR}}
+
+
+
+
+
+
+
+
+
+
+					{{! Gramatica tipo SLR }}						
+{{#SLR}}
+
+Completar los conjuntos de items {{TipoAnalisis}}(1),
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
+   ε para representar la cadena vacia):
+
+<caption style="caption-side: top"><text><p> 
+
+<pre>
+	{{#Producciones}}
+		{{.}}
+	{{/Producciones}}
+</pre> 
+<span>Conjuntos de items marcados</span>
+
+<span>Conjuntos de items marcados
+
+En la operacion de lectura, la lectura de simbolos se hace en el orden {{Orden}}.
+En las operaciones de cierre las producciones con el item al principio se ponen en el mismo orden en que aparecen en la gramatica.</span>
+{{#ConjuntosSLR}}
+<div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
+	<table style="table-layout: fixed; width: 6.5cm; " text-align:="" left;="" border="1">
+	<thead>
+	  	<tr>
+	    	<th>Conjunto {{numero}}</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	
+	 	 </tr>
+	 	{{#items}}
+	 	<tr>	
+	 			<td>{{item}}</td>
+	 		
+	 	 </tr>
+	 	{{/items}}
+	</tbody>	
+<p></p>
+</table>
+</div>
+{{/ConjuntosSLR}}
+<div style="clear: both;" id="tables">
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
+especificar las acciones se utiliza una codificacion similar a la vista en
+clase:</p>
+<ul>
+<li>dj: significa desplazar e ir al estado j.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
+</ul>
+</div>
+<table border="1">
+
+<thead>
+  	<tr>
+  			<td></td>
+	    	<td colspan="{{NumTerminalesmas1}}">Tabla de Accion</td>
+	    	<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+	 	 </tr>
+</thead>
+<tr>
+    <th>estado</th>
+    {{#TodosSimbolos}}
+ 	   <td>{{.}}</td>
+ 	{{/TodosSimbolos}}
+ 	 </tr>
+ 	{{#AccioneiraSLR}}
+ 	
+ 		<tr>
+ 		
+  			<td>{{num}}</td>
+ 	   		
+ 	   		{{#accion}}
+  				<td>{{.}}</td>
+  			{{/accion}}
+  		</tr>
+  		
+   {{/AccioneiraSLR}} 
+   </tr>
+</table>
+{{#Cadena}}
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
+
+<table border="1"><thead>
+  	<tr>
+    
+ 	   <td>PILA</td>
+ 	   <td>ENTRADA</td>
+ 	   <td>SALIDA</td>
+ 	
+ 	 </tr>
+</thead>
+ 	{{#RowTraza}}
+ 		<tr>
+ 	   		<td>{{pila}}</td>
+ 	   		<td>{{entrada}}</td>
+ 	   		<td>{{salida}}</td>
+  		</tr>
+  		
+   {{/RowTraza}} 
+   </tr>
+</table>
+{{/Cadena}}
+{{/SLR}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					{{! Gramatica tipo LALR }}						
+{{#LALR}}
+
+Completar los conjuntos de items {{TipoAnalisis}}(1),
+ las tablas {{TipoAnalisis}}(1) {{#Cadena}}y la traza de analisis de la cadena {{Cadena}}${{/Cadena}},
+  para la gramatica que sigue (<span style="font-style: italic;">{{SimboloInicio}}</span> es el axioma, se usa el simbolo
+   ε para representar la cadena vacia):
+
+<caption style="caption-side: top"><text><p> 
+
+	<pre>
+	{{#Producciones}}
+		{{.}}
+	{{/Producciones}}
+	</pre> 
+
+<span>Conjuntos de items marcados</span>
+
+{{#ConjuntosLALR}}
+<div id="items" style="float: left; width: 6.5cm; margin: 0 2mm 2mm 0;">
+	<table style="table-layout: fixed; width: 6.5cm; " text-align:="" left;="" border="1">
+
+	<thead>
+	  	<tr>
+	    	<th colspan="2">Conjunto {{numero}}</th>
+	 	 </tr>
+	</thead>
+	<tbody>
+	  	<tr>
+	  		<td>Item marcado</td>
+	    	<td>Simbolos de anticipacion</td>
+	 	 </tr>
+	 	{{#items}}
+	 	<tr>	
+	 			<td>{{item}}</td>
+	 			<td>{{simbolo}}</td>
+	 	 </tr>
+	 	{{/items}}
+	</tbody>	
+<p></p>
+</table>
+</div>
+{{/ConjuntosLALR}}
+
+<div style="clear: both;" id="tables">
+<p><span style="font-weight: bold;">Tabla Accion e ir a</span> <br> Para
+especificar las acciones se utiliza una codificacion similar a la vista en
+clase:</p>
+<ul>
+<li>dj: significa desplazar e ir al estado j.</li>
+<li>rj: significa reducir utilizando la produccion j-esima.</li>
+<li>ACP: representa la accion de aceptar la cadena.</li>
+<li>-: se utiliza para indicar que la casilla esta vacia (no tiene accion).</li>
+<li>En la parte de accion se especifica unicamente el estado al que pasa el automata.</li>
+</ul>
+</div>
+<table border="1">
+
+<thead>
+  	<tr>
+  			<td></td>
+	    	<td colspan="{{NumTerminalesmas1}}">Tabla de Accion</td>
+	    	<td colspan="{{NumNoTerminales}}">Tabla de Ir A</td>
+	 	 </tr>
+</thead>
+<tr>
+    <th>estado</th>
+    {{#TodosSimbolos}}
+ 	   <td>{{.}}</td>
+ 	{{/TodosSimbolos}}
+ 	 </tr>
+ 	{{#AccioneiraLALR}}
+ 	
+ 		<tr>
+ 		
+  			<td>{{num}}</td>
+ 	   		
+ 	   		{{#accion}}
+  				<td>{{.}}</td>
+  			{{/accion}}
+  		</tr>
+  		
+   {{/AccioneiraLALR}} 
+   </tr>
+</table>
+{{#Cadena}}
+<span>Primeros Pasos de la traza de analisis para la Cadena "{{Cadena}} $"</span>
+
+<table border="1"><thead>
+  	<tr>
+    
+ 	   <td>PILA</td>
+ 	   <td>ENTRADA</td>
+ 	   <td>SALIDA</td>
+ 	
+ 	 </tr>
+</thead>
+ 	{{#RowTraza}}
+ 		<tr>
+ 	   		<td>{{pila}}</td>
+ 	   		<td>{{entrada}}</td>
+ 	   		<td>{{salida}}</td>
+  		</tr>
+  		
+   {{/RowTraza}} 
+   </tr>
+</table>
+{{/Cadena}}
+{{/LALR}}
+
+]]>
+</text>
+</questiontext>
+<generalfeedback format="html">
+<text></text>
+</generalfeedback>
+<penalty>0.3333333</penalty>
+<hidden>0</hidden>
+</question>
+</quiz>
+
+
+

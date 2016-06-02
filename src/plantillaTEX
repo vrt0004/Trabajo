@@ -1,0 +1,83 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+				
+\newcommand{\h}[1]{#1}
+%\renewcommand{\h}[1]
+				 						{{! Gramatica tipo LL }} 
+ 
+{{#LL}} 
+				
+				
+					
+\title { {{ficherosalida}} }
+\maketitle
+\section{Gramática}
+Dada la siguiente gramática 
+\vspace{0.5cm}
+
+{{#Producciones}}
+	${{{.}}}$
+	
+{{/Producciones}}
+
+\section{Tabla de los conjuntos first y follow}
+
+
+\begin{tabular}{|c|c|c|}
+\hline  & FIRST & FOLLOW \\
+   {{#FirstFollowSinTEX}}
+\hline {{name}} & \h{ $ {{firts}} $ } &\h{ $ {{follow}} $ } \\ 
+	{{/FirstFollowSinTEX}}
+\hline 
+\end{tabular} 
+\vspace{0.5cm}
+\section{Tabla de Analisis sintactico predictivo}
+\vspace{0.5cm}
+\begin{tabular}{ {{#Terminales}}|c{{/Terminales}}|c|} 
+\hline  {{#Terminales}}&{{.}}  {{/Terminales}}\\
+ {{#RowTASPSinTEX}}  
+\hline {{name}}{{#prod}} &\h{ ${{{.}}} $}{{/prod}}\\
+{{/RowTASPSinTEX}}
+	\hline 
+\end{tabular} 
+
+{{#Cadena}}
+ \newpage
+\section{Traza de análisis} 
+\textbf{Para la cadena \textit{"{{Cadena}} \$"}}
+\vspace{0.5cm}
+
+\begin{tabular}{|l|r|l|}
+\hline PILA & ENTRADA & SALIDA \\
+ 	{{#RowTrazaSinTex}}
+\hline \h{ ${{{pila}}}$ } & \h{ ${{{entrada}}}$ } & \h{ $ {{{salida}}} $} \\
+   {{/RowTrazaSinTex}} 
+\hline
+\end{tabular}
+
+{{/Cadena}} 
+
+
+
+
+
+{{/LL}} 
+
+
+										{{! Gramatica tipo LR }} 
+
+
+
+
+
+
+
+
+	
+	
+	
+\end{document}
