@@ -1,231 +1,373 @@
 \capitulo{3}{Conceptos teóricos}
-\section{Gramática}
-
-El estudio de los lenguajes se puede hacer desde tres puntos de vista:
-\begin{itemize}
-	\item El de la interpretación: tiene que ver con la semántica de los lenguajes intenta formalizar el significado de las sentencias de un lenguaje.
-	
-	\item La generación de lenguajes: consiste en encontrar los mecanismos que permitan enumerar las cadenas que pertenecen a un lenguaje. Estos mecanismo son las gramáticas.
-	
-	
-	\item El del reconocimiento del lenguaje: esta muy ligado a la teoría de autómatas y es << ... el estudio de algoritmos o estructuras de máquinas que permiten, dado un lenguaje L y una cadena x, determinar si $ x\in L$ o  $x\not\in L$ >>. \footnote{ Fernández,1995} 
-	
-	
-\end{itemize}
-
-Una gramática formal es una cuádrupla$(\Sigma,N,P,S)$, donde:
-
-\begin{itemize}
-\item $\Sigma$ es un alfabeto(conjunto finito y no vacío) símbolos terminales(o tokens/tokenes).
-\item $N$ es un alfabeto cuyos elementos se llaman símbolos no terminales.
-\item P es un alfabeto de producciones de la forma:
 
 
-$\lbrace u\rightarrow v:  u=xAy\in(\Sigma\cup N)^{+}\wedge A \in N\wedge v\in(\Sigma\cup N)^{*}\rbrace$
-\item S$\in N$ es un símbolo especial llamado axioma o símbolo inicial
-\end{itemize}
+El análisis sintáctico (\textit{parser}) es la fase del procesador de lenguaje que toma como entrada los componentes léxicos (\textit{tokens}) que le envía el analizador léxico y comprueba si con ellos se puede formar alguna sentencia válida del lenguaje. 
 
-\
-\subsection{Producción}
-Una producción o regla de re-escritura es un par ordenado de cadenas sobre un alfabeto((x,y):x,y$ \in\Sigma^{\ast}$). Se representa por $x\rightarrow y$. x es la parte izquierda o antecedente de la producción e y es la parte derecha o consecuente.
-\subsection{Derivación directa}
-Sea $x\rightarrow y$ una producción y $v,w\in\Sigma^{*}$. Se dice que w deriva directamente de v y se escribe $v\Rightarrow w$ si y sólo si existen $z,u\in\Sigma^{*}$ tales que $v=zxu$, $w=zyu$ y $x\rightarrow y$. 
-\subsection{Derivación (En uno o más pasos)}
+La sintaxis de los lenguajes de programación habitualmente se describe mediante gramáticas libres de contexto (o gramáticas tipo 2)
 
-w deriva de v y se escribe $v\Rightarrow^{+}w$ cuando existen $u_{0},u_{1},...,u_{n}\in\Sigma^{*}$ tales que:
-$v=u_{0}$
-$u_{0}\Rightarrow u_{1}$
-$u_{1}\Rightarrow u_{2}$
-$\vdots$
-$u_{n-1}\Rightarrow u_{n}$
-$u_{n1}=w$
+Para verificar si una instrucción pertenece al lenguaje se construye el árbol sintáctico de la instrucción a partir de los tokens recibidos y que constituirán las hojas del árbol sintáctico. 
 
-A la secuencia $u_{0},u_{1},...,u_{n}$ se la llama cadena de derivación de longitud n.
+Si el analizador sintáctico no puede formar una sentencia produce un mensaje de error, tratando de indicar las causas por las cuales no puede formar la sentencia. 
 
+Para las gramáticas libres de contexto existen dos tipos básicos de analizadores sintácticos: los \textbf{descendentes} (\textit{top-down}) y los \textbf{ascendentes} (\textit{bottom-up}). Los ascendentes intentan construir el árbol desde las hojas hasta la raíz, mientras que los descendentes comienzan por la raíz y bajan hasta las hojas.
 
-En el contexto de las gramáticas el alfabeto ca a estar formado por la unión de los alfabetos de terminales y no terminales.Ademas el antecedente de una producción nunca va a poder ser epsilon y ha de contener al menos un no terminal. 
-
-\subsection{Derivación más a la izquierda}
-Cuando las producciones utilizadas en la derivación se aplican siempre a los símbolos más a la izquierda.
-
-\subsection{Derivación más a la derecha}
-Cuando las producciones se aplican a los símbolos más a la derecha.
-\subsection{Forma sentencial}
-Dada una gramática $(\Sigma,N,P,S)$. una cadena $\alpha\in(\Sigma\cupN)*$ es una forma sentencial de esa gramática si existe una derivación que produce $\alpha$ a partir del axioma S, es decir si $S\Rightarrow*a$.
-\subsection{Frase o sentencia}
-Es una forma sentencial $\alpha$ que solo contiene símbolos terminales($\alpha\in\Sigma* $).
-\subsection{Lenguaje generado por una gramática}
-El lenguaje generado por una gramática G se representa por L(G) y se define como el conjunto de todas las sentencias de la gramática G. 
-$L(G)={x\in\Sigma*:S\Rightarrow ^{+} x}$
-\subsection{Gramáticas equivalentes}
-Se dice que dos gramáticas son equivalentes si generan el mismo lenguaje $L(G{\small 1})=L(G{\small 2})$.
-Se representa por $G{\small 1}\equivG{\small 2}$
-\subsection{Gramáticas recursiva en un cierto símbolo no terminal U}
-Cuando existe una forma sentencial de U que contiene a U.
-$U\Rightarrow^{+}xUy con x,y\in(\Sigma\cupN)^{*}$
-La gramática será recursiva si es recursiva para algún no terminal.
-\begin{itemize}
-	\item Si $x=\varepsilon$ se dice que es una gramática recursiva a izquierdas.
-	\item Si $y=\varepsilon$ se dice que es una gramática recursiva a derechas.
-\end{itemize}
-
-
-
-\section{Clasificación de las gramáticas}
-\subsection{Gramáticas de tipo 0}
-
-Las gramáticas de tipo 0 o gramáticas de Chomsky, con reglas de producción de la forma:
-$u\rightarrowv con u=xAy \in (\Sigma\cupN)^{+}\wedgeA\inN\wedgex,y,v \in(\Sigma\cupN)^{*}$
-El conjunto de lenguajes de tipo 0 coincide con el de todos los lenguajes gramaticales posibles.
-Puede demostrarse que todo lenguaje generado por una gramatica de Chomsky puede generarse tambien por unas gramáticas más restrictivas llamadas gramáticas con estructura de frase, cuyas reglas de producción son de la forma:
-$xAy \rightarrowxvy con x,y,v\in(\Sigma\cupN)^{*}\wedgeA\inN$
-\subsection{Gramáticas de tipo 1}
-
-Tambien llamadas sensibles al contexto, con reglas de producción de la forma:
-$xAy \rightarrowxvy con x,y\in(\Sigma\cupN)^{*}\wedgeA\inN\wedgev\in(\Sigma\cupN)^{+}$
-En los lenguajes generados por estas gramáticas el significado de las "palabras" depende de su posición en la frase.
-A la x e y ses a lo que se le llama contexto( es decir, A sólo puede transformarse en v si va precedido de x y al mismo tiempo seguido de y).
-No tiene reglas compresoras, aunque se tolera la regla $S\rightarrow\varepsilon\varepsilon$.
-Son las gramáticas de mayor categoría que se suelen utilizar (la mayor parte de los lenguajes de ordenador pertenece a este grupo, aunque gran parte de las reglas de las gramáticas que los generan pueden reducirse  a las de tipo 2).
-Se caracteriza por que la longitud de las formas sentenciales partiendo de S es siempre no decreciente.
-
-\subsection{Gramáticas de tipo 2}
-También conocidas como gramáticas independientes del contexto tienen reglas de la forma:
-$A\rightarrowv con A\inN\wedgev\in(\Sigma\cupN)^{*}$
-Se vuelven a introducir leyes compresoras, pero es fácil demostrar que se puede obtener una gramática equivalente que no las tenga, obteniéndose una definición algo mas restrictiva:
-$A\rightarrowv con A \inN\wedge v\in(\Sigma\cupN)^{+}$
-además es posible que se tenga la regla $S\rightarrow\varepsilon$
-En los lenguajes generados por las gramáticas de este tipo el significado de las "palabras"  es independiente de su posición.
-Una última característica de este tipo de gramáticas es que las derivaciones obtenidas al utilizarlas se pueden representar utilizando árboles.
-\subsection{Gramáticas de tipo 3}
-También conocidas como gramáticas regulares, tienen reglas de la forma:
-$A\rightarrowaB \wedge A\rightarrowb o de la formaA\rightarrowBa \wedge A\rightarrowb con A,B\inN \wedgea,b\in\Sigma $
-
-A las gramáticas regulares del primer tipo se las llama gramáticas regulares a derechas, a las del segundo tipo gramáticas regulares a izquierdas, en realidad son totalmente equivalentes. Si $\varepsilon$ pertenece al lenguaje , se tolera la regla $S\rightarrow\varepsilon$
-
-Existe una generalización de este tipo de gramáticas llamadas gramáticas lineales con reglas de la forma:
-
-$A\rightarrowwB \wedge A\rightarrowv o de la forma A\rightarrowBw \wedgeA\rightarrowv con A,B\inN \wedgew,v\in\Sigma^{*}$
-
-son totalmente equivalentes a las gramáticas regulares normales, pero en muchos casos su notación es mas adecuada.
-
-\section{Análisis sintáctico descendente}
-
-La idea es generar una forma sentencial a partir del axioma,reconstruyendo una derivación más a la izquierda en orden inverso. $S\Rightarrow_{l}^{*}w$
+\section{Conceptos previos}
 
 \subsection{Conjunto FIRST}
 
-$FIRST_{k}:(\Sigma\cupN)^{*}\rightarrow\Sigma^{i\leqk}$ los primeros k símbolos de una casi forma sentencial.
+$FIRST_{k}:(\Sigma\cup N)^{*}\rightarrow\Sigma^{i\leq k}$ los primeros k símbolos de una casi forma sentencial.
 $FIRST_{1}(\alpha)$: conjunto de terminales que inician las cadenas derivadas de $\alpha$
 
 Propiedades del FIRST:
 \begin{itemize}
-	\item $FIRST_{k}(aw)=a FIRST_{k-1}(w)  a\in\Sigma   w\in(\Sigma\cupN)^{*}$
+	\item $FIRST_{k}(aw)=a FIRST_{k-1}(w)  a\in\Sigma   w\in(\Sigma\cup N)^{*}$
 	\item $FIRST_{k}(\varepsilon)={\varepsilon}$
 	\item $FIRST_{k}(xy) = FIRST_{k}(FIRST_{k}(x)FIRST_{k}(y)) =
-	FIRST_{k}(x FIRST_{k}(y))  x,y\in(\Sigma\cupN)^{*} =FIRST_{k}(FIRST_{k}(x)y)$
-	\item  Si tengo una regla de producción $A\rightarroww$ 
+	FIRST_{k}(x FIRST_{k}(y))  x,y\in(\Sigma\cup N)^{*} =FIRST_{k}(FIRST_{k}(x)y)$
+	\item  Si tengo una regla de producción $A\rightarrow w$ 
 	$FIRST_{k}(w)\subseteq FIRST_{k}(A)$
 \end{itemize}
 
 Calculo del FIRST:
 \begin{itemize}
 	\item Si X es un terminal $FIRST(X)={X}$.
-	\item Si $X\rightarrow\varepsilon$ es una producción$\varepsilon\inFIRST(X)$
-	\itemSi $X\rightarrowY_{1},Y_{2}...Y_{n}$ es una producción
+	\item Si $X\rightarrow\varepsilon$ es una producción$\varepsilon\in FIRST(X)$
+	\item Si $X\rightarrow Y_{1},Y_{2}\ldots Y_{n}$ es una producción
 	\begin{enumerate}
-	\item $FIRST(Y_{1})-{\varepsilon}\subseteq FIRST(X)$
-	\item $Si \varepsilon\inFIRST(Y_{k})\forallk<i FIRST(Y_{i})-{\varepsilon}\subseteq FIRST(X) $
-	\item $Si \varepsilon\inFIRST(Y_{k})\foralli\leqn \varepsilon \in FIRST(X) $
+		\item $FIRST(Y_{1})-{\varepsilon}\subseteq FIRST(X)$
+		\item $Si \varepsilon\in FIRST(Y_{k})\forall k<i FIRST(Y_{i})-{\varepsilon}\subseteq FIRST(X) $
+		\item $Si \varepsilon\in FIRST(Y_{k})\forall i\leq n \varepsilon \in FIRST(X) $
 	\end{enumerate}
 \end{itemize}
 
 \subsection{Conjunto FOLLOW}
-$FOLLOW_{k}:N\rightarrow\Sigma^{i\leqk}$ símbolos que siguen  a A en las diferentes formas sentenciales.
-$FOLLOW_{k}(A)={x:S\Rightarrow^{*}wAy \wedge x\inFIRST_{k}(y)}$
-$FOLLOW_{1}(A):$ conjunto de terminales a que pueden aparecer inmediatamente a la derecha del no terminal A en alguna forma sentencial,es decir, el conjunto de terminales a tal que haya una derivación de la forma $S\Rightarrow^{*}\alphaAa\beta$ para algún $\alpha$ y  $\beta$.
+$FOLLOW_{k}:N\rightarrow\Sigma^{i\leq k}$ símbolos que siguen  a A en las diferentes formas sentenciales.
+$FOLLOW_{k}(A)={x:S\Rightarrow^{*}wAy \wedge x\in FIRST_{k}(y)}$
+$FOLLOW_{1}(A):$ conjunto de terminales a que pueden aparecer inmediatamente a la derecha del no terminal A en alguna forma sentencial,es decir, el conjunto de terminales a tal que haya una derivación de la forma $S\Rightarrow^{*}\alpha Aa\beta$ para algún $\alpha$ y  $\beta$.
 
 Propiedades del FOLLOW:
 
-Si tengo una regla $A\rightarrowxXy  X\inN  x,y\in(\Sigma\cupN)^{*}$
+Si tengo una regla $A\rightarrow xXy  X\in N  x,y\in(\Sigma\cup N)^{*}$
 $FIRTS_{k}(y FOLLOW_{k}(A))\subseteq FOLLOW_{k}(X)$
 
 Calculo del FOLLOW:
 \begin{itemize}
-	\item Si S es e axioma $$\inFOLLOW(S)$
-	\item Si $A\rightarrow\alphaB\beta$ es una producción $FIRST(\beta)-{\varepsilon}\subseteqFOLLOW(B)$
-	\itemSi hay una producción $A\rightarrow\alphaB\beta con \varepsilon\inFIRST(\beta)$
-	$FOLLOW(A)\subseteqFOLLOW(B)  A,B\inN  \alpha\in(\Sigma\cupN)^{*}  \beta\in(\Sigma\cupN)^{+}$
+	\item Si S es e axioma $\$\in FOLLOW(S)$
+	\item Si $A\rightarrow\alpha B\beta$ es una producción $FIRST(\beta)-{\varepsilon}\subseteq FOLLOW(B)$
+	\item Si hay una producción $A\rightarrow\alpha B\beta con \varepsilon\in FIRST(\beta)$
+	$FOLLOW(A)\subseteq FOLLOW(B)  A,B\in N  \alpha\in(\Sigma\cup N)^{*}  \beta\in(\Sigma\cup N)^{+}$
 \end{itemize}
 
-\subsection{Tabla de análisis sintáctico predictivo}
+%\section{Gramática}
+%El estudio de los lenguajes se puede hacer desde tres puntos de vista:
+%\begin{itemize}
+%	\item El de la interpretación: tiene que ver con la semántica de los lenguajes intenta formalizar el significado de las sentencias de un lenguaje.
+	
+%	\item La generación de lenguajes: consiste en encontrar los mecanismos que permitan enumerar las cadenas que pertenecen a un lenguaje. Estos mecanismo son las gramáticas.
+	
+%	\item El del reconocimiento del lenguaje: esta muy ligado a la teoría de autómatas y es << ... el estudio de algoritmos o estructuras de máquinas que permiten, dado un lenguaje L y una cadena x, determinar si $ x\in L$ o  $x\not\in L$ >>. \footnote{ Fernández,1995} 
+	
+	
+%\end{itemize}
+
+%Una gramática formal es una cuádrupla$(\Sigma,N,P,S)$, donde:
+
+%\begin{itemize}
+%\item $\Sigma$ es un alfabeto(conjunto finito y no vacío) símbolos terminales(o tokens/tokenes).
+%\item $N$ es un alfabeto cuyos elementos se llaman símbolos no terminales.
+%\item P es un alfabeto de producciones de la forma:
+
+
+%$\lbrace u\rightarrow v:  u=xAy\in(\Sigma\cup N)^{+}\wedge A \in N%\wedge v\in(\Sigma\cup N)^{*}\rbrace$
+%\item S$\in N$ es un símbolo especial llamado axioma o símbolo inicial
+%\end{itemize}
+
+%
+%\subsection{Producción}
+%Una producción o regla de re-escritura es un par ordenado de cadenas sobre un alfabeto((x,y):x,y$ \in\Sigma^{\ast}$). Se representa por $x\rightarrow y$. x es la parte izquierda o antecedente de la producción e y es la parte derecha o consecuente.
+%\subsection{Derivación directa}
+%Sea $x\rightarrow y$ una producción y $v,w\in\Sigma^{*}$. Se dice que w deriva directamente de v y se escribe $v\Rightarrow w$ si y sólo si existen $z,u\in\Sigma^{*}$ tales que $v=zxu$, $w=zyu$ y $x\rightarrow y$. 
+%\subsection{Derivación (En uno o más pasos)}
+%
+%w deriva de v y se escribe $v\Rightarrow^{+}w$ cuando existen $u_{0},u_{1},...,u_{n}\in\Sigma^{*}$ tales que:
+%$v=u_{0}$
+%$u_{0}\Rightarrow u_{1}$
+%$u_{1}\Rightarrow u_{2}$
+%$\vdots$
+%$u_{n-1}\Rightarrow u_{n}$
+%$u_{n1}=w$
+%
+%A la secuencia $u_{0},u_{1},...,u_{n}$ se la llama cadena de derivación de longitud n.
+%
+%
+%En el contexto de las gramáticas el alfabeto ca a estar formado por la unión de los alfabetos de terminales y no terminales.Ademas el antecedente de una producción nunca va a poder ser epsilon y ha de contener al menos un no terminal. 
+%
+%\subsection{Derivación más a la izquierda}
+%Cuando las producciones utilizadas en la derivación se aplican siempre a los símbolos más a la izquierda.
+%
+%\subsection{Derivación más a la derecha}
+%Cuando las producciones se aplican a los símbolos más a la derecha.
+%\subsection{Forma sentencial}
+%Dada una gramática $(\Sigma,N,P,S)$. una cadena $\alpha\in(\Sigma\cup N)*$ es una forma sentencial de esa gramática si existe una derivación que produce $\alpha$ a partir del axioma S, es decir si $S\Rightarrow*a$.
+%\subsection{Frase o sentencia}
+%Es una forma sentencial $\alpha$ que solo contiene símbolos terminales($\alpha\in\Sigma* $).
+%\subsection{Lenguaje generado por una gramática}
+%El lenguaje generado por una gramática G se representa por L(G) y se define como el conjunto de todas las sentencias de la gramática G. 
+%$L(G)={x\in\Sigma*:S\Rightarrow ^{+} x}$
+%\subsection{Gramáticas equivalentes}
+%Se dice que dos gramáticas son equivalentes si generan el mismo lenguaje $L(G{\small 1})=L(G{\small 2})$.
+%Se representa por $G{\small 1}\equiv G{\small 2}$
+%\subsection{Gramáticas recursiva en un cierto símbolo no terminal U}
+%Cuando existe una forma sentencial de U que contiene a U.
+%$U\Rightarrow^{+}xUy con x,y\in(\Sigma\cup N)^{*}$
+%La gramática será recursiva si es recursiva para algún no terminal.
+%\begin{itemize}
+%	\item Si $x=\varepsilon$ se dice que es una gramática recursiva a izquierdas.
+%	\item Si $y=\varepsilon$ se dice que es una gramática recursiva a derechas.
+%\end{itemize}
+%
+
+
+%\section{Clasificación de las gramáticas}
+%\subsection{Gramáticas de tipo 0}
+%
+%Las gramáticas de tipo 0 o gramáticas de Chomsky, con reglas de producción de la forma:
+%$u\rightarrow v con u=xAy \in (\Sigma\cup N)^{+}\wedge A\in N\wedge x,y,v \in(\Sigma\cup N)^{*}$
+%El conjunto de lenguajes de tipo 0 coincide con el de todos los lenguajes gramaticales posibles.
+%Puede demostrarse que todo lenguaje generado por una gramática de Chomsky puede generarse también por unas gramáticas más restrictivas llamadas gramáticas con estructura de frase, cuyas reglas de producción son de la forma:
+%$xAy \rightarrow xvy con x,y,v\in(\Sigma\cup N)^{*}\wedge A\in N$
+%\subsection{Gramáticas de tipo 1}
+%
+%Tambien llamadas sensibles al contexto, con reglas de producción de la forma:
+%$xAy \rightarrow xvy con x,y\in(\Sigma\cup N)^{*}\wedge A\in N\wedge v\in(\Sigma\cup N)^{+}$
+%En los lenguajes generados por estas gramáticas el significado de las "palabras" depende de su posición en la frase.
+%A la x e y ses a lo que se le llama contexto( es decir, A sólo puede transformarse en v si va precedido de x y al mismo tiempo seguido de y).
+%No tiene reglas compresoras, aunque se tolera la regla $S\rightarrow\varepsilon\varepsilon$.
+%Son las gramáticas de mayor categoría que se suelen utilizar (la mayor parte de los lenguajes de ordenador pertenece a este grupo, aunque gran parte de las reglas de las gramáticas que los generan pueden reducirse  a las de tipo 2).
+%Se caracteriza por que la longitud de las formas sentenciales partiendo de S es siempre no decreciente.
+%
+%\subsection{Gramáticas de tipo 2}
+%También conocidas como gramáticas independientes del contexto tienen reglas de la forma:
+%$A\rightarrow v con A\in N\wedge v\in(\Sigma\cup N)^{*}$
+%Se vuelven a introducir leyes compresoras, pero es fácil demostrar que se puede obtener una gramática equivalente que no las tenga, obteniéndose una definición algo mas restrictiva:
+%$A\rightarrow v con A \in N\wedge v\in(\Sigma\cup N)^{+}$
+%además es posible que se tenga la regla $S\rightarrow\varepsilon$
+%En los lenguajes generados por las gramáticas de este tipo el significado de las «palabras»  es independiente de su posición.
+%Una última característica de este tipo de gramáticas es que las derivaciones obtenidas al utilizarlas se pueden representar utilizando árboles.
+%\subsection{Gramáticas de tipo 3}
+%También conocidas como gramáticas regulares, tienen reglas de la forma:
+%$A\rightarrow aB \wedge A\rightarrow b o de la formaA\rightarrow Ba \wedge A\rightarrow b con A,B\in N \wedge a,b\in \Sigma $
+%
+%A las gramáticas regulares del primer tipo se las llama gramáticas regulares a derechas, a las del segundo tipo gramáticas regulares a izquierdas, en realidad son totalmente equivalentes. Si $\varepsilon$ pertenece al lenguaje , se tolera la regla $S\rightarrow\varepsilon$
+%
+%Existe una generalización de este tipo de gramáticas llamadas gramáticas lineales con reglas de la forma:
+%
+%$A\rightarrow w B \wedge A\rightarrow v o de la forma A\rightarrow Bw \wedge A\rightarrow v con A,B\in N \wedge w,v\in\Sigma^{*}$
+%
+%son totalmente equivalentes a las gramáticas regulares normales, pero en muchos casos su notación es mas adecuada.
+
+\section{Análisis sintáctico descendente}
+
+Los métodos descendentes consisten en generar una forma sentencial  a partir del axioma reconstruyendo una  derivación más a la izquierda en orden directo. $S\Rightarrow_{l}^{*}w$
+El árbol de derivación se construye desde la raíz hasta las hojas (\textit{análisis LL(k)} o \textit{top-douw})
+
+\subsection{Análisis sintáctico predictivo}
+
+El problema clave durante el análisis sintáctico predictivo es determinar la producción que debe aplicarse a un no terminal. 
+
+El analizador sintáctico no recursivo  busca la producción que debe aplicarse en una tabla de análisis sintáctico predictivo \textit{TASP}
+
+              \textbf{{\LARGE Gráfico análisis sintáctico pag 20}}
+              
+\subsection{Construcción de la \textit{TASP}}
+
 
 A la vista del tope de pila y del símbolo nos dice que acción llevar a cabo.
-Está compuesta por entradas de la forma $M[a,X]=(X\rightarroww) a\inFIRST(w.FOLLOW(X))$
+
+Está compuesta por entradas de la forma $M[a,X]=(X\rightarrow w)$        cuando 
+          $a\in FIRST(w.FOLLOW(X))$
+\imagen{Tabla-TASP}{Tabla de análisis sintáctico predictivo}
+
+
  
+\subsection{Uso de la \textit{TASP}}
+
+Las acciones del PDA en función de la entrada y de
+la pila son:
+
+  Si $X=a=\$$, cadena reconocida y se finaliza el análisis.
+  
+  Si $X=a\neq \$$, hacemos un pop en la pila y llamamos al analizador léxico para obtener un nuevo token.
+  
+  Si $X\neq a$, se ha producido un error, llamar a la rutina de recuperación de errores y emitir un mensaje del tipo << se esperaba un $X$ pero se encontró un $ a $>>
+  
+  En cualquier otro caso se consulta la entrada de la tabla $M[a,X]$. Debe aparecer una producción de la forma $ X\rightarrow Y_{1},Y_{2}\ldots  Y_{n}$. Se hace un \textit{pop} de $ X$ y se reemplaza por $Y_{1},Y_{2}\ldots Y_{n}$ con $Y_{1}$ en el tope de la pila.
+Si la entrada de tabla está vacía se llama a la rutina de recuperación de error y se emite un mensaje como <<$X$ no puede comenzar por $a$>>
+
+\subsection{Ejemplo}
+
+\imagen{Ejemplo-gramatica}{Gramática con su FIRST y su FOLLOW}
+\imagen{Ejemplo-TASP}{TASP de la gramática}
 
 
+{\LARGE Gráfica  cadena}
+
+
+\subsection{Gramáticas \textit{LL}(1)}
+
+Una gramática cuya $TASP$ no tiene entradas múltiples se dice que es \textit{LL}(1)
+
+Si una gramática es $LL(1)$ entonces es no ambigua, es no recursiva a izquierdas y debe estar factorizada. Sin embargo las  afirmaciones inversas no son ciertas.
+
+Se pueden modificar las gramáticas, factorizando por la izquierda o eliminando la recursividad a izquierdas sin modificar el lenguaje que se está reconociendo.
+
+
+
+Las gramáticas $LL(1)$ permiten construir de forma automática una analizador determinista con tan solo examinar en cada momento el símbolo actual de la cadena de entrada para saber qué producción aplicar. 
+
+%Propiedades de las gramáticas $LL(1)$:
+%\begin{enumerate}
+%	\item Si $G$ es $LL(1)$, $G$ no es ambigua.
+%	\item Si $G$ es $LL(1)$, $G$ no tiene recursividad a izquierda.
+%	\item Si $G$ es $LL(1)$, para cada par de producciones $A\rightarrow\alpha$ y $A\rightarrow\beta$ de un no terminal A
+%	\begin{itemize}
+%		\item Para ningún $a$, $\alpha$   y   $\beta$ derivan cadenas que empiecen por $a$.
+%		\item A lo sumo una de $\alpha$   y   $\beta$  derivan la cadena vacía.
+%		\item Si $\beta\Rightarrow^{*}\varepsilon$, $\alpha$ no deriva ninguna cadena que comience por $FOLLOW(A)$.
+%	\end{itemize}
+%	
+%\end{enumerate}
+	
 
 \section{Análisis sintáctico ascendente}
 
-La idea es generar una forma sentencial a partir del axioma,reconstruyendo una derivación más a la derecha en orden inverso. $S\Rightarrow_{r}^{*}w$
+La idea es generar una forma sentencial a partir del axioma, reconstruyendo una derivación más a la derecha en orden inverso. $S\Rightarrow_{r}^{*}w$
 
+Los más utilizados son los  \textbf{analizadores sintácticos $LR$} que utilizan la técnica de análisis por desplazamiento/reducción. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\imagen{thompson-vacio}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
+Las tres técnicas más comunes para construir tablas de análisis $LR$ son:
 \begin{itemize}
-	\item primer item.
-	\item segundo item.
+
+\item $SLR$ ($LR simple$): Es la más fácil de implementar, pero la menos potente de las tres. 
+
+\item $LR$ \textit{canónico}: Es la más potente y la más costosa de las tres.
+
+\item $LALR$ ($Lookahead LR$): Tiene un costo y una potencia intermedia entre los dos anteriores
+
 \end{itemize}
 
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
+%Existen dos técnicas generales de análisis por desplazamiento/reducción:
+%\begin{itemize}
+%	\item Análisis sintáctico LR.
+%	\item Análisis sintáctico por precedencia simple y de operadores.
+%\end{itemize}
+%
+%Existen tres tipos ampliamente usados de analizadores (parsers) $LR$ por desplazamiento-reducción: $SLR(k)$, $LALR(k)$ y $LR(k)$ canónico.
 
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
+El análisis sintáctico por desplazamiento/reducción consiste en «reducir» una cadena al símbolo inicial de la gramática.
+
+En cada paso de reducción se sustituye una subcadena determinada que concuerde con el lado derecho de una producción por el símbolo del lado izquierdo de dicha producción.
+
+Si en cada paso se elige correctamente la cadena, se consigue una derivación por la derecha en sentido inverso.
+
+El análisis ascendente se basa en la identificación de asideros.
+\begin{itemize}
+	\item Asidero: subcadena de forma sentencial que concuerda con el lado derecho de una producción y cuya reducción al no terminal del lado izquierdo representa un paso a lo largo de la inversa de una derivación por la derecha.
+	\item Prefijo viable: Sea $xhy$ una forma sentencial por la derecha con $h$ un asidero. Se dice que $r$ es un prefijo viable de $xhy$ si $xh=rs$ ($s$ puede ser $\varepsilon$). Es decir, $r$ a lo sumo puede incluir $h$.
+\end{itemize}
+
+Un analizador sintáctico $LR$ por desplazamiento/reducción consta de una entrada, una salida, una pila, un programa conductor y una tabla de análisis sintáctico con dos partes (\textit{acción} y \textit{goto}).
+
+El programa conductor es el mismo para todos los analizadores sintácticos $LR$, solo cambian la forma de obtener las tablas de un tipo de análisis a otro.
+
+El programa utiliza una pila para almacenar una cadena de la forma $s_{0}X_{1}s_{1}X_{2}s_{2}\ldots X_{m}s_{m} $ donde $s_{m}$ está en la cima. Cada $X_{i}$ es un símbolo gramatical y cada $s_{i}$ es un símbolo llamado estado.
+
+Cada símbolo de estado resume la información contenida debajo de él en la pila, y se usan la combinación del símbolo de estado en la cima de la pila y el símbolo en curso de la entrada para indexar la tabla del análisis sintáctico y determinar la decisión de desplazamiento o reducción del analizador. 
+%(los símbolos gramaticales en la práctica no son necesarios).
+
+                 \textbf{Poner gráfica}
+                 
+En cada paso hay cuatro opciones:
+\begin{itemize}
+	\item Poner el token actual en la cima de la pila y llamar al analizador léxico para obtener un nuevo token $(SHIFT)$.
+	\item Decidir que los símbolos en la cima de la pila forman un asidero, y entonces desapilarlos y reemplazarlos por la parte izquierda de su producción. $(REDUCE)$.
+	\item Finalizar aceptando la cadena de entrada.
+	\item Finalizar señalando un error.
+\end{itemize}
+
+Pueden surgir conflictos $SHIFT-REDUCE$ y conflictos $REDUCE-REDUCE$ que en algunos casos se pueden resolver mirando el siguiente símbolo de la entrada.
+
+\subsection{Gramáticas  $LR$}
+
+Una gramática para la que se puede construir una tabla de análisis $LR$ se dice que es una gramática $LR$. Una gramática que puede ser analizada por un analizador $LR$ mirando hasta $k$ símbolos de entrada por delante (\textit{lookaheads}) en cada movimiento, se dice que es una gramática $LR(k)$.
+
+\subsection{Análisis $SLR(1)$}
+
+Es la técnica más sencilla que permite un análisis $LR$ con previsión de \textit{LookAhead} de un símbolo.
+
+Se basa en la construcción de los conjuntos de items $LR(0)$ de la gramática
+Un item $LR(0)$ de una gramática $G$ es una de sus producciones, con un punto en algún lugar de su parte derecha. El 0 indica que no utilizamos \textit{lookaheads}.
+Los ítems se van a agrupar en estados de un autómata capaz de reconocer asideros en la cima de la pila.
 
 
-\section{Tablas}
+Clase gramatical $LR(1)$ más simple. $SLR(1)\subset LR(1))$
 
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
+Ante un conflicto $SHIFT-REDUCE$: un item $[A\rightarrow\alpha_{1}\bullet X\alpha_{2} ]$ y otro $[B\rightarrow\delta\bullet ]$ en el mismo conjunto, se calcula el $FOLLOW(B)$, si no incluye el símbolo de detrás de la marca en el item $[A\rightarrow\alpha_{1}\bullet X\alpha_{2}]$ se puede resolver el conflicto.
 
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
+Ante un conflicto $REDUCE-REDUCE$: $[A\rightarrow\delta\bullet ]$ y $[B\rightarrow\gamma\bullet ]$ en el mismo conjunto, si son disjuntos $FOLLOW(A)$ y $FOLLOW(B)$ puedo resolverlo.$(S \Rightarrow^{*}\phi At \Rightarrow\phi\delta t$ pero $S \Rightarrow^*\phi Bu \Rightarrow\phi\gamma u)$.
 
-} 
+\subsection{Análisis LR(1)}
+
+La construcción de item $LR(1)$ es muy parecida a la de items $LR(0)$.
+
+En el inicio se hace igual:
+$[S'\rightarrow \bullet S\#,\#]\in Set(0)$.
+La que cambia es la operación de cierre.
+Cierre: Completar el núcleo de un conjunto de items.
+Si $[A \rightarrow x\bullet By, u]\in Set(n) \wedge B\in N\wedge B\rightarrow w \in P \Rightarrow[B \rightarrow\bullet w,v]\in Set(n) \forall v \in FIRST(yu)$
+
+Tabla-accion-goto-LR1-Ejemplo
+\imagen{Tabla-accion-goto-LR1-Ejemplo}{Ejemplo de gramática LR(1)con su tabla de acción y GOTO}
+
+\subsection{Análisis LALR(1)}
+
+El análisis LR(1) canónico requiere muchos más estados que el análisis SLR(1). En lenguajes de programación reales la diferencia puede ser un factor de 10. Por el contrario hay algunas construcciones de los lenguajes de programación que dan problemas en el análisis SLR(1).
+
+El análisis LALR(1) combina las ventajas de los dos mundos. Puede tratar con las gramáticas problemáticas para el análisis SLR(1), y requiere menos estados que en el análisis LR(1) canónico.
+
+Una vez obtenidos los conjuntos LR(1) se identifican aquellos en los que los items del núcleo sólo difieren en los lookahead y se fusionan, haciendo que su lookahead sea la unión.
+Sobre el nuevo conjunto de conjuntos de items marcados se aplica el mismo algoritmo de obtención de tablas acción y goto que el visto para LR(1) canónico.
+Pueden surgir conflictos REDUCE/REDUCE que antes no existían en un conjunto C si
+$ [X\rightarrow \alpha\bullet ,l_{1} ]\in C \wedge [Y\rightarrow\beta\bullet ,l_{2}]\in C \wedge l_{1}\cap  l_{2}\neq\emptyset$.
+Si surgen conflictos, la gramática no es LALR(1).
+
+%Se pueden hacer varias modificaciones al algoritmo de obtención de tablas LALR(1) a partir de los conjuntos de items LR(1) para evitar construir la colección completa de conjuntos de elementos LR(1). Para eso hay que darse cuenta de que:
+%\begin{enumerate}
+%	\item Se puede representar un conjunto I con elementos mediante su núcleo, es decir, mediante aquellos elementos que son el elemento inicial $[S'\rightarrow\bullet S, \$] $ o que tengan el punto en algún lugar que no sea el principio del lado derecho.
+%	\item Se pueden calcular las acciones de reducción generadas por I a partir únicamente del núcleo. Cualquier elemento que pida una reducción por $A\rightarrow\alpha$ estará en el núcleo, a menos que $\alpha=\varepsilon$. Se pide la reducción por $A\rightarrow\varepsilon$ si, y sólo si, existe un elemento del núcleo $[B\rightarrow\gamma\bullet C\delta, b]$ tal que $C\Rightarrow_{md}*A\eta$ para alguna$ \eta$, y \textit{a} están en $FIRST(\eta \delta b)$. Se puede precalcular el conjunto de no terminales $A$ tales que $C\Rightarrow_{md}*A\eta $para cada no terminal $C$ (en general $FIRST(\eta b\delta b)\neq FOLLOW(A)$, aunque
+%$FIRST(\eta b\delta b)\subseteq FOLLOW(A))$.
+%	\item Se pueden determinar las acciones de desplazamiento generadas por I a partir únicamente del núcleo. Se hace un desplazamiento con la entrada a si hay un elemento del núcleo $[B\rightarrow\gamma\bullet C\delta, b]$, donde $C\Rightarrow_{md} *ax$ en una derivación en que el último paso no utiliza una producción $\varepsilon$. También se puede precalcular el conjunto de dichas a para cada $C$.
+%	\item Se pueden calcular las transiciones $\text{ir\_a}$ para $I$ a partir del núcleo. Si $[B\rightarrow\gamma\bullet X\delta,b]$ está en el núcleo de $I$, entonces $[B\rightarrow\gamma X\bullet \delta,b]$ está en el núcleo de $\text{ir\_a}(I,X)$. El elemento $[A\rightarrow X\bullet \beta,a]$ está también en el núcleo de $\text{ir\_a}(I,X)$ si hay un elemento $[B\rightarrow\gamma\bullet C\delta,b]$ en el núcleo de $I$, y $C\Rightarrow_{md}*A\eta$ para alguna$\eta$. Si para cada par de no terminales $C$ y $A$ se precalcula si $C\Rightarrow_{md} *A\eta$ para alguna $\eta$, entonces calcular los conjuntos de elementos a partir de los núcleos sólo es un poco menos eficiente que hacerlo con conjuntos cerrados de elementos.
+%\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

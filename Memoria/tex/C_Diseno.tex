@@ -1,10 +1,113 @@
 \apendice{Especificación de diseño}
 
 \section{Introducción}
+En este anexo se detallan todos los aspectos del diseño basándose en el análisis realizado en el
+Apéndice B, buscando una solución a medida para los problemas detectados.
+
+La frontera entre la finalización del análisis y el comienzo del diseño es difusa ya que el modelo evoluciona y se refina en cada paso.
+
+El diseño es fundamental para el correcto desarrollo de un proyecto software porque facilita la estructuración modular, identificando cada elemento del programa y facilitando su uso.
+
+En el diseño del proyecto se pueden diferenciar varias fases:
+\begin{enumerate}
+\item Diseño del tipo abstracto de datos para instanciar los objetos.
+\item Diseño de los algoritmos para la obtención del resultado deseado.
+\item Diseño de las plantillas para generar los ficheros .tex y .xml.
+\item Diseño de la interfaz de usuario, que se desarrolla de dos formas diferentes:
+\begin{itemize}
+\item Interfaz en línea de comandos.
+\item Interfaz gráfica de usuario.
+\end{itemize}
+\end{enumerate}
 
 \section{Diseño de datos}
+El objetivo de este capítulo es seleccionar las representaciones lógicas de los datos (estructuras
+de datos) que se han identificado en la fase de análisis.
+
+Para la representación se utilizarán diagramas de clases que permiten modelar el diseño de la aplicación.
+
+Se ha intentado conseguir la mayor claridad posible a la hora de representar las clases a generar. Debido a la gran cantidad de clases generadas, se ha optado por no representarlas todas, intentando agrupar por funcionalidad y representando tan sólo aquellas que aporten información y valor al diagrama en el que se representan.
+
+Para facilitar la legibilidad de las mismas, se ha optado por no mostrar algunos de los atributos y métodos de algunas de las clases.
+
+Los diagramas de clases del proyecto actual están basados en los obtenidos del programa $BURGRAM$. Los diagramas de $PLGRAM$ son una modificación de los anteriores de manera que el trabajo ha desarrollar fuera más sencillo y eficaz. A continuación, se muestran algunos de ellos y una pequeña explicación de los mismos.
+
+\subsection{Estructura de las gramáticas}
+El caso de la Estructura de las gramáticas, se muestra en la Figura C.1. En ella, se muestran las relaciones y herencias entre las clases.
+
+Puede observarse que la \textit{Gramática} está compuesta por un \textit{Vector de Producciones}, que a su vez está compuesto por una o varias \textit{Producciones}. Dichas \textit{Producciones} está compuestas por un \textit{Vector de Símbolos}, formado por \textit{Símbolos} o un \textit{No Terminal}. Los \textit{Símbolos} pueden ser \textit{Terminales}, \textit{No Terminales} o \textit{Nulos}.
+
+A su vez, la gramática tiene un \textit{First} y un \textit{Follow}, que pueden están compuestos por un \textit{Vector Símbolos}.
+
+\imagen{Diagramaclases2}{Diagrama de clases: Estructura de las gramáticas}
+
+\subsection{Estructura de las tablas de análisis}
+
+En la Figura C.2 se muestra la Estructura de las tablas de análisis. Puede observarse que las clases \textit{TablaDescendente} y \textit{TablaAscendente} son subclases de la clase \textit{Tabla} y, por lo tanto, heredan sus métodos.
+
+\imagen{Diagramaclases3}{Diagrama de clases: Estructura de las tablas de análisis}
+
+\subsection{Estructura del informe del análisis}
+
+En este Diagrama de clases, se observa que las clases \textit{InformeAscendente} e \textit{InformeDescendente} heredan de la clase \textit{Informe}, y por tanto, heredan sus métodos.
+
+Existe también una clase interna de la clase \textit{Informe}, denominada \textit{Plantilla}.
+
+\imagen{Diagramaclases4}{Diagrama de clases: Estructura del informe del análisis}
+
+\subsection{Estructura de las clases del análisis}
+
+En el Diagrama de clases mostrado en la Figura C.4 se tiene una clase abstracta \textit{Analisis}, de la cuál heredan las clases \textit{AnalisisLL1} y \textit{AnalisisSLR1}. La clase \textit{AnalisisSLR1} tiene como subclases las clases \textit{AnalisisLR1} y \textit{AnalisisLALR1}.
+
+Además, se puede observar en el Diagrama la interfaz \textit{ISalidaAnalisis} que aporta un conjunto de métodos comunes para todas las clases posteriores, en este caso, las comentadas anteriormente.
+
+\imagen{Diagramaclases5}{Diagrama de clases: Estructura de las clases del análisis}
+
+\subsection{Estructura del prototipo}
+
+La clase \textit{Prototipo} está compuesta por diferentes métodos que permiten crear distintas cadenas dependiendo si se quiere un fichero .xml o .tex.
+
+La clase \textit{Prototipo} tiene diferentes clases internas que permiten guardar la estructura de datos usada en la plantilla. Estas clases internas son las que se muestran en la parte baja del Diagrama de la Figura C.5.
+
+\imagen{Diagramaclases1}{Diagrama de clases: Estructura del prototipo}
 
 \section{Diseño procedimental}
+
+En esta sección deberían aparecer los casos de uso más complejos que requieren un análisis más exhaustivo y pormenorizado.
+
+Sin embargo, el proyecto desarrollado, no ha requerido casos de uso complejos, sino que ha sido un tratamiento de cadenas y un almacenamiento de datos en clases con una estructura especial. Estas clases son las clases internas que se han comentado en el Diagrama de clases: Estructura del prototipo.
+
+Todos los datos de la plantilla están guardados en un diccionario ($HashMap$) compuesto por claves y valores. Las claves son los nombres que va a utilizar la plantilla.
+Los valores pueden ser cadenas de caracteres o listas de estructuras de datos.
+
+El diseño procedimental general de la aplicación es bastante sencillo. Básicamente se necesitan dos elementos, una plantilla y unos datos, que como se ha comentado anteriormente se encuentran en un $HashMap$. Bastaría con compilar la plantilla con dichos datos para obtener el fichero final deseado. Este simple procedimiento se ejemplifica a continuación:
+
+\begin{enumerate}
+\item Plantilla
+\begin{verbatim}
+{{#FirstFollow}}
+Nombre: {{name}}  first: {{first}}  follow: {{follow}}.
+{{/FirstFollow}}
+\end{verbatim}
+\item Estructura de datos
+\imagen{Estructuradatos}{Ejemplo de una estructura de datos}
+\item Resultado obtenido de la compilación de la plantilla anterior con la estructura de datos mostrada.
+\begin{verbatim}
+Nombre: A  first: begin  follow: end.
+Nombre: S  first: tipo,id  follow: $.
+Nombre: C  first: codigo  follow: end.
+Nombre: B  first: tipo,id  follow: begin.
+\end{verbatim}
+\end{enumerate}
+
+Evidentemente, el proyecto es más complejo de lo mostrado en el ejemplo anterior. La dificultad del mismo radica en dos pilares fundamentales:
+
+\begin{itemize}
+\item Creación de las estructuras de datos. El principal problema fue que las estructuras de datos eran variables según la gramática que se introducía y por tanto debían ser dinámicas. Este problema se solucionó creando las clases internas ya comentadas.
+\item Diseño de la plantilla. En un principio se planteó crear una plantilla genérica que sirviera para la obtención de los dos tipos de fichero. Aunque actualmente, después del desarrollo de todo el proyecto, es algo que sí podría llevar a cabo, en el momento de empezar con el diseño de las plantillas era algo que se antojaba bastante complejo. Por tanto, se optó por realizar dos diseños de plantillas, uno para cada tipo de fichero. Además, cada tipo de plantilla tenía que servir para cuatro tipos diferentes de análisis, que a su vez están formados por distintos elementos. Este complejo entramado es lo que complicó el diseño de la plantilla. Se tuvo que crear una plantilla que recopilara todos los siguientes datos:
+
+\imagen{Estructuraplantillas}{Esquema general de las plantillas}
+\end{itemize} 
 
 \section{Diseño arquitectónico}
 

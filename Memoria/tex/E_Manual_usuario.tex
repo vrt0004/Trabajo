@@ -1,11 +1,160 @@
 \apendice{Documentación de usuario}
 
 \section{Introducción}
-
+En esta sección se explica cómo llevar a cabo la instalación de las herramientas implementadas en el presente proyecto y los requisitos del sistema.
 \section{Requisitos de usuarios}
+Los requisitos mínimos necesarios son los siguientes:
+\subsection{Requisitos hardware}
+Requisitos mínimos:
+\begin{itemize}
+\item Intel core i3.
+\item 128 MB  de memoria RAM.
+\item Resolución de pantalla igual o superior a 1152 x 864, solo para la GUI.
+\end{itemize}
 
+Requisitos recomendados:
+
+\begin{itemize}
+
+\item Intel core i7.
+\item 1 GB de memoria RAM.
+\item Resolución de pantalla igual o superior a 1280 x 960 , solo para la GUI.
+\end{itemize}
+
+\subsection{Requisitos software}
+
+Los requisitos software necesarios son:
+\begin{itemize}
+\item Sistema operativo $Windows$ o $Linux$.
+\item Máquina virtual de java ($JDK 8$).
+\item Consola de sistema operativo capaz de interpretar Unicode, solo para la interfaz en línea de comandos. Si no soportara Unicode, las tildes u otros símbolos podrían ser mal representados.
+\end{itemize}
 \section{Instalación}
+La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCommand$.
 
+Para ejecutar $PLGRAM$ se dispone de un fichero jar ejecutable.
+
+\imagen{iconoPLGRAM}{Icono PLGRAM}
+
+Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
+
+Esta carpeta debe contener también una carpeta llamada gramáticas donde estarán las gramáticas guardadas.Además estarán en ese directorio las plantillas necesarias.
+
+\imagen{inicioconsola}{Acceso a la carpeta contenedora de $PLGRAM$ desde la consola}
 \section{Manual del usuario}
+
+\subsection{Aplicación línea de comandos}
+
+Para ejecutar la aplicación se debe escribir el siguiente comando:
+
+ $java$ $-jar$ $PLGRAMlineCommand.jar$ $-g$ $-t$ $[-i]$ $[-ca]$ $[-o]$
+ 
+ Los diferentes argumentos son:
+ \begin{itemize}
+ 	\item $-g$ Nombre de la gramática a analizar.
+ 	\item $-t$ Tipo de análisis a realizar $[LL,LR,SLR,LALR].$
+ 	\item $-i$ Extensión del informe $[TEX, XML, ALL]$.
+ 	\item $-ca$ Cadena a analizar.
+ 	\item $-o$ Nombre del fichero de salida.
+ 	
+\end{itemize} 
+
+
+
+La gramática $-g$ y el tipo de análisis a realizar $-t$ son obligatorios. La gramática debe estar en la carpeta gramáticas.
+ 
+El parámetro $-t$ tiene diferentes opciones:
+  \begin{itemize}
+ 	 \item $LL$ Para realizar un análisis $LL$.
+ 	 \item $LR$ Para realizar un análisis $LR$.
+ 	 \item $SLR$ Para realizar un análisis $SLR$.
+ 	 \item $LALR$ Para realizar un análisis $LALR$.
+ \end{itemize}
+  
+ 
+Si no se introduce ningún parámetro se indicará que falta el parámetro de la gramática, ya que como se ha comentado anteriormente, es un parámetro obligatorio.
+ 
+Así, si se introduce la siguiente línea de código  $java$ $-jar$ $PLGRAMlineCommand.jar $, la aplicación requerirá la gramática, tal y como se muestra a continuación:
+
+\imagen{consola2}{$PLGRAM$ sin argumento gramática}
+ 
+La misma situación se presenta con el parámetro tipo de análisis a realizar.
+ 
+Si se  introduce la línea de código $java$ $-jar$ $PLGRAMlineCommand.jar$  $-g$ $gramatica1.yc $, en la que no se ha especificado el tipo de análisis, la aplicación lo solicita, como se muestra a continuación:
+\imagen{consola3}{$PLGRAM$ sin argumento tipo de análisis}
+
+Si se introducen los parámetros de la gramática y del tipo de análisis que se quiere realizar, se ejecuta el programa con el resto de valores por defecto:
+\begin{itemize}
+\item $-i$ con valor $ALL$.
+\item $-o$ que se denominará de manera genérica como el tipo de análisis elegido concatenado al nombre de la gramática seleccionada. Por ejemplo, para un análisis $LL$ y una gramática $G3$, los ficheros generados se denominarán $LLG3$, cada uno con su extensión correspondiente.
+\item $-ca$ no se generará ninguna tabla de primeros pasos de la traza de análisis.
+\end{itemize}
+
+
+En el supuesto de que se quiera modificar alguno de los valores que por defecto se les asignan a los parámetros anteriores, bastará con introducir en cada uno de ellos los argumentos deseados:
+\begin{itemize}
+\item $-i$ se podrá elegir la extensión del fichero de salida, que será $XML$ en el caso de querer obtener un cuestionario virtual o  $TEX$ en el caso de que se quiera para una futura impresión.
+\item $-o$ se podrá nombrar los ficheros de salida según se desee.
+\item $-ca$ se podrá introducir una cadena para  que la aplicación genere una tabla de primeros pasos de la traza de análisis de dicha cadena.
+La cadena deberá introducirse entrecomillado y cada item separado por un espacio. Por ejemplo, $-ca$ "$item1$ $item2$ $item3$ $item4$".
+\end{itemize}
+
+
+Una vez introducidos todos los parámetros, se muestra la información de la gramática elegida a través de la consola.
+
+A continuación se muestran los datos obtenidos al introducir una gramática $gramatica1.yc$ y un tipo de análisis $LL$. El resto de parámetros se han dejado por defecto.
+
+\imagen{consola4}{$PLGRAM$ Con argumentos gramática y tipo de análisis}
+
+Como se puede observar, al final de la información obtenida, la consola nos muestra que los ficheros se han generado correctamente y su ruta.
+
+
+\subsection{Aplicación interfaz gráfica}
+FALTA
+
+
+\subsection{Ficheros obtenidos}
+\subsubsection{Fichero .XML}
+
+El fichero $XML$ obtenido tiene una estructura general común sea cual sea la gramática y el tipo de análisis realizado. Esta estructura sigue el siguiente esquema general:
+\imagen{EstructuraXML}{Estructura del fichero.XML}
+
+Para poder utilizar el fichero.XML obtenido es necesario poder acceder a la plataforma de aprendizaje de moodle.
+
+Los pasos que se deben seguir son:
+\begin{enumerate}
+\item Ir a la página principal del curso.
+\item Hacer clic en Banco de preguntas desde el bloque de Administración.
+\item Pulsar en Importar archivos.
+\item Seleccionar la opción de formato XML Moodle.
+\item Desde la siguiente ventana pulsar en Examinar.
+\item Seleccionar el fichero.XML en nuestro ordenador.
+\item Pulsar en Importar este archivo.
+
+
+
+
+\end{enumerate}
+Los puntos 5 y 6 se pueden realizar arrastrando el archivo al recuadro que se muestra.
+\imagen{Moodle1}{Importar fichero.XML en moodle}
+
+A la hora de importar el fichero.XML hay que tener en cuenta lo siguiente:
+\begin{itemize}
+\item Los nombres de los archivos y carpetas no deben tener caracteres especiales como palabras acentuadas, tabulaciones, ñ, retornos de carro, espacios en blanco, ni símbolos de sistema como / o : , además no es recomendable combinar mayúsculas y minúsculas en los nombres.
+\item El tamaño del archivo no debe superar el límite permitido.
+
+\end{itemize} 
+
+Una vez importado el fichero.XML deseado, aparece una primera previsualización de los datos que se obtendrán a continuación. Basta con dar a continuar para acceder a la siguiente pantalla.
+
+En ella, aparecen todos los ficheros que se hayan importado. Para visualizar uno de ellos, se hace click en la lupa del archivo correspondiente.
+\imagen{moodle2}{Lista de ficheros.XML en moodle}
+
+Un ejemplo de cuestionario obtenido sería el siguiente:
+\imagen{moodle3}{Ejemplo de cuestionario resuelto en moodle }
+
+\subsubsection{Fichero .TEX}
+
+FALTA
 
 

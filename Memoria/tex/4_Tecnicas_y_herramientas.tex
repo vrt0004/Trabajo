@@ -1,6 +1,110 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
-No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
+\section{Técnicas}
+
+\subsection{SCRUM}
+SCRUM\footnote{\url{https://www.scrum.org//}} es una metodología ágil en la que se aplican de manera regular un conjunto de buenas prácticas para trabajar colaborativamente y obtener el mejor resultado posible de un proyecto.
+
+Se basa en la creación de procesos iterativos e incrementales, asi se pueden realizar estimaciones de rendimiento futuro sobre las cuales podemos tomar decisiones y controlar los riesgos.
+\subsection{UML}
+Lenguaje Unificado de Modelado(Unified Modeling Language)\footnote{\url{http://www.uml.org/}}es el lenguaje de modelado de sistemas de software más conocido y utilizado en la actualidad.
+
+Es un lenguaje gráfico para visualizar, especificar, construir y documentar un sistema.
+\section{Herramientas}
+\subsection{Java}
+Java\footnote{\url{https://www.java.com.es}} es un lenguaje de programación de propósito general, concurrente y orientado a objetos.
+
+Se trata de un lenguaje fuerte y estáticamente tipado.
+
+Distingue entre errores en tiempo de compilación y errores en tiempo de ejecución.
+
+Java es un lenguaje de alto nivel, en el sentido de que los detalles de representación no son accesibles al programador. 
+Incluye una administración automática del almacenamiento de datos en forma del recolector de basura, diseñado para evitar los problemas relacionados con la liberación manual de memoria. Es uno de los lenguajes de programación mas usados en el mundo.
+
+\subsection{Java 8}
+Java SE 8\footnote{\url{https://www.java.com.es}} es la edición más reciente del lenguaje de programación Java, y representa la mayor evolución del mismo en su historia.
+
+ Incluye nuevas características, mejoras y correcciones de bugs para mejorar la eficacia en el desarrollo y la ejecución de programas Java. 
+ 
+ Las librerías de la plataforma Java mantienen una evolución paralela a la del lenguaje.
+\subsection{Eclipse}
+Eclipse es una plataforma de software compuesto por un conjunto de herramientas de programación de código abierto multiplataforma para el desarrollo integrado(IDE) de aplicaciones Java  y una base para productos basados en Eclipse Platform .
+
+
+\subsection{JUnit 4}
+JUnit\footnote{\url{http://junit.org/}} es un sistema software utilizado para realizar pruebas sobre código Java, formando parte de la familia de herramientas de pruebas xUnit.
+Es una de las librerías Java más utilizadas en proyectos de código abierto.
+
+La versión 4 de JUnit extiende y simplifica la funcionalidad de anteriores versiones, haciendo un uso extensivo del sistema de anotaciones de Java.
+\subsection{Apache Maven}
+Maven\footnote{\url{http://maven.apache.org/}} es una herramienta de administración y construcción de proyectos usada principalmente con Java.
+
+Su funcionamiento se basa en la existencia de un fichero de configuración XML, el POM (Project Object Model).
+Este fichero define la construcción, emisión documentación, empaquetado, pruebas, manejo de dependencias y múltiples otras tareas de manera centralizada.
+\subsection{JavaCC}
+JavaCC\footnote{\url{https://javacc.java.net/}} (\emph{Java Compiler Compiler}) es un generador de analizadores sintácticos Java.
+Funciona mediante la especificación de una gramática en un formato propio.
+A partir de este fichero, la herramienta genera un programa Java capaz de procesar texto y reconocer coincidencias con la gramática.
+
+Además de generador en sí, JavaCC proporciona una serie de herramientas relacionadas, como un constructor de árboles (JJTree) y un informe en caso de error de los mejores entre los analizadores sintácticos disponibles.
+\subsection{VersionOne}
+VersionOne\footnote{\url{https://www.versionone.com/}} es un sistema de control de versiones, diseñado para trabajar con proyectos de cualquier tamaño.
+VersionOne permite mantener múltiples ramas locales independientes, cuya creación, modificación y combinado resulta poco costoso.
+Esto permite aislar tareas, trabajando e incorporando cada una de manera totalmente separada.
+\subsection{Github}
+Github\footnote{\url{https://github.com/}} proporciona un servicio de almacenamiento de repositorios remotos y un entorno de colaboración para desarrolladores.
+
+Github proporciona herramientas de seguimiento de proyectos, incluyendo una wiki y un sistema de seguimiento de problemas (\emph{issue tracker}) por repositorio.
+También es compatible con otras aplicaciones web, como por ejemplo Pivotal Tracker, que facilitan su integración en el proceso de desarrollo.
+\subsection{Moodle }
+Moodle (\emph{Modular Object-Oriented Dynamic Learning Environment}) es una plataforma de enseñanza virtual (\emph{e-learning}) desarrollada como software libre.
+
+Es una aplicación para crear y gestionar plataformas educativas, espacios donde un centro educativo, institución o empresa, gestiona recursos proporcionados por sus docentes, organiza el acceso a los mismos y permite la comunicación entre todos los implicados (alumnado y profesorado).
+
+Una de las características de Moodle es su capacidad para importar cuestionarios a partir de varios formatos, incluyendo texto plano, el formato propietario Gift y a partir de documentos XML.
+\subsection{\LaTeX{}}
+\LaTeX{}\footnote{\url{https://latex-project.org/}} es un lenguaje de marcadores para la preparación de documentos comúnmente usado en publicaciones técnicas o científicas.
+
+Es un procesador de texto «\emph{What you see is not what you get}», lo cual significa que lo que vemos durante la edición no es el 
+documento final, sino las instrucciones para generarlo.
+Esto permite separar casi completamente el contenido del documento de su formato.
+\subsection{Texmaker}
+Texmaker\footnote{\url{http://www.xm1math.net/texmaker/}} es un editor libre de látex, moderno y multiplataforma para Linux , MacOSX y ventanas sistemas que integra muchas herramientas necesarias para desarrollar documentos con \LaTeX{}, en una sola aplicación.
+
+Texmaker incluye soporte Unicode, la corrección ortográfica, auto-completado, plegado de código y un visor de pdf con el apoyo SyncTeX y el modo de visualización continua. Texmaker es fácil de usar y configurar. Se distribuye bajo la licencia GPL.
+
+\subsection{MiK\TeX{}}
+MiK\TeX{} es una distribución \TeX{}/\LaTeX{} libre de código abierto para Windows.
+Una de sus características es la capacidad que tiene para instalar paquetes automáticamente sin necesidad de intervención del usuario. Al contrario que otras distribuciones, su instalación es muy sencilla.
+
+\subsection{Mustache}
+Mustache\footnote{\url{http://mustache.github.io/mustache.1.html}} es un sistema de plantillas de lógica descendente para HTML, XML y muchos más.
+
+Se llama de lógica descendente porque no tiene comandos if, else, ni bucles for. En cambio, sólo se trabaja con etiquetas.
+Algunas etiquetas son reemplazadas por un valor, por un conjunto de valores o por nada.
+\subsection{XML}
+\emph{XML} (\emph{Extensive Markup Language}) es un lenguaje de etiquetas que se utiliza para crear documentos estructurados, compuestos de entidades que contienen en su interior datos u otras entidades.
+El estándar fue producido y es desarrollado por el \emph{World Wide Web Consortium}\footnote{\url{http://www.w3.org/}}.
+
+Podemos verificar que un documento \emph{XML} tiene el formato correcto validándolo contra un lenguaje de definición de esquemas: DTD\footnote{\url{http://es.wikipedia.org}},(\emph{Document Type Definition}), \emph{XML Schema}\footnote{\url{http://www.w3.org/TR/xmlschema-0/}}, RELAX NG\footnote{\url{http://www.relaxng.org/}}...
+También podemos verificar que un documento está `bien formado', es decir, que cumple una serie de reglas gramaticales mínimas.
+
+\subsection{Commons CLI}
+La biblioteca Apache Commons CLI\footnote{\url{http://commons.apache.org/proper/commons-cli/}} proporciona una API para analizar las opciones de línea de comandos pasados a los programas.
+
+También es capaz de imprimir mensajes de ayuda que detallan las opciones disponibles para una herramienta de línea de comandos.
+
+\subsection{ObjectAid UML Explorer}
+ObjectAid UML Explorer\footnote{\url{http://www.objectaid.com/}} es un complemento de visualización de código para eclipse.
+Permite mostrar el código fuente de un proyecto Java en forma de diagramas UML, reflejando el estado y las relaciones en el código, y actualizándose a medida que el código cambia.
+
+
+\subsection{EclEmma}
+EclEmma\footnote{\url{http://www.eclemma.org/}} es una herramienta que nos permite examinar la cobertura de pruebas en un proyecto Java.
+Dispone un un complemento para Eclipse que nos permite realizar las comprobaciones directamente desde el IDE.
+
+
+
+
 
 

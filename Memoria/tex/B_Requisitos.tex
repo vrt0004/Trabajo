@@ -1,11 +1,89 @@
 \apendice{Especificación de Requisitos}
 
 \section{Introducción}
+Este anexo tiene como objetivo analizar y documentar las necesidades funcionales mínimas que deben ser soportadas por la aplicación desarrollada. 
+
+Otro objetivo básico del presente anexo es la de priorizar cada una de las funcionalidades a implementar. Si se tiene claro cuáles son las tareas críticas, se podrá llevar a cabo un enfoque más preciso en ellas y asignarlas una mayor cantidad de recursos.
+
+El anexo se estructura presentado una lista de objetivos generales que la aplicación debe cumplir. Son los objetivos que el cliente establece mediante un lenguaje neutral y es trabajo del ingeniero su desglose y formalización. A continuación se incluye un catálogo de los requisitos que deberá cumplir la aplicación.
 
 \section{Objetivos generales}
+El desarrollo de la aplicación cumple los siguientes objetivos:
+\begin{enumerate}
+	\item Desarrollo de una interfaz gráfica.
+	\item Procesado y manipulación de gramáticas mediante procesadores del lenguaje.
+	\item Obtención del $first$ y el $follow$ de una gramática.
+	\item Obtención de la tabla de la tabla de análisis sintáctico predictivo ($TASP$) de una gramática.
+	\item Obtención de los conjuntos de items $LR(0)$ y  $LR(1)$.
+	\item Obtención de las tablas de análisis sintáctico \textit{tabla de acción e Ir a} para análisis $SLR(1)$, $LR(1)$ y $LALR(1)$
+	\item Exportación de cuestionarios en formato \textit{XML} compatible con la plataforma Moodle.
+	\item Exportación de cuestionarios en formato \LaTeX{}.
+	\item Creación de un manual de usuario detallando todas las opciones de la aplicación
+\end{enumerate}
 
-\section{Catalogo de requisitos}
+\section{Catálogo de requisitos}
+El objetivo de este apartado es definir de forma clara, precisa, completa y verificable todas las funcionalidades y restricciones del sistema a construir.
+
+\subsection{Funciones del producto}
+Una de las características más importantes de la aplicación que se ha  desarrollado es su facilidad de uso. 
+Dado que su empleo está orientado a convertirse en una herramienta docente, debe ser fácil de usar y posibilitar la creación de cuestionarios de manera rápida, sencilla y comprensible.
+
+Como se explica en el \textit{Anexo E: Manual de usuario}, los archivos obtenidos de la aplicación tendrán extensiones .TEX y .XML, tratando de cubrir un mayor abanico de posibilidades de uso de la aplicación y dando una mayor cobertura a la hora de obtener los cuestionarios.
+
+En el caso de los archivos .XML es necesario el uso de la plataforma moodle, que al ser internacional, se puede utilizar en varios idiomas, dándole así una mayor difusión a la aplicación.
+
+\subsection{Requisitos de usuario}
+El usuario debe ser capaz de utilizar la aplicación mediante la interfaz gráfica o mediante la consola del sistema. 
+
+La ayuda será un punto a tener en cuenta en el caso de utilizar la aplicación mediante la consola del sistema.
+ 
+En todo momento el usuario podrá consultar el Manual del Usuario para
+orientarse y resolver dudas que le puedan surgir durante el manejo de la misma.
+
+\subsection{Requisitos del sistema}
+Los requisitos mínimos del hardware del sistema serán:
+\begin{itemize}
+\item Intel core i3.
+\item 128 MB  de memoria RAM.
+\item Resolución de pantalla igual o superior a 1152 x 864, solo para la GUI.
+\end{itemize}
+
+Se recomienda trabajar con unos requisitos concretos de hardware para que el funcionamiento de la aplicación sea el mejor posible. Estos requisitos recomendados serán:
+\begin{itemize}
+\item Intel core i7.
+\item 1 GB de memoria RAM.
+\item Resolución de pantalla igual o superior a 1280 x 960 , solo para la GUI.
+\end{itemize}
+
+Los requisitos software necesarios son:
+\begin{itemize}
+\item Sistema operativo $Windows$.
+\item Máquina virtual de java ($JDK 8$).
+\item Consola de sistema operativo capaz de interpretar Unicode, solo para la interfaz en línea de comandos. Si no soportara Unicode, las tildes u otros símbolos podrían ser mal representados.
+\end{itemize}
 
 \section{Especificación de requisitos}
+En este apartado se realizará un análisis de los requisitos de diseño de la aplicación. Para ello, se detallarán los requisitos funcionales y no funcionales de la aplicación.
+
+\subsection{Requisitos funcionales}
+La aplicación debe ser capaz de cumplir los siguientes requisitos:
+
+\begin{itemize}
+\item \textit{RF1: Cargar gramática y análisis}. Permite al usuario seleccionar una gramática disponible en la carpeta \textit{GRAMÁTICAS} y un tipo de análisis.
+\item \textit{RF2: Obtener análisis}. Se obtienen los datos del análisis de la gramática seleccionada.
+\item \textit{RF3: Crear cadenas}. Se obtienen las cadenas de los datos del análisis.
+\item \textit{RF4: Obtener fichero .TEX}. Se utiliza la plantilla para obtener el fichero .TEX.
+\item \textit{RF5: Obtener fichero .XML}. Se utiliza la plantilla para obtener el fichero .XML.
+\end{itemize}
+
+\imagen{diagramaprincipal}{Diagrama principal de casos de uso}
 
 
+\subsection{Requisitos no funcionales}
+A continuación se describen todos aquellos requisitos no funcionales importantes para considerar en el diseño:
+
+
+\begin{itemize}
+\item \textit{RNF1: Eficiencia}. Se debe buscar la eficiencia de la aplicación para que pueda ser usada con gramáticas complejas.
+\item \textit{RNF2: Extensibilidad}. Se pueden definir nuevas capacidades en la aplicación mediante su extensión a otro tipo de ficheros.
+\end{itemize}
