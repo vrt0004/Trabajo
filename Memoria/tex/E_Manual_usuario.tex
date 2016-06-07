@@ -30,24 +30,28 @@ Los requisitos software necesarios son:
 \item Consola de sistema operativo capaz de interpretar Unicode, solo para la interfaz en línea de comandos. Si no soportara Unicode, las tildes u otros símbolos podrían ser mal representados.
 \end{itemize}
 \section{Instalación}
-La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCommand$.
+La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCommand$:
 
-Para ejecutar $PLGRAM$ se dispone de un fichero jar ejecutable.
-
+\begin{itemize}
+\item Para ejecutar $PLGRAM$ se dispone de un fichero jar ejecutable.
 \imagen{iconoPLGRAM}{Icono PLGRAM}
+\item Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
 
-Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
-
-Esta carpeta debe contener también una carpeta llamada gramáticas donde estarán las gramáticas guardadas.Además estarán en ese directorio las plantillas necesarias.
+Esta carpeta debe contener también una carpeta llamada \textit{gramáticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias.
 
 \imagen{inicioconsola}{Acceso a la carpeta contenedora de $PLGRAM$ desde la consola}
+\end{itemize}
+
+
 \section{Manual del usuario}
 
 \subsection{Aplicación línea de comandos}
 
 Para ejecutar la aplicación se debe escribir el siguiente comando:
+\begin{verbatim}
+ java -jar PLGRAMlineCommand.jar -g -t [-i] [-ca] [-o] 
+\end{verbatim}
 
- $java$ $-jar$ $PLGRAMlineCommand.jar$ $-g$ $-t$ $[-i]$ $[-ca]$ $[-o]$
  
  Los diferentes argumentos son:
  \begin{itemize}
@@ -74,13 +78,22 @@ El parámetro $-t$ tiene diferentes opciones:
  
 Si no se introduce ningún parámetro se indicará que falta el parámetro de la gramática, ya que como se ha comentado anteriormente, es un parámetro obligatorio.
  
-Así, si se introduce la siguiente línea de código  $java$ $-jar$ $PLGRAMlineCommand.jar $, la aplicación requerirá la gramática, tal y como se muestra a continuación:
+Así, si se introduce la siguiente línea de código 
+\begin{verbatim}
+ java -jar PLGRAMlineCommand.jar  
+\end{verbatim}
+
+La aplicación requerirá la gramática, tal y como se muestra a continuación:
 
 \imagen{consola2}{$PLGRAM$ sin argumento gramática}
  
 La misma situación se presenta con el parámetro tipo de análisis a realizar.
  
-Si se  introduce la línea de código $java$ $-jar$ $PLGRAMlineCommand.jar$  $-g$ $gramatica1.yc $, en la que no se ha especificado el tipo de análisis, la aplicación lo solicita, como se muestra a continuación:
+Si se  introduce la línea de código
+\begin{verbatim}
+java -jar PLGRAMlineCommand.jar -g gramatica1.yc 
+\end{verbatim}
+en la que no se ha especificado el tipo de análisis, la aplicación lo solicita, como se muestra a continuación:
 \imagen{consola3}{$PLGRAM$ sin argumento tipo de análisis}
 
 Si se introducen los parámetros de la gramática y del tipo de análisis que se quiere realizar, se ejecuta el programa con el resto de valores por defecto:
@@ -130,11 +143,8 @@ Los pasos que se deben seguir son:
 \item Desde la siguiente ventana pulsar en Examinar.
 \item Seleccionar el fichero.XML en nuestro ordenador.
 \item Pulsar en Importar este archivo.
-
-
-
-
 \end{enumerate}
+
 Los puntos 5 y 6 se pueden realizar arrastrando el archivo al recuadro que se muestra.
 \imagen{Moodle1}{Importar fichero.XML en moodle}
 
@@ -155,6 +165,40 @@ Un ejemplo de cuestionario obtenido sería el siguiente:
 
 \subsubsection{Fichero .TEX}
 
-FALTA
+Una vez realizado el cuestionario siguiendo cualquiera de las vías explicadas anteriormente, se obtiene un fichero .TEX en una carpeta llamada \textit{informes} situada en el directorio donde se ejecuta el ejecutable .jar.
 
+Al tratarse de un fichero .TEX se requiere un editor de textos adaptado a \LaTeX{} para utilizarlo.
 
+Una vez abierto el fichero, su tratamiento es muy sencillo. Bastará con compilar el código y se obtendrá directamente un visionado del cuestionario que se ha realizado.
+
+Se muestra un ejemplo de un fichero .TEX abierto con \TeX{}MaKer. De manera general, se puede observar el código a la izquierda y del documento generado a la derecha.
+
+\imagen{ejemplotex1}{Ejemplo fichero .TEX}
+
+Para una mejor comprensión, se muestra un detalle de cómo compilar el código para obtener el documento. Para ello, basta con hacer click en las flechas resaltadas en la parte superior de la pantalla del editor.
+
+\imagen{ejemplotex2}{Compilación de un fichero .TEX}
+
+Es necesario destacar que para cada tipo de gramática elegida, se genera un fichero .TEX diferente siguiendo los requisitos de cada una de ellas. 
+
+La aplicación ofrece dos opciones en lo que a los ficheros .TEX respecta. Así, se podrá obtener un documento en el que el cuestionario esté completo con las respuestas correctas y otro documento en el que el cuestionario se encuentre vacío, pensado para ser respondido por un tercero.
+
+\begin{itemize}
+\item Obtención del cuestionario completo. Es la opción que se genera por defecto y por tanto no será necesario tratar el código para su obtención. De cualquier manera, debería estar activa la siguiente línea:
+\begin{verbatim}
+\newcommand{\h}[1]{#1}
+\end{verbatim}
+\imagen{ejemplotex3}{Obtención del cuestionario completo}
+\item Obtención del cuestionario en blanco. Para ello, bastaría con eliminar el símbolo $\%$ de delante de la siguiente línea:
+
+\begin{verbatim}
+%\renewcommand{\h}[1]
+\end{verbatim}
+
+\imagen{ejemplotex4}{Obtención del cuestionario en blanco: Descomentar}
+Así, ambas líneas deberían estar activas.
+\imagen{ejemplotex5}{Obtención del cuestionario en blanco}
+
+\end{itemize}
+
+Siempre que se compile código, se crea un archivo .pdf en el mismo directorio donde se encuentra el fichero .TEX, con los cuestionarios elegidos.
