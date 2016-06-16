@@ -2,7 +2,7 @@
 
 \section{Introducción}
 En este anexo se detallan todos los aspectos del diseño basándose en el análisis realizado en el
-Apéndice B, buscando una solución a medida para los problemas detectados.
+\textit{Apéndice B}, buscando una solución a medida para los problemas detectados.
 
 La frontera entre la finalización del análisis y el comienzo del diseño es difusa ya que el modelo evoluciona y se refina en cada paso.
 
@@ -15,8 +15,8 @@ En el diseño del proyecto se pueden diferenciar varias fases:
 \item Diseño de las plantillas para generar los ficheros .tex y .xml.
 \item Diseño de la interfaz de usuario, que se desarrolla de dos formas diferentes:
 \begin{itemize}
-\item Interfaz en línea de comandos.
-\item Interfaz gráfica de usuario.
+\item Interfaz en línea de comandos (\textit{CLI}).
+\item Interfaz Gráfica de usuario (\textit{GUI}).
 \end{itemize}
 \end{enumerate}
 
@@ -30,7 +30,7 @@ Se ha intentado conseguir la mayor claridad posible a la hora de representar las
 
 Para facilitar la legibilidad de las mismas, se ha optado por no mostrar algunos de los atributos y métodos de algunas de las clases.
 
-Los diagramas de clases del proyecto actual están basados en los obtenidos del programa $BURGRAM$. Los diagramas de $PLGRAM$ son una modificación de los anteriores de manera que el trabajo ha desarrollar fuera más sencillo y eficaz. A continuación, se muestran algunos de ellos y una pequeña explicación de los mismos.
+Los diagramas de clases del proyecto actual están basados en los obtenidos del programa $BURGRAM$. Los diagramas de $PLGRAM$ son una modificación de los anteriores de manera que el trabajo a desarrollar fuera más sencillo y eficaz. A continuación, se muestran algunos de ellos y una pequeña explicación de los mismos.
 
 \subsection{Estructura de las gramáticas}
 El caso de la Estructura de las gramáticas, se muestra en la Figura C.1. En ella, se muestran las relaciones y herencias entre las clases.
@@ -57,7 +57,7 @@ Existe también una clase interna de la clase \textit{Informe}, denominada \text
 
 \subsection{Estructura de las clases del análisis}
 
-En el Diagrama de clases mostrado en la Figura C.4 se tiene una clase abstracta \textit{Analisis}, de la cuál heredan las clases \textit{AnalisisLL1} y \textit{AnalisisSLR1}. La clase \textit{AnalisisSLR1} tiene como subclases las clases \textit{AnalisisLR1} y \textit{AnalisisLALR1}.
+En el Diagrama de clases mostrado en la Figura C.4 se tiene una clase abstracta \textit{Analisis}, de la cual heredan las clases \textit{AnalisisLL1} y \textit{AnalisisSLR1}. La clase \textit{AnalisisSLR1} tiene como subclases las clases \textit{AnalisisLR1} y \textit{AnalisisLALR1}.
 
 Además, se puede observar en el Diagrama la interfaz \textit{ISalidaAnalisis} que aporta un conjunto de métodos comunes para todas las clases posteriores, en este caso, las comentadas anteriormente.
 
@@ -65,7 +65,7 @@ Además, se puede observar en el Diagrama la interfaz \textit{ISalidaAnalisis} q
 
 \subsection{Estructura del prototipo}
 
-La clase \textit{Prototipo} está compuesta por diferentes métodos que permiten crear distintas cadenas dependiendo si se quiere un fichero .xml o .tex.
+La clase \textit{Prototipo} está compuesta por diferentes métodos que permiten crear distintas cadenas dependiendo si se quiere un fichero .XML o .TEX.
 
 La clase \textit{Prototipo} tiene diferentes clases internas que permiten guardar la estructura de datos usada en la plantilla. Estas clases internas son las que se muestran en la parte baja del Diagrama de la Figura C.5.
 

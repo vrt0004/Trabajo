@@ -26,7 +26,7 @@ Así, se creó el repositorio en $Github$ y se comenzó a realizar la programaci
 
 \subsection{Sprint 1: 3 marzo - 10 marzo}
 
-La primera reunión con el tutor fue el 3 de marzo. En ella, se habló sobre cómo se podría distribuir mejor la aplicación que se iba a crear. Se decidió entonces optar por dos soluciones: Un prototipo de línea de comandos y una aplicación similar al prototipo con una interfaz gráfica accesible.
+La primera reunión con el tutor fue el 3 de marzo. En ella, se habló sobre cómo se podría distribuir mejor la aplicación que se iba a crear. Se decidió entonces optar por dos soluciones: un prototipo de línea de comandos y una aplicación similar al prototipo con una interfaz gráfica accesible.
 
 Planteados los objetivos generales del proyecto, se empezó a trabajar en el proyecto actual. 
 
@@ -37,7 +37,7 @@ Otro de los objetivos planteados fue crear un prototipo de línea de comandos, c
 \begin{enumerate}
 \item Tome como argumento el nombre de un archivo con la especificación de una gramática en el formato $bison$.
 \item Utilice su contenido para, utilizando las clases adecuadas de $Burgram$, instanciar un objeto \textit{Gramática}.
-\item Interrogue el objeto \textit{Gramática} para mostrar el $first$ y el $follow$ de los símbolos de la gramática.
+\item Interrogue el objeto \textit{Gramática} para mostrar el \textit{FIRST} y el \textit{FOLLOW} de los símbolos de la gramática.
 \end{enumerate}
 
 Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las horas invertidas en él fueron las siguientes:
@@ -46,14 +46,14 @@ FALTA
 
 \subsection{Sprint 2: 10 marzo - 17 marzo}
 
-El 10 de marzo se realizó una reunión en la que se valoraron los resultados del primer $sprint$. Todos los resultados fueron satisfactorios, se consiguió crear un prototipo en el cual, introduciendo una gramática en formato $bison$, se obtenía de ella el $first$ y el $follow$ por pantalla.
+El 10 de marzo se realizó una reunión en la que se valoraron los resultados del primer \textit{sprint}. Todos los resultados fueron satisfactorios, se consiguió crear un prototipo en el cual, introduciendo una gramática en formato \textit{bison}, se obtenía de ella el \textit{FIRST} y el \textit{FOLLOW} por pantalla.
 
 En esta reunión se plantearon nuevos objetivos: 
 
 \begin{itemize}
 \item Generar la tabla de análisis sintáctico predictivo (TASP) en el prototipo.
-\item Instalar $Miktex$.
-\item Instalar $TexMaker$.
+\item Instalar MiK\TeX{}.
+\item Instalar \textit{\TeX{}Maker}.
 \item Hacer un uso correcto de los Path.
  
 \end{itemize}
@@ -64,7 +64,7 @@ FALTA
 
 \subsection{Sprint 3: 17 marzo - 31 marzo}
 
-El 17 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del segundo $sprint$. Todos los resultados fueron satisfactorios. Se consiguió generar la TASP y se preparó el prototipo para que los path no diesen problemas en los diferentes sistemas operativos.
+El 17 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del segundo \textit{sprint}. Todos los resultados fueron satisfactorios. Se consiguió generar la \textit{TASP} y se preparó el prototipo para que los path no diesen problemas en los diferentes sistemas operativos.
  
 Los objetivos que se plantearon en esta reunión fueron:
 
@@ -75,7 +75,7 @@ Los objetivos que se plantearon en esta reunión fueron:
 \item Generar una plantilla para crear ficheros .tex. 
 \end{itemize}
 
-Se estableció que este $sprint$ sería de dos semanas debido a la Semana Santa.
+Se estableció que este \textit{sprint} sería de dos semanas debido a la Semana Santa.
 
 Terminada la reunión, el trabajo que se realizó a lo largo de las semanas y las horas invertidas en él fueron las siguientes:
 
@@ -83,11 +83,11 @@ FALTA
 
 \subsection{Sprint 4: 31 marzo - 7 abril}
 
-El 31 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del tercer $sprint$:
+El 31 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del tercer \textit{sprint}:
 \begin{itemize}
 \item Se comenzó el tratamiento de datos utilizando una librería llamada \textit{Apache Commons CLI}.
-\item Se decidió utilizar como motor de plantillas $JinJava$. 
-\item En cuanto a las plantillas, y dado que su generación no había sido tan satisfactoria como se pretendía, se decidió junto con el tutor, centrar el trabajo en la plantilla .xml y dejar la plantilla .tex para un $sprint$ futuro.
+\item Se decidió utilizar como motor de plantillas \textit{JinJava}. 
+\item En cuanto a las plantillas, y dado que su generación no había sido tan satisfactoria como se pretendía, se decidió junto con el tutor, centrar el trabajo en la plantilla .xml y dejar la plantilla .tex para un \textit{sprint} futuro.
 \end{itemize}
 
 En esta reunión se plantearon nuevos objetivos:
@@ -102,12 +102,12 @@ Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las 
 FALTA 
 
 \subsection{Sprint 5: 7 abril - 14 abril}
-La siguiente reunión tuvo lugar el 7 de abril y se analizaron los progresos conseguidos en el anterior $sprint$. Se desechó el uso de $JinJava$ como motor de plantillas porque no permitía la posibilidad de realizar bucles de repetición. En su lugar, se decidió continuar el trabajo utilizando $mustache$, ya que cualquier elemento iterable puede ser utilizado. En cuanto a la plantilla para ficheros .xml, no se pudo avanzar lo deseado puesto que aparecieron problemas con $JavaScript$ ya que la plataforma moodle de la Universidad de Burgos no permite el  su uso.
+La siguiente reunión tuvo lugar el 7 de abril y se analizaron los progresos conseguidos en el anterior \textit{sprint}. Se desechó el uso de $JinJava$ como motor de plantillas porque no permitía la posibilidad de realizar bucles de repetición. En su lugar, se decidió continuar el trabajo utilizando $Mustache$, ya que cualquier elemento iterable puede ser utilizado. En cuanto a la plantilla para ficheros .xml, no se pudo avanzar lo deseado puesto que aparecieron problemas con $JavaScript$ ya que la plataforma Moodle de la Universidad de Burgos no permite su uso.
 
 Los objetivos que se plantearon en esta reunión fueron:
 \begin{itemize}
-\item Al tener problemas con el uso de $JavaScript$, se plantearon dos posibles soluciones. Una de ellas era utilizar un motor web que, desde Java, permitiese transformar un documento html construido de forma dinámica con $JavaScript$, en un documento html estático. La otra solución era cambiar todos los script de $JavaScript$ por html estático de forma manual. Por tanto, el objetivo era buscar dicho motor web. Si se conseguía encontrar un motor web que transformase los documentos en poco tiempo el objetivo estaría cumplido; sino, se tendría que proceder al cambio de todos los script de forma manual.
-\item Buscar información sobre el formato de inicio y fin de las preguntas en moodle.
+\item Al tener problemas con el uso de $JavaScript$, se plantearon dos posibles soluciones. Una de ellas era utilizar un motor web que, desde Java, permitiese transformar un documento HTML construido de forma dinámica con $JavaScript$, en un documento HTML estático. La otra solución era cambiar todos los script de $JavaScript$ por HTML estático de forma manual. Por tanto, el objetivo era buscar dicho motor web. Si se conseguía encontrar un motor web que transformase los documentos en poco tiempo el objetivo estaría cumplido; sino, se tendría que proceder al cambio de todos los script de forma manual.
+\item Buscar información sobre el formato de inicio y fin de las preguntas en Moodle.
 \item Durante la reunión se decidió que las gramáticas estuvieran compuestas por letras mayúsculas y letras minúsculas. Las mayúsculas corresponderían a los no terminales y las minúsculas a los terminales. Se estableció que no se utilizasen símbolos como paréntesis, corchetes, llaves, etc. puesto que interfieren con el funcionamiento de la plantilla. De esta manera, se planteó como objetivo cambiar las gramáticas y adaptarlas a los nuevos requisitos planteados en esta reunión.
 \end{itemize}
 
@@ -116,7 +116,7 @@ Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las 
 FALTA
 
 \subsection{Sprint 6: 14 abril - 21 abril}
-En la siguiente reunión, que tuvo lugar el 14 de abril, se analizaron los resultados del quinto $sprint$. Debido a la dificultad de encontrar un motor web que permitiese transformar documentos html dinámicos en estáticos, se decidió implantar la segunda solución planteada en la reunión anterior para solucionar el problema que suponía el uso de $JavaScript$. Para ello, se utilizó la propiedad de $mustache$ que permite utilizar cualquier elemento iterable. Los demás objetivos tuvieron resultados satisfactorios.
+En la siguiente reunión, que tuvo lugar el 14 de abril, se analizaron los resultados del quinto \textit{sprint}. Debido a la dificultad de encontrar un motor web que permitiese transformar documentos html dinámicos en estáticos, se decidió implantar la segunda solución planteada en la reunión anterior para solucionar el problema que suponía el uso de $JavaScript$. Para ello, se utilizó la propiedad de $Mustache$ que permite utilizar cualquier elemento iterable. Los demás objetivos tuvieron resultados satisfactorios.
 
 En esta reunión se plantearon nuevos objetivos:
 \begin{itemize}
@@ -131,13 +131,13 @@ FALTA
 \subsection{Sprint 7: 21 abril - 28 abril}
 El 21 de abril se realizó una reunión en la que se valoraron los resultados del sexto $sprint$. Todos los resultados fueron satisfactorios.
 
-Ya que todos los objetivos se iban cumpliendo a tiempo, en esta semana se planteó terminar el código para visualizar las tablas del $first$ y del $follow$ en una gramática $LL$.
+Ya que todos los objetivos se iban cumpliendo a tiempo, en esta semana se planteó terminar el código para visualizar las tablas del \textit{FIRST} y del \textit{FOLLOW} en una gramática $LL$.
 
 Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las horas invertidas en él fueron las siguientes:
 
 FALTA
 \subsection{Sprint 8: 28 abril - 5 mayo}
-En la siguiente reunión celebrada el 28 de abril se comprobó que los objetivos del séptimo $sprint$ se habáin conseguido, es decir, el código para visualizar las tablas del $first$ y del $follow$ en una gramática $LL$ estaba terminado.
+En la siguiente reunión celebrada el 28 de abril se comprobó que los objetivos del séptimo \textit{sprint} se habían conseguido, es decir, el código para visualizar las tablas del \textit{FIRST} y del \textit{FOLLOW} en una gramática $LL$ estaba terminado.
 
 En esta reunión se plantearon nuevos objetivos:
 \begin{itemize}
@@ -160,21 +160,21 @@ Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las 
 FALTA
 
 \subsection{Sprint 10: 12 mayo - 19 mayo}
-En la siguiente reunión, del 12 de mayo, se comprobó que se habían generado las tablas de conjuntos de la gramática $LR$ pero que todavía faltaban por generar las tablas correspondientes a las otras dos gramáticas.
+En la siguiente reunión, del 12 de mayo, se comprobó que se habían generado las tablas de conjuntos del análisis $LR$ pero que todavía faltaban por generar las tablas correspondientes a los otros análisis.
 
 En esta reunión se planteó:
 \begin{itemize}
-\item Crear un método para generar respuestas cortas en moodle.
-\item Crear un método para obtener la \textit{tabla de acción e Ir a}.
-\item Seguir trabajando en las gramáticas restantes.
-\item Seguir trabajando en la memoria.
+\item Crear un método para generar respuestas cortas en Moodle.
+\item Crear un método para obtener la tabla de \textit{ACCIÓN} e \textit{IR A}.
+\item Seguir trabajando en los análisis restantes.
+\item Seguir trabajando en la redacción de la memoria.
 \end{itemize}
 
 Terminada la reunión, el trabajo que se realizó a lo largo de la semana y las horas invertidas en él fueron las siguientes:
 
 FALTA
 \subsection{Sprint 11: 19 mayo - 26 mayo}
-El 19 de mayo, en la siguiente reunión se comprobó que se habían generado correctamente las respuestas cortas, así como la \textit{tabla de acción e Ir a} en todas las gramáticas. 
+El 19 de mayo, en la siguiente reunión se comprobó que se habían generado correctamente las respuestas cortas, así como la tabla de \textit{ACCIÓN} e \textit{IR A} en todas los análisis. 
 Además se presentó un primer avance de la memoria.
 Se comprobó además que el cambio en el posicionamiento de los conjuntos $LR$, $SLR$ y $LALR$ era correcto.
 
@@ -190,7 +190,7 @@ En la reunión del 26 de mayo se valoraron los resultados del undécimo $sprint$
 
 Aún avanzando a buen ritmo y con la mayoría del proyecto terminado, se decidió en esta reunión presentarlo en la segunda convocatoria para tener tiempo y terminar de pulir aquellas cosas que todavía no estaban del todo correctas.
 
-En esta reunión se comprobó que, en líneas generales, únicamente quedaba por hacer para la finalización del proyecto y, por tanto, serían los objetivos del doceavo $sprint$:
+En esta reunión se comprobó que, en líneas generales, únicamente quedaba por hacer para la finalización del proyecto y, por tanto, serían los objetivos del decimosegundo \textit{sprint}:
 \begin{itemize}
 \item Crear pruebas unitarias para evaluar el funcionamiento de los métodos del prototipo.
 \item Terminar la interfaz gráfica.
@@ -200,9 +200,9 @@ En esta reunión se comprobó que, en líneas generales, únicamente quedaba por
 
 
 \subsection{Sprint 13: 2 junio - 9 junio}
-En la siguiente reunión, que tuvo lugar el 2 de junio se comprobaron los avances realizados en el anterior $sprint$. Se comprobó que se habían creado correctamente las pruebas unitarias para evaluar el funcionamiento de los métodos del prototipo. Dichas pruebas se han completado con una cobertura suficiente dadas las características del proyecto. Además, se presentaron los avances conseguidos en la plantilla .tex para los análisis $LL$ y se plantearon diferentes alternativas para mejorar la forma de la misma.
+En la siguiente reunión, que tuvo lugar el 2 de junio se comprobaron los avances realizados en el anterior \textit{sprint}. Se comprobó que se habían creado correctamente las pruebas unitarias para evaluar el funcionamiento de los métodos del prototipo. Dichas pruebas se han completado con una cobertura suficiente dadas las características del proyecto. Además, se presentaron los avances conseguidos en la plantilla .tex para los análisis $LL$ y se plantearon diferentes alternativas para mejorar la forma de la misma.
 
-Como objetivos para el siguiente $sprint$, se plantearon:
+Como objetivos para el siguiente \textit{sprint}, se plantearon:
 \begin{itemize}
 \item Continuar con la plantilla .tex para el resto de análisis e introducir las mejoras planteadas en la reunión.
 \item Terminar la interfaz gráfica.
@@ -227,7 +227,7 @@ De todos modos, se plantean algunos aspectos generales, dividiendo el estudio de
 
 Debido a la estructura del proyecto actual, no es necesario realizar un estudio de costes del mismo, ya que el proyecto está realizado como una actividad docente más dentro del Grado en Ingeniería Informática y sus futuras aplicaciones quedarán también ubicadas en este ámbito.
 
-Además, se trata de una aplicación uso gratuito dentro de la Universidad de Burgos.
+Además, se trata de una aplicación de uso gratuito dentro de la Universidad de Burgos.
 
 \subsection{Viabilidad legal}
 

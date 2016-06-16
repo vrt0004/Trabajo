@@ -37,9 +37,9 @@ La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCom
 \imagen{iconoPLGRAM}{Icono PLGRAM}
 \item Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
 
-Esta carpeta debe contener también una carpeta llamada \textit{gramáticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias.
+Esta carpeta debe contener también una carpeta llamada \textit{gramaticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias.
 
-\imagen{inicioconsola}{Acceso a la carpeta contenedora de $PLGRAM$ desde la consola}
+
 \end{itemize}
 
 
@@ -55,7 +55,7 @@ Para ejecutar la aplicación se debe escribir el siguiente comando:
  
  Los diferentes argumentos son:
  \begin{itemize}
- 	\item $-g$ Nombre de la gramática a analizar.
+ 	\item $-g$ Nombre de la gramática a analizar (que debe estar en la carpeta \textit{gramaticas} mencionada anteriormente).
  	\item $-t$ Tipo de análisis a realizar $[LL,LR,SLR,LALR].$
  	\item $-i$ Extensión del informe $[TEX, XML, ALL]$.
  	\item $-ca$ Cadena a analizar.
@@ -76,7 +76,7 @@ El parámetro $-t$ tiene diferentes opciones:
  \end{itemize}
   
  
-Si no se introduce ningún parámetro se indicará que falta el parámetro de la gramática, ya que como se ha comentado anteriormente, es un parámetro obligatorio.
+Si no se introduce alguno de los parámetros obligatorios (\textit{-g} , \textit{-t}) se indicará que falta el parámetro.
  
 Así, si se introduce la siguiente línea de código 
 \begin{verbatim}
@@ -96,7 +96,7 @@ java -jar PLGRAMlineCommand.jar -g gramatica1.yc
 en la que no se ha especificado el tipo de análisis, la aplicación lo solicita, como se muestra a continuación:
 \imagen{consola3}{$PLGRAM$ sin argumento tipo de análisis}
 
-Si se introducen los parámetros de la gramática y del tipo de análisis que se quiere realizar, se ejecuta el programa con el resto de valores por defecto:
+Si solo se introducen los parámetros de la gramática y del tipo de análisis que se quiere realizar, se ejecuta el programa con el resto de valores por defecto:
 \begin{itemize}
 \item $-i$ con valor $ALL$.
 \item $-o$ que se denominará de manera genérica como el tipo de análisis elegido concatenado al nombre de la gramática seleccionada. Por ejemplo, para un análisis $LL$ y una gramática $G3$, los ficheros generados se denominarán $LLG3$, cada uno con su extensión correspondiente.
@@ -106,7 +106,7 @@ Si se introducen los parámetros de la gramática y del tipo de análisis que se
 
 En el supuesto de que se quiera modificar alguno de los valores que por defecto se les asignan a los parámetros anteriores, bastará con introducir en cada uno de ellos los argumentos deseados:
 \begin{itemize}
-\item $-i$ se podrá elegir la extensión del fichero de salida, que será $XML$ en el caso de querer obtener un cuestionario virtual o  $TEX$ en el caso de que se quiera para una futura impresión.
+\item $-i$ se podrá elegir la extensión del fichero de salida, que será .XML en el caso de querer obtener un cuestionario virtual o .TEX en el caso de que se quiera para una futura impresión.
 \item $-o$ se podrá nombrar los ficheros de salida según se desee.
 \item $-ca$ se podrá introducir una cadena para  que la aplicación genere una tabla de primeros pasos de la traza de análisis de dicha cadena.
 La cadena deberá introducirse entrecomillado y cada item separado por un espacio. Por ejemplo, $-ca$ "$item1$ $item2$ $item3$ $item4$".
@@ -129,10 +129,10 @@ FALTA
 \subsection{Ficheros obtenidos}
 \subsubsection{Fichero .XML}
 
-El fichero $XML$ obtenido tiene una estructura general común sea cual sea la gramática y el tipo de análisis realizado. Esta estructura sigue el siguiente esquema general:
-\imagen{EstructuraXML}{Estructura del fichero.XML}
+El fichero .XML obtenido tiene una estructura general común sea cual sea la gramática y el tipo de análisis realizado. Esta estructura sigue el siguiente esquema general:
+\imagen{EstructuraXML}{Estructura del fichero .XML}
 
-Para poder utilizar el fichero.XML obtenido es necesario poder acceder a la plataforma de aprendizaje de moodle.
+Para poder utilizar el fichero .XML obtenido es necesario poder acceder a la plataforma de aprendizaje de Moodle.
 
 Los pasos que se deben seguir son:
 \begin{enumerate}
@@ -141,27 +141,27 @@ Los pasos que se deben seguir son:
 \item Pulsar en Importar archivos.
 \item Seleccionar la opción de formato XML Moodle.
 \item Desde la siguiente ventana pulsar en Examinar.
-\item Seleccionar el fichero.XML en nuestro ordenador.
+\item Seleccionar el fichero .XML en nuestro ordenador.
 \item Pulsar en Importar este archivo.
 \end{enumerate}
 
 Los puntos 5 y 6 se pueden realizar arrastrando el archivo al recuadro que se muestra.
-\imagen{Moodle1}{Importar fichero.XML en moodle}
+\imagen{Moodle1}{Importar fichero .XML en moodle}
 
-A la hora de importar el fichero.XML hay que tener en cuenta lo siguiente:
+A la hora de importar el fichero .XML hay que tener en cuenta lo siguiente:
 \begin{itemize}
 \item Los nombres de los archivos y carpetas no deben tener caracteres especiales como palabras acentuadas, tabulaciones, ñ, retornos de carro, espacios en blanco, ni símbolos de sistema como / o : , además no es recomendable combinar mayúsculas y minúsculas en los nombres.
 \item El tamaño del archivo no debe superar el límite permitido.
 
 \end{itemize} 
 
-Una vez importado el fichero.XML deseado, aparece una primera previsualización de los datos que se obtendrán a continuación. Basta con dar a continuar para acceder a la siguiente pantalla.
+Una vez importado el fichero .XML deseado, aparece una primera previsualización de los datos que se obtendrán a continuación. Basta con dar a continuar para acceder a la siguiente pantalla.
 
 En ella, aparecen todos los ficheros que se hayan importado. Para visualizar uno de ellos, se hace click en la lupa del archivo correspondiente.
-\imagen{moodle2}{Lista de ficheros.XML en moodle}
+\imagen{moodle2}{Lista de ficheros .XML en Moodle}
 
 Un ejemplo de cuestionario obtenido sería el siguiente:
-\imagen{moodle3}{Ejemplo de cuestionario resuelto en moodle }
+\imagen{moodle3}{Ejemplo de cuestionario resuelto en Moodle }
 
 \subsubsection{Fichero .TEX}
 
@@ -201,4 +201,4 @@ Así, ambas líneas deberían estar activas.
 
 \end{itemize}
 
-Siempre que se compile código, se crea un archivo .pdf en el mismo directorio donde se encuentra el fichero .TEX, con los cuestionarios elegidos.
+Siempre que se compile código, se crea un archivo .PDF en el mismo directorio donde se encuentra el archivo .TEX, con los cuestionarios elegidos.
