@@ -3,7 +3,7 @@ package Prototipo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.FileSystems;
@@ -29,7 +29,6 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.Maps;
-import com.lowagie.text.pdf.OutputStreamCounter;
 
 import analisis.Analisis;
 import analisis.AnalisisLALR1;
@@ -98,9 +97,9 @@ public class Prototipo {
 		///////////////////////////////////////////////////////////////////////
 
 		Options options = new Options();
-		options.addOption("g", true, "Nombre de la gramática a analizar");
-		options.addOption("t", true, "Tipo de análisis a realizar[LL,SLR,LARL,LR] ");
-		options.addOption("i", true, "Extensión del informe [.TEX,.XML],por defecto .ALL");
+		options.addOption("g", true, "Nombre de la gramatica a analizar");
+		options.addOption("t", true, "Tipo de analisis a realizar[LL,SLR,LARL,LR] ");
+		options.addOption("i", true, "Extension del informe [TEX,XML],por defecto ALL");
 		options.addOption("ca", true, "Cadena a analizar");
 		options.addOption("o", true, "Nombre fichero de salida");
 		options.addOption("h", "help", false, "Imprime el mensaje de ayuda");
@@ -157,9 +156,10 @@ public class Prototipo {
 			// ..............................................................
 			// Aquí van las tareas que tiene que realizar la aplicación
 			// ..............................................................
-			File directoriogram = new File(System.getProperty("user.dir")+ System.getProperty("file.separator") + "gramaticas");
+			File directoriogram = new File(
+					System.getProperty("user.dir") + System.getProperty("file.separator") + "gramaticas");
 			directoriogram.mkdir();
-			
+
 			Gramatica g = null;
 			Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir")
 					+ System.getProperty("file.separator") + "gramaticas" + System.getProperty("file.separator"));
@@ -203,17 +203,18 @@ public class Prototipo {
 					break;
 				}
 			}
-			File directorio = new File(System.getProperty("user.dir")+ System.getProperty("file.separator") + "informes");
+			File directorio = new File(
+					System.getProperty("user.dir") + System.getProperty("file.separator") + "informes");
 			directorio.mkdir();
 			switch (informe) {
 			case "TEX":
-				creaTex(g, gramatica, analisis, tipoanalisis);
+				creaTex(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 			case "XML":
 				creaXML(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 			case "ALL":
-				creaTex(g, gramatica, analisis, tipoanalisis);
+				creaTex(g, gramatica, analisis, tipoanalisis, cadena);
 				creaXML(g, gramatica, analisis, tipoanalisis, cadena);
 				break;
 
@@ -264,6 +265,7 @@ public class Prototipo {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 		}
+		
 		TodosSimbolos.add("$");
 		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
@@ -300,8 +302,8 @@ public class Prototipo {
 
 			context.put("FirstFollow", FirstFollow);
 			context.put("FirstFollowSin", FirstFollowSin);
-			List<TASP> RowTASP = creacadenasTASP(g, analisis, noterminales, terminales, producciones, true);
-			List<TASP> RowTASPSin = creacadenasTASP(g, analisis, noterminales, terminales, producciones, false);
+			List<TASP> RowTASP = creacadenasTASP(g, analisis, noterminales, terminales, producciones, true, false);
+			List<TASP> RowTASPSin = creacadenasTASP(g, analisis, noterminales, terminales, producciones, false, false);
 
 			context.put("RowTASP", RowTASP);
 			context.put("RowTASPSin", RowTASPSin);
@@ -324,8 +326,8 @@ public class Prototipo {
 			context.put("LR", false);
 			context.put("SLR", true);
 			context.put("LALR", false);
-			List<Object> conjuntosSLR = creacadenasconjuntosSLR(analisis, producciones, terminales, true);
-			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false);
+			List<Object> conjuntosSLR = creacadenasconjuntosSLR(analisis, producciones, terminales, true,false);
+			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false,false);
 			List<Taccioneir> accioneiraSLR = creacadenasaccioneiraLR(analisis, TodosSimbolos, true);
 			List<Taccioneir> AccioneiraSLRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 			context.put("ConjuntosSLR", conjuntosSLR);
@@ -350,8 +352,8 @@ public class Prototipo {
 			context.put("SLR", false);
 			context.put("LALR", true);
 
-			List<Object> conjuntosLALR = creacadenasconjuntosLR(analisis, producciones, terminales, true);
-			List<Object> conjuntosLALRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false);
+			List<Object> conjuntosLALR = creacadenasconjuntosLR(analisis, producciones, terminales, true, false);
+			List<Object> conjuntosLALRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false, false);
 			List<Taccioneir> accioneiraLALR = creacadenasaccioneiraLR(analisis, TodosSimbolos, true);
 			List<Taccioneir> accioneiraLALRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 			context.put("ConjuntosLALR", conjuntosLALR);
@@ -376,12 +378,10 @@ public class Prototipo {
 			context.put("LR", true);
 			context.put("SLR", false);
 			context.put("LALR", false);
-			List<Object> conjuntosLR = creacadenasconjuntosLR(analisis, producciones, terminales, true);
-			List<Object> ConjuntosLRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false);
+			List<Object> conjuntosLR = creacadenasconjuntosLR(analisis, producciones, terminales, true, false);
 			List<Taccioneir> accioneiraLR = creacadenasaccioneiraLR(analisis, TodosSimbolos, true);
 			List<Taccioneir> accioneiraLRsin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 			context.put("ConjuntosLR", conjuntosLR);
-			context.put("ConjuntosLRSin", ConjuntosLRSin);
 			context.put("AccioneiraLR", accioneiraLR);
 			context.put("AccioneiraLRSin", accioneiraLRsin);
 			if (cadena == null) {
@@ -390,13 +390,10 @@ public class Prototipo {
 				context.put("Cadena", cadena);
 				List<Object> RowTrazaXML = creacadenasTraza(analisis, cadena, producciones, true, false);
 				context.put("RowTrazaXML", RowTrazaXML);
-				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones, false, false);
-				context.put("RowTrazaSin", RowTrazaSin);
 			}
 			context.put("Cadena", cadena);
 			break;
 		}
-	
 
 		if (ficherosalida == "") {
 			for (char x : gramatica.toCharArray())
@@ -406,31 +403,25 @@ public class Prototipo {
 				}
 			ficherosalida = tipoanalisis + "" + gramaticasin;
 		}
-		
-		context.put("ficherosalida", ficherosalida);
-		
-		
-		
-		
-		
-		
-		Mustache mustache;
-		File fichero = new File(System.getProperty("user.dir")+ System.getProperty("file.separator") + "informes" + System.getProperty("file.separator"), ficherosalida + ".xml");
 
-		File fichero2 = new File(System.getProperty("user.dir")+System.getProperty("file.separator") + "informes" + System.getProperty("file.separator"), ficherosalida + ".tmp");
+		context.put("ficherosalida", ficherosalida);
+
+		Mustache mustache;
+		File fichero = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "informes"
+				+ System.getProperty("file.separator"), ficherosalida + ".xml");
+
+		File fichero2 = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "informes"
+				+ System.getProperty("file.separator"), ficherosalida + ".tmp");
 
 		try {
-			mustache = mf.compile("plantillamoodle.xml");
+			mustache = mf.compile("plantillamoodle");
 
-		//	BufferedWriter bw = new BufferedWriter(new FileWriter(fichero),"UTF-8");
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero),"UTF-8"));
-			
+			// BufferedWriter bw = new BufferedWriter(new
+			// FileWriter(fichero),"UTF-8");
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero), "UTF-8"));
+
 			mustache.execute(bw, context);
 			bw.close();
-			mustache = mf.compile("plantillasoluciones.html");
-			BufferedWriter bw2 = new BufferedWriter(new FileWriter(fichero2));
-			mustache.execute(bw2, context);
-			bw2.close();
 			ruta = fichero2.getPath();
 			System.out.println("Fichero.XML generado correctamente en " + fichero.getPath());
 		} catch (IOException e) {
@@ -441,7 +432,7 @@ public class Prototipo {
 
 	@SuppressWarnings("unchecked")
 	private static List<Object> creacadenasconjuntosSLR(Analisis analisis, List<Object> producciones,
-			List<Object> terminales, boolean b) {
+			List<Object> terminales, boolean preguntas,boolean tex) {
 
 		List<Object> theconjuntos = new ArrayList<Object>();
 		Automata ana = analisis.obtenerAutomataAnalisis();
@@ -466,7 +457,7 @@ public class Prototipo {
 			for (Object j : itemmarcado) {
 				item.add(j);
 				List<Object> alternativas;
-				if (b) {
+				if (preguntas) {
 					alternativas = creaAlternativasitems(item.toString(), todossub);
 					itemmarcadocadena.add(obtenerMultichoice(alternativas, (List<Object>) item.clone()));
 
@@ -479,9 +470,16 @@ public class Prototipo {
 			}
 
 			for (int j = 0; j < numitems; j++) {
-				todositems.add(new Items(itemmarcadocadena.get(j), null));
+				
+				if (tex) {
+					String itemtex = itemmarcadocadena.get(j).toString().replace("->", "\\rightarrow ");
+					todositems.add(new Items(itemtex.replace("$", "\\$").replace("->", "\\rightarrow "),null));
+				} else {
+					todositems.add(new Items(itemmarcadocadena.get(j), null));
+				}
+				
 			}
-
+			
 			ConjuntoLR c = new ConjuntoLR(i, (ArrayList<Items>) todositems.clone());
 			todositems.clear();
 
@@ -546,7 +544,7 @@ public class Prototipo {
 		return theTAeir;
 	}
 
-	private static String eliminarparentesis(Object elemento) {
+	public static String eliminarparentesis(Object elemento) {
 		String a = "";
 		a = a.concat(elemento.toString());
 		a = a.replace("(", "");
@@ -567,13 +565,16 @@ public class Prototipo {
 	 *            producciones de la gramatica
 	 * @param terminales
 	 *            terminales de la gramatica
-	 * @param b
+	 * @param con
+	 *            alternativas o sin ellas
+	 * @param tex
+	 *            indica si es para un .tex o un .xml
 	 * @return Lista con las cadenas
 	 */
 
 	@SuppressWarnings("unchecked")
 	private static List<Object> creacadenasconjuntosLR(Analisis analisis, List<Object> producciones,
-			List<Object> terminales, boolean b) {
+			List<Object> terminales, boolean b, boolean tex) {
 
 		List<Object> theconjuntos = new ArrayList<Object>();
 		Automata ana = analisis.obtenerAutomataAnalisis();
@@ -627,7 +628,15 @@ public class Prototipo {
 				simb.clear();
 			}
 			for (int j = 0; j < numitems; j++) {
-				todositems.add(new Items(itemmarcadocadena.get(j), simboloanticipacioncadena.get(j)));
+				if (tex) {
+					String itemtex = itemmarcadocadena.get(j).toString().replace("->", "\\rightarrow ");
+					String simtex = simboloanticipacioncadena.get(j).toString().replace("->", "\\rightarrow ");
+					todositems.add(new Items(itemtex.replace("$", "\\$").replace("->", "\\rightarrow "),
+							simtex.replace("$", "\\$").replace("->", "\\rightarrow ")));
+				} else {
+					todositems.add(new Items(itemmarcadocadena.get(j), simboloanticipacioncadena.get(j)));
+				}
+
 			}
 			ConjuntoLR c = new ConjuntoLR(i, (ArrayList<Items>) todositems.clone());
 			todositems.clear();
@@ -716,7 +725,7 @@ public class Prototipo {
 	 * @return
 	 */
 
-	private static List<Object> creacadenasTraza(Analisis analisis, String cadena, List<Object> producciones, boolean b,
+	public static List<Object> creacadenasTraza(Analisis analisis, String cadena, List<Object> producciones, boolean b,
 			boolean tex) {
 
 		List<Object> thetraza = new ArrayList<Object>();
@@ -744,14 +753,14 @@ public class Prototipo {
 					Traza e;
 					if (tex) {
 						e = new Traza(
-								eliminarparentesis(analisis.obtenerEstadoPilaAnalisis().toString().replace("$", "\\$")),
-								analisis.obtenerEstadoEntradaAnalisis().toString().replace("$", "\\$"),
-								analisis.obtenerProduccionSalida().replace("$", "\\$"));
+								eliminarparentesis(analisis.obtenerEstadoPilaAnalisis().toString().replace("$", "\\$")
+										.replace("->", "\\rightarrow ")),
+								analisis.obtenerEstadoEntradaAnalisis().toString().replace("$", "\\$").replace("->",
+										"\\rightarrow "),
+								analisis.obtenerProduccionSalida().replace("$", "\\$").replace("->", "\\rightarrow "));
 					} else {
-						e = new Traza(
-								eliminarparentesis(analisis.obtenerEstadoPilaAnalisis()),
-								analisis.obtenerEstadoEntradaAnalisis(),
-								analisis.obtenerProduccionSalida());
+						e = new Traza(eliminarparentesis(analisis.obtenerEstadoPilaAnalisis()),
+								analisis.obtenerEstadoEntradaAnalisis(), analisis.obtenerProduccionSalida());
 					}
 					thetraza.add(e);
 
@@ -769,8 +778,9 @@ public class Prototipo {
 					}
 					Traza e;
 					if (tex) {
-						e = new Traza(eliminarparentesis(pila).replace("$", "\\$"), entrada.replace("$", "\\$"),
-								eliminarparentesis(salidamul.replace("$", "\\$")));
+						e = new Traza(eliminarparentesis(pila).replace("$", "\\$").replace("->", "\\rightarrow "),
+								entrada.replace("$", "\\$").replace("->", "\\rightarrow "),
+								eliminarparentesis(salidamul.replace("$", "\\$").replace("->", "\\rightarrow ")));
 					} else {
 						e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada),
 								salidamul);
@@ -789,7 +799,8 @@ public class Prototipo {
 				if (b) {
 					e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada), "");
 				} else {
-					e = new Traza(eliminarparentesis(pila).replace("$", "\\$"), entrada.replace("$", "\\$"), "");
+					e = new Traza(eliminarparentesis(pila).replace("$", "\\$"),
+							entrada.replace("$", "\\$").replace("->", "\\rightarrow "), "");
 				}
 
 				thetraza.set(thetraza.size() - 1, e);
@@ -831,8 +842,9 @@ public class Prototipo {
 	 * @param b
 	 * @return cadena con las cadenas de la TASP ya tratadas
 	 */
+	@SuppressWarnings("unchecked")
 	private static List<TASP> creacadenasTASP(Gramatica g, Analisis analisis, List<Object> noterminales,
-			List<Object> terminales, List<Object> producciones, boolean b) {
+			List<Object> terminales, List<Object> producciones, boolean preguntas, boolean tex) {
 
 		List<TASP> theTASP = new ArrayList<TASP>();
 		Tabla tabla = analisis.obtenerTablaAnalisis();
@@ -845,10 +857,12 @@ public class Prototipo {
 				elemento = tabla_principal.tabla_principal.get(i).get(j);
 				String Respuestaprod;
 				if (elemento.toString().equals("") || elemento.toString().trim().equals(0)) {
-
-					correctas.add("---");
-
-					if (b) {
+					if (tex) {
+						correctas.add("-");
+					} else {
+						correctas.add("---");
+					}
+					if (preguntas) {
 						Respuestaprod = obtenerMultichoice(producciones, correctas);
 					} else {
 						Respuestaprod = eliminarparentesis(correctas);
@@ -858,21 +872,33 @@ public class Prototipo {
 				} else {
 
 					correctas.add(elemento.toString());
-					if (b) {
+					if (preguntas) {
 						List<Object> alter = creaAlternativasProd(correctas, producciones);
-						alter.add("---");
+						if (tex) {
+							alter.add("-");
+						} else {
+							alter.add("---");
+						}
 						Respuestaprod = obtenerMultichoice(alter, correctas);
 					} else {
 						Respuestaprod = eliminarparentesis(correctas);
 					}
-					produccion.add(Respuestaprod);
+					if (tex) {
+						produccion.add(Respuestaprod.replace("->", "\\rightarrow ").replace("$", "\\$ "));
+					} else {
+						produccion.add(Respuestaprod);
+					}
 
 				}
 				correctas.clear();
 			}
+			TASP e;
+			if (tex) {
+				e = new TASP(j.toString().replace("->", "\\rightarrow "), (List<Object>) produccion.clone());
+			} else {
+				e = new TASP(j.toString(), (List<Object>) produccion.clone());
+			}
 
-			@SuppressWarnings("unchecked")
-			TASP e = new TASP(j.toString(), (List<Object>) produccion.clone());
 			theTASP.add(e);
 			produccion.clear();
 		}
@@ -921,8 +947,8 @@ public class Prototipo {
 			}
 			Noterminal e;
 			if (tex) {
-				e = new Noterminal(j.toString(), RespuestaFirst.replace("$", "\\$"),
-						RespuestaFollow.replace("$", "\\$"));
+				e = new Noterminal(j.toString(), RespuestaFirst.replace("$", "\\$").replace("->", "\\rightarrow "),
+						RespuestaFollow.replace("$", "\\$").replace("->", "\\rightarrow "));
 			} else {
 				e = new Noterminal(j.toString(), RespuestaFirst, RespuestaFollow);
 			}
@@ -973,13 +999,17 @@ public class Prototipo {
 	 * @param gramatica
 	 * @param analisis
 	 * @param tipoanalisis
+	 * @throws IOException
 	 */
-	public static void creaTex(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis) {
+	public static void creaTex(Gramatica g, String gramatica, Analisis analisis, String tipoanalisis, String cadena)
+			throws IOException {
 		String gramaticasin = gramatica;
 		List<Object> producciones = new ArrayList<>();
 		Map<String, Object> context = Maps.newHashMap();
 		List<Object> terminales = new ArrayList<>();
 		List<Object> noterminales = new ArrayList<>();
+		List<Object> NumTerminalesTEX1 = new ArrayList<>();
+		List<Object> NumNoTerminalesTEX1 = new ArrayList<>();
 		List<Object> TodosSimbolos = new ArrayList<>();
 		List<Object> orden = new ArrayList<>();
 		if (ficherosalida == "") {
@@ -991,13 +1021,15 @@ public class Prototipo {
 			ficherosalida = tipoanalisis + "" + gramaticasin;
 		}
 		context.put("ficherosalida", ficherosalida);
+		context.put("NombreGramatica", gramatica);
+		context.put("TipoAnalisis", tipoanalisis);
+		context.put("SimboloInicio", g.getSimboloInicio());
 
-		// TODO
 		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos(); i++) {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 		}
-		TodosSimbolos.add("$");
+		TodosSimbolos.add("\\$");
 		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
@@ -1005,9 +1037,25 @@ public class Prototipo {
 		orden.addAll(noterminales);
 		orden.addAll(terminales);
 		context.put("Terminales", terminales);
+		context.put("NumTerminalesmas1", g.obtenerTerminales().simbolosIntroducidos() + 1);
+		context.put("NoTerminales", noterminales);
+		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+		for (int i = 0; i < g.obtenerTerminales().simbolosIntroducidos() + 1; i++) {
+			NumTerminalesTEX1.add(i);
+		}
+		context.put("NumTerminalesTEX1", NumTerminalesTEX1);
+		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos() + 1; i++) {
+			NumNoTerminalesTEX1.add(i);
+		}
+		context.put("NumNoTerminalesTEX1", NumNoTerminalesTEX1);
+		context.put("NumNoTerminales", g.obtenerNoTerminales().simbolosIntroducidos());
+		context.put("Orden", orden);
+		context.put("TodosSimbolos", TodosSimbolos);
 
 		for (int i = 0; i < g.produccionesIntroducidasGramatica(); i++) {
-			producciones.add(g.obtenerProduccionGramatica(i));
+			String x = g.obtenerProduccionGramatica(i).toString();
+			x = x.replace("->", "\\rightarrow ").replace("$", "\\$ ");
+			producciones.add(x);
 		}
 		context.put("Producciones", producciones);
 		switch (tipoanalisis) {
@@ -1024,7 +1072,7 @@ public class Prototipo {
 					terminales, false, true);
 
 			context.put("FirstFollowSinTEX", FirstFollowSin);
-			List<TASP> RowTASPSin = creacadenasTASP(g, analisis, noterminales, terminales, producciones, false);
+			List<TASP> RowTASPSin = creacadenasTASP(g, analisis, noterminales, terminales, producciones, false, true);
 			context.put("RowTASPSinTEX", RowTASPSin);
 
 			if (cadena == null) {
@@ -1043,7 +1091,7 @@ public class Prototipo {
 			context.put("SLR", true);
 			context.put("LALR", false);
 
-			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false);
+			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false,true);
 
 			List<Taccioneir> AccioneiraSLRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 
@@ -1054,8 +1102,8 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones, false, true);
-				context.put("RowTrazaSin", RowTrazaSin);
+				List<Object> RowTrazaSinTex = creacadenasTraza(analisis, cadena, producciones, false, true);
+				context.put("RowTrazaSinTex", RowTrazaSinTex);
 			}
 			context.put("Cadena", cadena);
 			break;
@@ -1066,7 +1114,7 @@ public class Prototipo {
 			context.put("SLR", false);
 			context.put("LALR", true);
 
-			List<Object> conjuntosLALRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false);
+			List<Object> conjuntosLALRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false, true);
 			List<Taccioneir> accioneiraLALRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 			context.put("ConjuntosLALRSin", conjuntosLALRSin);
 			context.put("AccioneiraLALRSin", accioneiraLALRSin);
@@ -1075,8 +1123,8 @@ public class Prototipo {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones, false, true);
-				context.put("RowTrazaSin", RowTrazaSin);
+				List<Object> RowTrazaSinTex = creacadenasTraza(analisis, cadena, producciones, false, true);
+				context.put("RowTrazaSinTex", RowTrazaSinTex);
 			}
 			context.put("Cadena", cadena);
 			break;
@@ -1086,31 +1134,40 @@ public class Prototipo {
 			context.put("LR", true);
 			context.put("SLR", false);
 			context.put("LALR", false);
-			List<Object> ConjuntosLRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false);
+			List<Object> ConjuntosLRSin = creacadenasconjuntosLR(analisis, producciones, terminales, false, true);
 			List<Taccioneir> accioneiraLRsin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
+
 			context.put("ConjuntosLRSin", ConjuntosLRSin);
 			context.put("AccioneiraLRSin", accioneiraLRsin);
+
 			if (cadena == null) {
 				context.put("Cadena", false);
 			} else {
 				context.put("Cadena", cadena);
-				List<Object> RowTrazaSin = creacadenasTraza(analisis, cadena, producciones, false, true);
-				context.put("RowTrazaSin", RowTrazaSin);
+
+				List<Object> RowTrazaSinTex = creacadenasTraza(analisis, cadena, producciones, false, true);
+				context.put("RowTrazaSinTex", RowTrazaSinTex);
+
 			}
 			context.put("Cadena", cadena);
 			break;
 		}
-
-		File fichero = new File(System.getProperty("user.dir")+System.getProperty("file.separator") + "informes" + System.getProperty("file.separator"), ficherosalida + ".tex");
+		File fichero = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "informes"
+				+ System.getProperty("file.separator"), ficherosalida + ".tex");
 
 		Mustache mustache;
 
 		try {
 			MustacheFactory mf = new DefaultMustacheFactory();
+
 			mustache = mf.compile("plantillaTEX");
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
+	
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero), "UTF-8"));
+
+		
 			mustache.execute(bw, context);
 			bw.close();
+
 			ruta = fichero.getPath();
 			System.out.println("Fichero.XML generado correctamente en " + fichero.getPath());
 		} catch (IOException e) {
@@ -1118,7 +1175,6 @@ public class Prototipo {
 		}
 
 	}
-
 
 	/**
 	 * Método para generar una cadena de respuestas incorrectas similares a la
@@ -1210,18 +1266,18 @@ public class Prototipo {
 		 * 
 		 * @param name
 		 *            nombre del No terminal
-		 * @param firts
+		 * @param first
 		 *            first
 		 * @param follow
 		 *            follow
 		 */
-		Noterminal(String name, String firts, String follow) {
+		Noterminal(String name, String first, String follow) {
 			this.name = name;
-			this.firts = firts;
+			this.first = first;
 			this.follow = follow;
 		}
 
-		String name, firts, follow;
+		String name, first, follow;
 
 	}
 
@@ -1298,7 +1354,7 @@ public class Prototipo {
 		 * 
 		 * @param name
 		 *            nombre del No terminal
-		 * @param firts
+		 * @param first
 		 *            first
 		 * @param follow
 		 *            follow
