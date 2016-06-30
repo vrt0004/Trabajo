@@ -3,46 +3,42 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\begin{document}
-				
+\begin{document}		
 \newcommand{\h}[1]{#1}
 %\renewcommand{\h}[1]
 				 						{{! Gramatica tipo LL }} 
- 
 {{#LL}} 
-				
-				
-					
+								
 \title { {{ficherosalida}} }
 \maketitle
 \section{Gramática}
-Dada la siguiente gramática 
 \vspace{0.5cm}
 
 {{#Producciones}}
+\noindent
 	${{{.}}}$
 	
 {{/Producciones}}
 
-\section{Tabla de los conjuntos first y follow}
+\section{Tabla de los conjuntos FIRST y FOLLOW}
 
 
 \begin{tabular}{|c|c|c|}
 \hline  & FIRST & FOLLOW \\
    {{#FirstFollowSinTEX}}
-\hline {{name}} & \h{ $ {{firts}} $ } &\h{ $ {{follow}} $ } \\ 
+\hline {{name}} & \h{ $ {{first}} $ } &\h{ $ {{follow}} $ } \\ 
 	{{/FirstFollowSinTEX}}
 \hline 
 \end{tabular} 
 \vspace{0.5cm}
-\section{Tabla de Analisis sintactico predictivo}
+\section{Tabla de Análisis sintáctico predictivo}
 \vspace{0.5cm}
 \begin{tabular}{ {{#Terminales}}|c{{/Terminales}}|c|} 
 \hline  {{#Terminales}}&{{.}}  {{/Terminales}}\\
  {{#RowTASPSinTEX}}  
 \hline {{name}}{{#prod}} &\h{ ${{{.}}} $}{{/prod}}\\
 {{/RowTASPSinTEX}}
-	\hline 
+\hline 
 \end{tabular} 
 
 {{#Cadena}}
@@ -58,26 +54,236 @@ Dada la siguiente gramática
    {{/RowTrazaSinTex}} 
 \hline
 \end{tabular}
-
 {{/Cadena}} 
-
-
-
-
-
 {{/LL}} 
 
+								{{! Gramatica tipo LR }} 
 
-										{{! Gramatica tipo LR }} 
+{{#LR}} 
+				
+\title { {{ficherosalida}} }
+\maketitle
+\section{Gramática}
+
+\vspace{0.5cm}
+{{#Producciones}}
+\noindent
+${{{.}}}$
+
+{{/Producciones}} 
+\vspace{0.5cm}
+
+\section{Conjuntos}
+Conjuntos de items marcados En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}. En las operaciones de cierre las producciones con el item al principio se ponen en el mismo orden en que aparecen en la gramática.
+
+\vspace{0.5cm}
+
+{{#ConjuntosLRSin}}
+\noindent
+\begin{tabular}{|l|r|l|}
+\hline
+\multicolumn{2}{|c|}{Conjunto {{numero}}} \\
+\hline Item marcado & Símbolos de anticipación\\
+	{{#items}}
+\hline \h{ ${{{item}}} $ } & \h{ ${{{simbolo}}} $ } \\ 
+ 	{{/items}}
+\hline
+
+\end{tabular}
+\vspace{0.3cm}
+{{/ConjuntosLRSin}} 
+
+\vspace{0.5cm}
+
+\section{Tabla ACCIÓN e IR A}
+
+Para especificar las acciones se utiliza una codificación similar a la vista en clase:
+\begin{itemize}
+\item dj: significa desplazar e ir al estado j.
+\item rj: significa reducir utilizando la producción j-ésima.
+\item ACP: representa la acción de aceptar la cadena.
+\item -: se utiliza para indicar que la casilla esta vacía (no tiene acción).
+\item En la parte de acción se especifica únicamente el estado al que pasa el autómata.
+\end{itemize}
+
+\begin{tabular}{ |{{#NumTerminalesTEX1}}c|{{/NumTerminalesTEX1}}{{#NumNoTerminalesTEX1}}c|{{/NumNoTerminalesTEX1}}}
+\hline & \multicolumn{ {{NumTerminalesmas1}} }{c|}{Tabla de ACCIÓN} & \multicolumn{ {{NumNoTerminales}} }{c|}{Tabla de IR A} \\ \hline
+
+\hline estado {{#TodosSimbolos}} &{{.}} {{/TodosSimbolos}}\\
+{{#AccioneiraLRSin}}
+\hline {{num}}{{#accion}}&\h{ {{.}} }{{/accion}}\\
+{{/AccioneiraLRSin}}
+\hline 
+\end{tabular}		
+{{#Cadena}}
+\section{Traza de análisis} 
+\textbf{Para la cadena \textit{"{{Cadena}} \$"}}
+\vspace{0.5cm}
+
+\begin{tabular}{|l|r|l|}
+\hline PILA & ENTRADA & SALIDA \\
+ 	{{#RowTrazaSinTex}}
+\hline \h{ ${{{pila}}}$ } & \h{ ${{{entrada}}}$ } & \h{ $ {{{salida}}} $} \\
+   {{/RowTrazaSinTex}} 
+\hline
+\end{tabular}
+{{/Cadena}} 
+{{/LR}} 	
+									{{! Gramatica tipo SLR }} 
+
+{{#SLR}} 				
+\title { {{ficherosalida}} }
+\maketitle
+\section{Gramática}
 
 
+\vspace{0.5cm}
+
+{{#Producciones}}
+\noindent
+${{{.}}}$
+
+{{/Producciones}} 
+\vspace{0.5cm}
 
 
+\section{Conjuntos}
+Conjuntos de items marcados. En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}. En las operaciones de cierre las producciones con el item al principio se ponen en el mismo orden en que aparecen en la gramática.
+
+\vspace{0.5cm}
+
+{{#ConjuntosSLRSin}}
+\noindent
+\begin{tabular}{|l|r|}
+\hline{Conjunto {{numero}} }\\
+	{{#items}}
+\hline \h{ ${{{item}}} $ } \\ 
+ 	{{/items}}
+\hline
+
+\end{tabular}
+\vspace{0.3cm}
+{{/ConjuntosSLRSin}} 
 
 
+\vspace{0.5cm}
+
+\section{Tabla ACCIÓN e IR A}
+
+Para especificar las acciones se utiliza una codificación similar a la vista en clase:
+\begin{itemize}
+\item dj: significa desplazar e ir al estado j.
+\item rj: significa reducir utilizando la producción j-ésima.
+\item ACP: representa la acción de aceptar la cadena.
+\item -: se utiliza para indicar que la casilla esta vacía (no tiene acción).
+\item En la parte de acción se especifica únicamente el estado al que pasa el autómata.
+\end{itemize}
+
+\begin{tabular}{ |{{#NumTerminalesTEX1}}c|{{/NumTerminalesTEX1}}{{#NumNoTerminalesTEX1}}c|{{/NumNoTerminalesTEX1}}}
+\hline & \multicolumn{ {{NumTerminalesmas1}} }{c|}{Tabla de ACCIÓN} & \multicolumn{ {{NumNoTerminales}} }{c|}{Tabla de IR A} \\ \hline
+
+\hline estado {{#TodosSimbolos}} &{{.}} {{/TodosSimbolos}}\\
+{{#AccioneiraSLRSin}}
+\hline {{num}}{{#accion}}&\h{ {{.}} }{{/accion}}\\
+{{/AccioneiraSLRSin}}
+\hline 
+\end{tabular}
 
 
+			
+{{#Cadena}}
+
+\section{Traza de análisis} 
+\textbf{Para la cadena \textit{"{{Cadena}} \$"}}
+\vspace{0.5cm}
+
+\begin{tabular}{|l|r|l|}
+\hline PILA & ENTRADA & SALIDA \\
+ 	{{#RowTrazaSinTex}}
+\hline \h{ ${{{pila}}}$ } & \h{ ${{{entrada}}}$ } & \h{ $ {{{salida}}} $} \\
+   {{/RowTrazaSinTex}} 
+\hline
+\end{tabular}
+
+{{/Cadena}} 
+{{/SLR}} 
 	
+									{{! Gramatica tipo LALR }} 
+
+{{#LALR}} 
+					
+\title { {{ficherosalida}} }
+\maketitle
+\section{Gramática}
+
+
+\vspace{0.5cm}
+
+{{#Producciones}}
+\noindent
+${{{.}}}$
+
+{{/Producciones}} 
+\vspace{0.5cm}
+
+
+\section{Conjuntos}
+Conjuntos de items marcados En la operación de lectura, la lectura de símbolos se hace en el orden {{Orden}}. En las operaciones de cierre las producciones con el item al principio se ponen en el mismo orden en que aparecen en la gramática.
+
+\vspace{0.5cm}
+
+{{#ConjuntosLALRSin}}
+\noindent
+\begin{tabular}{|l|r|l|}
+\hline
+\multicolumn{2}{|c|}{Conjunto {{numero}}} \\
+\hline Item marcado & Símbolos de anticipación\\
+	{{#items}}
+\hline \h{ ${{{item}}} $ } & \h{ ${{{simbolo}}} $ } \\ 
+ 	{{/items}}
+\hline
+
+\end{tabular}
+\vspace{0.3cm}
+{{/ConjuntosLALRSin}} 
+
+
+\vspace{0.5cm}
+
+\section{Tabla ACCIÓN e IR A}
+
+Para especificar las acciones se utiliza una codificación similar a la vista en clase:
+\begin{itemize}
+\item dj: significa desplazar e ir al estado j.
+\item rj: significa reducir utilizando la produccion j-ésima.
+\item ACP: representa la acción de aceptar la cadena.
+\item -: se utiliza para indicar que la casilla esta vacía (no tiene acción).
+\item En la parte de acción se especifica únicamente el estado al que pasa el autómata.
+\end{itemize}
+
+\begin{tabular}{ |{{#NumTerminalesTEX1}}c|{{/NumTerminalesTEX1}}{{#NumNoTerminalesTEX1}}c|{{/NumNoTerminalesTEX1}}}
+\hline & \multicolumn{ {{NumTerminalesmas1}} }{c|}{Tabla de ACCIÓN} & \multicolumn{ {{NumNoTerminales}} }{c|}{Tabla de IR A} \\ \hline
+
+\hline estado {{#TodosSimbolos}} &{{.}} {{/TodosSimbolos}}\\
+{{#AccioneiraLALRSin}}
+\hline {{num}}{{#accion}}&\h{ {{.}} }{{/accion}}\\
+{{/AccioneiraLALRSin}}
+\hline 
+\end{tabular}		
+{{#Cadena}}
+\section{Traza de análisis} 
+\textbf{Para la cadena \textit{"{{Cadena}} \$"}}
+\vspace{0.5cm}
+
+\begin{tabular}{|l|r|l|}
+\hline PILA & ENTRADA & SALIDA \\
+ 	{{#RowTrazaSinTex}}
+\hline \h{ ${{{pila}}}$ } & \h{ ${{{entrada}}}$ } & \h{ $ {{{salida}}} $} \\
+   {{/RowTrazaSinTex}} 
+\hline
+\end{tabular}
+{{/Cadena}} 
+{{/LALR}} 
 	
 	
 \end{document}
