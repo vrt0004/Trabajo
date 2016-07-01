@@ -10,14 +10,14 @@ El anexo se estructura presentado una lista de objetivos generales que la aplica
 \section{Objetivos generales}
 El desarrollo de la aplicación cumple los siguientes objetivos:
 \begin{enumerate}
-	\item Construcción de una GUI (Interfaz Gráfica de Usuario) que permita visualizar de forma rápida la aplicación desarrollada.
-	\item Construcción de una CLI (Command Line Interface) que permita trabajar de forma rápida y directa con la aplicación desarrollada.
+	\item Construcción de una \textit{GUI} (Interfaz Gráfica de Usuario) que permita visualizar de forma rápida la aplicación desarrollada.
+	\item Construcción de una \textit{CLI} (Command Line Interface) que permita trabajar de forma rápida y directa con la aplicación desarrollada.
 	\item Procesado y manipulación de gramáticas mediante procesadores del lenguaje.
 	\item Obtención del $FIRST$ y del $FOLLOW$ de una gramática.
 	\item Obtención de la Tabla de Análisis Sintáctico Predictivo ($TASP$) de una gramática.
 	\item Obtención de los conjuntos de items $LR(0)$ y  $LR(1)$.
 	\item Obtención de las tablas de análisis sintáctico  \textit{ACCIÓN e IR A} para análisis $SLR(1)$, $LR(1)$ y $LALR(1)$.
-	\item Exportación de cuestionarios en formato \textit{XML} compatible con la plataforma Moodle.
+	\item Exportación de cuestionarios en formato .XML compatible con la plataforma Moodle.
 	
 	\item Exportación de cuestionarios en formato \LaTeX{}.
 	
@@ -33,7 +33,7 @@ Dado que su empleo está orientado a convertirse en una herramienta docente, deb
 
 Como se explica en el \textit{Anexo E: Manual de usuario}, los archivos obtenidos de la aplicación tendrán extensiones .TEX y .XML, tratando de cubrir un mayor abanico de posibilidades de uso de la aplicación y dando una mayor cobertura a la hora de obtener los cuestionarios.
 
-En el caso de los archivos .XML es necesario el uso de la plataforma Moodle, que al ser internacional, se puede utilizar en varios idiomas, dándole así una mayor difusión a la aplicación.
+En el caso de los archivos .XML es necesario el uso de la plataforma \textit{Moodle}, que al ser internacional, se puede utilizar en varios idiomas, dándole así una mayor difusión a la aplicación.
 
 \subsection{Requisitos de usuario}
 El usuario debe ser capaz de utilizar la aplicación mediante la Interfaz Gráfica o mediante la Consola del sistema. 
@@ -44,25 +44,10 @@ En todo momento el usuario podrá consultar el \textit{Manual del Usuario} para
 orientarse y resolver dudas que le puedan surgir durante el manejo de la misma.
 
 \subsection{Requisitos del sistema}
-Los requisitos mínimos del hardware del sistema serán:
+Los requisitos mínimos del hardware del sistema serán los mismos que para ejecutar java:
 
 
-
-\begin{itemize}
-
-
-
-\item FALTA
-\item 128 MB  de memoria RAM.
-\item Resolución de pantalla igual o superior a 1152 x 864, solo para la GUI.
-\end{itemize}
-
-Se recomienda trabajar con unos requisitos concretos de hardware para que el funcionamiento de la aplicación sea el mejor posible. Estos requisitos recomendados serán:
-\begin{itemize}
-\item Intel core i7.
-\item 1 GB de memoria RAM.
-\item Resolución de pantalla igual o superior a 1280 x 960 , solo para la GUI.
-\end{itemize}
+\url{https://www.java.com/es/download/help/sysreq.xml}
 
 Los requisitos software necesarios son:
 \begin{itemize}
@@ -79,13 +64,13 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 \begin{itemize}
 \item \textit{RF1: Cargar gramática y análisis}. Permite al usuario seleccionar una gramática disponible en la carpeta \textit{gramaticas} y un tipo de análisis.
-\item \textit{RF2: Obtener análisis}. Se obtienen los datos del análisis solcitado para la gramática seleccionada.
+\item \textit{RF2: Obtener análisis}. Se obtienen los datos del análisis solicitado para la gramática seleccionada.
 \item \textit{RF3: Crear cadenas}. Se obtienen las cadenas de los datos del análisis.
-\item \textit{RF4: Obtener fichero .TEX}. Se utiliza la plantilla para obtener el fichero .TEX.
-\item \textit{RF5: Obtener fichero .XML}. Se utiliza la plantilla para obtener el fichero .XML.
+\item \textit{RF4: Obtener fichero} .TEX. Se utiliza la plantilla para obtener el fichero .TEX.
+\item \textit{RF5: Obtener fichero} .XML. Se utiliza la plantilla para obtener el fichero .XML.
 \end{itemize}
 
-\imagen{diagramaprincipal}{Diagrama principal de casos de uso}
+\imagen{diagramaprincipal}{Diagrama principal de casos de uso.}
 
 
 \subsection{Requisitos no funcionales}
