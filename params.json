@@ -1,0 +1,6 @@
+{
+  "name": "PLGRAM",
+  "tagline": "Trabajo fin de grado ",
+  "body": "### Resumen del proyecto\r\nPLGRAM es una aplicaci\u0013ón de escritorio que de forma automática genera ejercicios de análisis sint\u0013áctico descendente (LL(1)) y ascendente (SLR(1),LALR(1),LR(1)) para  publicarlos  como  cuestionarios en Moodle y en formato LATEX para su uso en pruebas escritas.\r\n### Aplicación\r\nLa aplicación se puede ejecutar de dos maneras diferentes:\r\n\r\n* CLI Interfaz en Línea de Comandos\r\n* GUI Interfaz Gráfica de Usuario\r\n\r\n###Cuestionarios\r\nLa aplicación genera cuestionarios en dos formatos diferentes:\r\n\r\n* Latex, utilizado para generar cuestionarios que puedan imprimirse en papel, como exámenes.\r\n* Moodle XML, utilizado para generar cuestiones que pueden importarse en la plataforma de aprendizaje virtual.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
