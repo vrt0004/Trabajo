@@ -342,7 +342,7 @@
     \noindent\LARGE
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
-    Tutor: \@tutor{}\\
+    Tutores: \@tutor{}\\
   }%
   \end{center}%
   \null
@@ -356,7 +356,7 @@
 % Datos de portada
 \title{PLGRAM}
 \author{Víctor Renuncio Tobar}
-\tutor{Dr. César Ignacio García Osorio y Álvar Arnaiz Gonzalez}
+\tutor{Dr. César Ignacio García Osorio y D. Álvar Arnaiz González}
 \date{\today}
 
 \begin{document}
@@ -378,9 +378,9 @@
 
 \noindent Exponen:
 
-\noindent Que el alumno D. Víctor Renuncio Tobar, con DNI 71264303-E, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado PLGRAM. 
+\noindent Que el alumno D. Víctor Renuncio Tobar, con DNI 71.264.303-E, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado PLGRAM. 
 
-\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
+\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección de los que suscriben, en virtud de lo cual se autoriza su presentación y defensa.
 
 \begin{center} %\large
 En Burgos, {\large \today}
@@ -423,12 +423,13 @@ D. Álvar Arnaiz González
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-Desarrollo de una aplicación de escritorio que de forma automática genere ejercicios de análisis sintáctico descendente (LL(1)) y ascendente (SLR(1), LALR(1), LR(1)) para publicarlos  como cuestionarios en Moodle y en formato \LaTeX{} para su uso en pruebas escritas.
-\end{abstract}
+Desarrollo de una aplicación que a partir de una gramática obtiene el análisis sintáctico descendente \textit{LL(1)} y los análisis sintácticos ascendente \textit{SLR(1)}, \textit{LR(1)} y \textit{LALR(1)}. Se obtienen los conjuntos \textit{FIRST} y \textit{FOLLOW} así como la tabla de análisis sintáctico predictivo y las tablas de \textit{ACCIÓN y de IR A}. Asimismo se puede obtener para los distintos análisis la traza de una cadena.
 
+Con la aplicación se puede generar un archivo .XML para importar a la plataforma \textit{Moodle} con la finalidad de generar de forma automática cuestionarios de análisis sintáctico. También se puede generar un fichero en formato \LaTeX{} que se puede utilizar para realizar pruebas escritas. Se puede obtener un documento en el que el cuestionario esté completo, con las respuestas correctas y otro documento en el que el cuestionario está vacío, pensado para ser respondido por un tercero.
+\end{abstract}
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Generación de cuestionarios, análisis sintáctico ascendente, análisis sintáctico descendente, LL(1), SLR(1), LALR(1), LR(1)
+Generación de cuestionarios, análisis sintáctico ascendente, análisis sintáctico descendente, \textit{LL}(1), \textit{SLR}(1), \textit{LALR}(1), \textit{LR}(1).
 \end{abstract}
 
 \clearpage
@@ -436,12 +437,16 @@ Generación de cuestionarios, análisis sintáctico ascendente, análisis sintá
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-Development of a desktop application that automatically generates  down parsing (LL(1)) and rising (SLR(1) , LALR(1) and LR(1))exercises to publish them as questionnaires in Moodle and \LaTeX{} format for use in written tests.
+
+Development of an application that obtains top-down parsing LL(1) and botton-up parsing SLR(1), LR(1) and LALR(1) from a grammar. Obteins the FIRST and FOLLOW sets and the predictive parsing table and tables ACTION and GOTO .Also it can be obtained for each diferent analyzes the trace of a string .
+
+With the application you can generate a .XML file to import to the Moodle platform in order to generate automatically parse questionnaires . You can also generate a \LaTeX{} file format that can be used for written tests. You can get a document that the questionnaire is completed, with the correct answers and other documents in which the questionnaire is empty, designed to be solved by a third party.
+
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-Questionnaire generation, bottom-up parsing, top-down parsing, LL(1), SLR(1), LALR(1), LR(1).
+Questionnaire generation, bottom-up parsing, top-down parsing, \textit{LL}(1), \textit{SLR}(1), \textit{LALR}(1), \textit{LR}(1).
 \end{abstract}
 
 \clearpage
