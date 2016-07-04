@@ -44,10 +44,8 @@ En todo momento el usuario podrá consultar el \textit{Manual del Usuario} para
 orientarse y resolver dudas que le puedan surgir durante el manejo de la misma.
 
 \subsection{Requisitos del sistema}
-Los requisitos mínimos del hardware del sistema serán los mismos que para ejecutar java:
+Los requisitos mínimos del hardware del sistema serán los mismos que para ejecutar java\cite{requisitos}.
 
-
-\url{https://www.java.com/es/download/help/sysreq.xml}
 
 Los requisitos software necesarios son:
 \begin{itemize}
@@ -70,8 +68,93 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 \item \textit{RF5: Obtener fichero} .XML. Se utiliza la plantilla para obtener el fichero .XML.
 \end{itemize}
 
-\imagen{diagramaprincipal}{Diagrama principal de casos de uso.}
 
+
+\begin{tabular}{l|l}
+\hline  \multicolumn{2}{c} {RF1 Cargar gramática y análisis}\\ 
+\hline
+\hline    Descripción        & Permite al usuario seleccionar una gramática y un tipo de análisis.\\ 
+\hline    Precondiciones     &   Que exista la gramática.       \\ 
+\hline    Secuencia normal   &   Introducir gramática y análisis.       \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   Si no existe la gramática o tiene algún error.       \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Alto.     \\ 
+\hline    Importancia        &       Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{l|l}
+\hline  \multicolumn{2}{c} {RF2 Obtener análisis}\\ 
+\hline
+\hline    Descripción        & Se obtienen los datos del análisis para la gramática seleccionada. \\ 
+\hline    Precondiciones     &   Tipo de análisis valido.       \\ 
+\hline    Secuencia normal   &   Introducir análisis.       \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   Si no existe el análisis.        \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Alto.     \\ 
+\hline    Importancia        &       Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{l|l}
+\hline  \multicolumn{2}{c} {RF3 crear cadenas}\\ 
+\hline
+\hline    Descripción        & Se obtienen las cadenas del análisis para la gramática seleccionada. \\ 
+\hline    Precondiciones     &          \\ 
+\hline    Secuencia normal   &         \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &    Alto.     \\ 
+\hline    Importancia        &    Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{l|l}
+\hline  \multicolumn{2}{c} {RF4 Obtener fichero .TEX}\\ 
+\hline
+\hline    Descripción        & Se utiliza la plantilla para obtener el fichero .TEX. \\ 
+\hline    Precondiciones     &    Que exista la plantilla PlantillaTEX.     \\ 
+\hline    Secuencia normal   &         \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &    \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &    Medio.     \\ 
+\hline    Importancia        &    Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+
+
+\vspace{0,5cm}
+
+\begin{tabular}{l|l}
+\hline  \multicolumn{2}{c} {RF5 Obtener fichero .XML}\\ 
+\hline
+\hline    Descripción        & Se utiliza la plantilla para obtener el fichero .XML. \\ 
+\hline    Precondiciones     &    Que exista la plantilla Plantillamoodle.       \\ 
+\hline    Secuencia normal   &          \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &          \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Medio.     \\ 
+\hline    Importancia        &     Alto   \\ 
+\hline    Urgencia    		 &     Alto      \\ 
+\hline
+\end{tabular}
+\imagen{diagramaprincipal}{Diagrama principal de casos de uso.}
 
 \subsection{Requisitos no funcionales}
 A continuación se describen todos aquellos requisitos no funcionales importantes para considerar en el diseño:
@@ -80,4 +163,5 @@ A continuación se describen todos aquellos requisitos no funcionales importante
 \begin{itemize}
 \item \textit{RNF1: Eficiencia}. Se debe buscar la eficiencia de la aplicación para que pueda ser usada con gramáticas complejas.
 \item \textit{RNF2: Extensibilidad}. Se pueden definir nuevas capacidades en la aplicación mediante su extensión a otro tipo de ficheros.
+\item \textit{RNF3: Práctica}. Al ser una aplicación docente, un requisito es que sea útil y práctica para enseñar/evaluar
 \end{itemize}

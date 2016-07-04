@@ -2,21 +2,21 @@
 
 \section{Introducción}
 
-Los lenguajes de programación son notaciones que describen los cálculos a las personas y a las máquinas. Todo el software que se ejecuta en las computadoras se escribe en un algún lenguaje de programación,  pero antes de poder ejecutar el programa primero debe transformarse a un formato en el que la computadora pueda ejecutarlo.  
+Todo el software que se ejecuta en las computadoras se escribe en un algún lenguaje de programación,  pero antes de poder ejecutar el programa, primero debe transformarse a un formato en el que la computadora pueda ejecutarlo.  
 
 Un \textit{compilador} es un programa que lee  un programa  (\textit{programa fuente}) escrito en un lenguaje (\textit{lenguaje fuente}), y lo traduce a un programa equivalente (\textit{programa objeto})  en otro lenguaje (\textit{lenguaje objeto}).
 
-El proceso de compilación se puede dividir en varias etapas: \textit{ANÁLISIS} (\textit{front end} o \textit{etapa inicial}), \textit{generación de código intermedio} (\textit{middle end})  y \textit{SÍNTESIS} (\textit{back end} o \textit{etapa final}).  La etapa de \textit{ANÁLISIS} divide el programa fuente en componentes e impone una estructura gramatical sobre ellas. También recoge información sobre el programa fuente que se almacena en una estructura de datos llamada \textit{tabla de símbolos}. Después se utiliza esta estructura gramatical para crear una representación intermedia del programa fuente. La etapa de \textit{SÍNTESIS}  construye el programa destino a partir de la representación intermedia y de la información de la \textit{tabla de símbolos}.
+El proceso de compilación se puede dividir en varias etapas: \textit{ANÁLISIS} (\textit{front end} o \textit{etapa inicial}), \textit{generación de código intermedio} (\textit{middle end})  y \textit{SÍNTESIS} (\textit{back end} o \textit{etapa final}).  La etapa de \textit{ANÁLISIS} divide el programa fuente en componentes e impone una estructura gramatical sobre ellas. También recoge información sobre el programa fuente que se almacena en una estructura de datos llamada \textit{tabla de símbolos}. Después se utiliza esta estructura gramatical para crear una representación intermedia del programa fuente. La etapa de \textit{SÍNTESIS}  construye el programa destino a partir de la representación intermedia y de la información de la \textit{tabla de símbolos}\cite{jimenez2009compiladores}\cite{sintactico}.
 
 
-\imagen{compilador}{Estructura de un compilador\cite{apuntes}} 
+\imagen{compilador}{Estructura de un compilador \cite{apuntes}.} 
 
 La etapa de \textit{ANÁLISIS} agrupa aquellas fases que dependen principalmente del lenguaje fuente y comprende:
 
 \begin{itemize}
 	\item El \textbf{analizador léxico} (\textit{scanner}) que agrupa los caracteres individuales en entidades lógicas.
 	\item El \textbf{analizador sintáctico} (\textit{parser}), que trataremos con más detalle a continuación, analiza la estructura general de todo el programa, agrupando las entidades simples identificadas por el \textit{scanner} en construcciones mayores como sentencias, bucles, rutinas, que componen el programa complejo. Normalmente se utiliza la representación de \textit{árboles sintácticos} para reflejar dicha estructura.
-	\item El \textbf{analizador semántico} utiliza los \textit{árboles sintácticos} y la información de la \textit{tabla de símbolos} para comprobar la consistencia semántica del programa. También recopila información sobre el tipo (qué variables almacenan enteros, cuáles número en coma flotante,…)
+	\item El \textbf{analizador semántico} utiliza los \textit{árboles sintácticos} y la información de la \textit{tabla de símbolos} para comprobar la consistencia semántica del programa. También recopila información sobre el tipo (qué variables almacenan enteros, cuáles número en coma flotante,\dots{}).
 	
 \end{itemize}
 
@@ -55,7 +55,7 @@ Para verificar si una instrucción pertenece al lenguaje, se construye el árbol
 
 %Si el analizador sintáctico no puede formar una sentencia produce un mensaje de error, tratando de indicar las causas por las cuales no puede formar la sentencia. 
 
-Para realizar el análisis es necesario calcular previamente tres tipos de conjuntos: anulables, iniciales (\textit{FIRST}) y seguidores (\textit{FOLLOW}). Los anulables son los no terminales que pueden generar la palabra vacía ($\epsilon$). El conjunto \textit{FIRST}($\alpha$) de una cadena es el conjunto de terminales que pueden comenzar cualquier cadena obtenida a partir de $\alpha$ y el conjunto \textit{FOLLOW}(\textit{A}) de un no terminal es el conjunto de terminales que pueden aparecer inmediatamente después del \textit{A}. Si \textit{A} es el último símbolo entonces se incluye el separador \textbf{dolar}. 
+Para realizar el análisis es necesario calcular previamente tres tipos de conjuntos: anulables, iniciales (\textit{FIRST}) y seguidores (\textit{FOLLOW}). Los anulables son los no terminales que pueden generar la palabra vacía ($\epsilon$). El conjunto \textit{FIRST}($\alpha$) de una cadena es el conjunto de terminales que pueden comenzar cualquier cadena obtenida a partir de $\alpha$ y el conjunto \textit{FOLLOW}(\textit{A}) de un no terminal es el conjunto de terminales que pueden aparecer inmediatamente después del \textit{A}. Si \textit{A} es el último símbolo entonces se incluye el separador \$. 
 
 Para las gramáticas libres de contexto existen dos tipos básicos de analizadores sintácticos: los descendentes (\textit{top-down}) y los ascendentes (\textit{bottom-up}). Los descendentes construyen el árbol comenzando por la raíz y bajan hasta las hojas y los ascendentes construyen el árbol desde las hojas hasta la raíz.
 
@@ -163,7 +163,7 @@ Los métodos descendentes tratan de generar una forma sentencial  a partir del a
 
 Un analizador de este tipo está formado por el buffer de entrada, una pila, una tabla de análisis y el programa de control del analizador \textit{(PDA)}.
 
-\imagen{AnalisisSintacticoDescendente}{Estructura del analizador descendente.\cite{apuntes}}
+\imagen{AnalisisSintacticoDescendente}{Estructura del analizador descendente \cite{apuntes}.}
 
 
 El problema clave durante el análisis sintáctico es determinar la producción que debe aplicarse a un no terminal. 
@@ -174,7 +174,7 @@ El analizador sintáctico no recursivo  busca la producción que debe aplicarse 
 
 Está compuesta por entradas de la forma $M[a,X]=(X\rightarrow w)$        cuando 
           $a\in FIRST(w.FOLLOW(X))$.
-\imagen{Tabla-TASP}{Tabla de análisis sintáctico predictivo\cite{apuntes}}
+\imagen{Tabla-TASP}{Tabla de análisis sintáctico predictivo \cite{apuntes}.}
 
  
 \subsection{Uso de la \textit{TASP}}
@@ -196,14 +196,14 @@ Si la entrada de tabla está vacía se llama a la rutina de recuperación de err
 \imagen{Ejemplo-TASP}{$TASP$ de la gramática.}
 
 
-\imagen{Ejemplo-traza}{Traza de la cadena "tipo begin codigo end $\$$".}
+\imagen{Ejemplo-traza}{Traza de la cadena ``tipo begin codigo end $\$$''.}
 
 
 \subsection{Gramáticas \textit{LL}(1)}
 
 Una gramática cuya \textit{TASP} no tiene entradas múltiples se dice que es \textit{LL}(1).
 
-Si una gramática es \textit{LL}(1) entonces 
+Si una gramática es \textit{LL}(1) entonces:
 
 \begin{itemize}
 \item Es un gramática no ambigua (no existe ninguna cadena a la que se le pueda asociar dos árboles de análisis sintáctico diferentes).
@@ -238,7 +238,7 @@ Las gramáticas \textit{LL}(1) permiten construir de forma automática una anali
 
 La idea es generar una forma sentencial a partir del axioma, reconstruyendo una derivación más a la derecha en orden inverso:  $S\Rightarrow_{r}^{*}w$.
 
-Los más utilizados son los  analizadores sintácticos $LR$ que utilizan la técnica de análisis por desplazamiento/reducción. Se parte de la cadena a analizar y se trata de "reducir" hasta llegar al símbolo inicial de la gramática.
+Los más utilizados son los  analizadores sintácticos $LR$ que utilizan la técnica de análisis por desplazamiento/reducción. Se parte de la cadena a analizar y se trata de ``reducir"  hasta llegar al símbolo inicial de la gramática.
 En cada paso de reducción se sustituye una subcadena determinada que concuerde con el lado derecho de una producción (\textit{asidero}) por el símbolo del lado izquierdo de dicha producción.
 
 Si en cada paso se elige correctamente la cadena, se consigue una derivación por la derecha en sentido inverso.
@@ -293,7 +293,7 @@ Es la técnica más sencilla que permite un análisis \textit{LR} con previsión
 
 Se basa en la construcción de los conjuntos de items $LR(0)$ de la gramática. Un item $LR(0)$ de una gramática es una de sus producciones, con un punto en algún lugar de su parte derecha. El punto indica hasta donde se ha visto la producción en ese momento del análisis. 
 Los ítems se agrupan en estados de un autómata capaz de reconocer asideros en la cima de la pila.
-\imagen{ConjuntosLR}{Conjuntos de ítems $LR(0)$}
+\imagen{ConjuntosLR}{Conjuntos de ítems $LR(0)$.}
 Se pueden presentar conflictos \textit{REDUCE-REDUCE}  y \textit{SHIFT-REDUCE} que en algunos casos se pueden resolver. 
 
 
@@ -301,16 +301,16 @@ Se pueden presentar conflictos \textit{REDUCE-REDUCE}  y \textit{SHIFT-REDUCE} q
 
 Se basa en la  construcción de los items $LR(1)$ de la gramática. Un ítem $LR(1)$ tiene dos componentes: una producción con marca (ítem $LR(0)$) y un conjunto de símbolos de anticipación).  Se aumentan los estados del autómata finito.
 
-\imagen{LR1}{Primeros conjuntos de \textit{ítems LR(1)}}
+\imagen{LR1}{Primeros conjuntos de \textit{ítems LR}(1).}
 
-\imagen{LR2}{Tabla de ACCIÓN  y de IR A en un análisis \textit{LR(1)}}
+\imagen{LR2}{Tabla de ACCIÓN  y de IR A en un análisis \textit{LR}(1).}
 
-\imagen{LR3}{Traza de análisis de la cadena 'tipo begin codigo end \$' }
+\imagen{LR3}{Traza de análisis de la cadena ``tipo begin codigo end $\$$''. }
 
 
 \subsection{Análisis $LALR(1)$}
 
-El análisis $LR(1)$ canónico requiere muchos más estados que el análisis $SLR(1)$. Por el contrario hay algunas construcciones de los lenguajes de programación que dan problemas en el análisis $SLR(1)$.
+El análisis $LR(1)$ \textit{canónico} requiere muchos más estados que el análisis $SLR(1)$. Por el contrario hay algunas construcciones de los lenguajes de programación que dan problemas en el análisis $SLR(1)$.
 
 El análisis $LALR(1)$ combina las ventajas de los dos análisis. Puede tratar con las gramáticas problemáticas para el análisis $SLR(1)$, y requiere menos estados que en el análisis $LR(1)$ \textit{canónico}.
 
