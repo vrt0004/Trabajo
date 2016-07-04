@@ -4,13 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.awt.FileDialog;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,10 +35,19 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Prototipo.Prototipo;
+import analisis.Analisis;
+import analisis.AnalisisLL1;
+import analisis.AnalisisLR1;
+import analisis.AnalisisSLR1;
 import analisis.analisisSintactico.LALR1;
 import analisis.analisisSintactico.LL1;
 import analisis.analisisSintactico.LR1;
 import analisis.analisisSintactico.SLR1;
+import gramatica.Gramatica;
+import parser.ParseException;
+import parser.ParserGramatica;
+import parser.ParserYacc;
 
 public class Main {
 
@@ -59,7 +65,6 @@ public class Main {
 	private Component añadirDerechoStrut;
 	private Component añadirIzquierdoStrut;
 	private JMenuBar menuBar;
-
 
 	@SuppressWarnings("unused")
 	private Main main = this;
@@ -155,13 +160,13 @@ public class Main {
 		this.menuArchivo.add(this.menuLL);
 
 		this.menuSLR = new JMenuItem("Nueva cuestión - SLR");
-		this.menuSLR.addActionListener(new MenuLRActionListener());
+		this.menuSLR.addActionListener(new MenuSLRActionListener());
 		this.menuSLR.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK));
 
 		this.menuArchivo.add(this.menuSLR);
 
 		this.menuLR = new JMenuItem("Nueva cuestión - LR");
-		this.menuLR.addActionListener(new MenuSLRActionListener());
+		this.menuLR.addActionListener(new MenuLRActionListener());
 		this.menuLR.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
 
 		this.menuArchivo.add(this.menuLR);
@@ -246,42 +251,92 @@ public class Main {
 
 	private class MenuExportarButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			
-			FileDialog dialogoArchivo;
-			Frame f = null;
-			///TODO
-			dialogoArchivo = new FileDialog(f, "Guardar", FileDialog.SAVE);
-			dialogoArchivo.setVisible(true);
-		
+
 			JMenuItem source = (JMenuItem) event.getSource();
-			
-			if (source == menuExportarMoodleXMLButton){
-				System.out.println("ExportarMoodleXMLButton");
+			ParserGramatica pg = new ParserGramatica(false, new ParserYacc());
+			Gramatica g;
+			String gramatica;
+			Analisis analisis;
+			String tipoanalisis;
+			String cadena;
+			try {
+				// TODO
+				if (LLPanel.expresionText != null) {
+					g = pg.parsearGramaticaCadena(LLPanel.expresionText.getText());
+					gramatica = LLPanel.fichero;
+					analisis = new AnalisisLL1(g);
+					tipoanalisis = "LL";
+					cadena = LLPanel.cadenaText.getText();
+					
+
+					if (source == menuExportarMoodleXMLButton) {
+						Prototipo.creaXML(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "XML generado");
+					} else {
+						Prototipo.creaTex(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "TEX generado");
+
+					}
+					
 				
-			}else{
-				System.out.println("ExportarLatexButton");
-			}
-			      
-			
-			int valorRetorno = fileChooser.showSaveDialog(frmPlgram);
-			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
-				//File fichero = fileChooser.getSelectedFile();
-				if (source == menuExportarMoodleXMLButton) {
-					// .exportaXML(fichero);
-				} else if (source == menuExportarLatexButton) {
-					// documento().exportaLatex(fichero);
 				}
+				if (LRPanel.expresionText != null) {
+					g = pg.parsearGramaticaCadena(LRPanel.expresionText.getText());
+					gramatica = LRPanel.fichero;
+					analisis = new AnalisisLR1(g);
+					tipoanalisis = "LR";
+					cadena = LRPanel.cadenaText.getText();
+
+					if (source == menuExportarMoodleXMLButton) {
+						Prototipo.creaXML(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "XML generado");
+					} else {
+						Prototipo.creaTex(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "TEX generado");
+
+					}	
+				}
+				if (SLRPanel.expresionText != null) {
+					g = pg.parsearGramaticaCadena(SLRPanel.expresionText.getText());
+					gramatica = SLRPanel.fichero;
+					analisis = new AnalisisSLR1(g);
+					tipoanalisis = "SLR";
+					cadena = SLRPanel.cadenaText.getText();
+
+					if (source == menuExportarMoodleXMLButton) {
+						Prototipo.creaXML(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "XML generado");
+					} else {
+						Prototipo.creaTex(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "TEX generado");
+
+					}	
+				}
+				if (LALRPanel.expresionText != null) {
+					g = pg.parsearGramaticaCadena(LALRPanel.expresionText.getText());
+					gramatica = LALRPanel.fichero;
+					analisis = new AnalisisLR1(g);
+					tipoanalisis = "LALR";
+					cadena = LALRPanel.cadenaText.getText();
+					if (source == menuExportarMoodleXMLButton) {
+						Prototipo.creaXML(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "XML generado");
+					} else {
+						Prototipo.creaTex(g, gramatica, analisis, tipoanalisis, cadena);
+						JOptionPane.showMessageDialog(null, "TEX generado");
+					}	
+				}
+			} catch (IOException e) {	
+			} catch (ParseException e) {
 			}
 		}
 	}
-
-
 
 	private class MenuWebActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 
 			try {
-				Desktop.getDesktop().browse(new URI("https://github.com/vrt0004/Trabajo"));
+				Desktop.getDesktop().browse(new URI("http://vrt0004.github.io/Trabajo/"));
 			} catch (IOException | URISyntaxException e) {
 
 			}
@@ -294,8 +349,9 @@ public class Main {
 			JOptionPane.showMessageDialog(frmPlgram,
 					"PLGRAM\n" + "TFG del Grado en Ingeniería Informática\n"
 							+ "Escuela Politécnica Superior, Universidad de Burgos\n"
-							+ "Presentado en Julio de 2016\n\n" + "Autor: Victor Renuncio Tobar\n"
-							+ "Tutor: Dr. Cesar Ignacio García Osorio",
+							+ "Presentado en Julio de 2016\n\n" + "Autor: Víctor Renuncio Tobar\n"
+							+ "Tutor: Dr. Cesar Ignacio García Osorio\n"
+							+ "Tutor: D. Álvar Arnaiz González",
 					"Acerca de", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
@@ -352,13 +408,12 @@ public class Main {
 				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
 			scrollVistaPrevia = true;
 		}
+
 	}
 
 	void añadeLL(Problema<LL1> problema) {
 		LLPanel panel = new LLPanel(this, contenedorPanel, this.panelesProblema.size() + 1);
 		scrollContenedor = false;
-		if (problema != null)
-			panel.problema(problema);
 		contenedorPanel.add(panel);
 		panelesProblema.add(panel);
 		contenedorPanel.revalidate();
@@ -402,7 +457,6 @@ public class Main {
 			panel.eliminarVista();
 	}
 
-
 	public void moverProblemaArriba(ProblemaPanel<?> problema) {
 		int index = this.panelesProblema.indexOf(problema);
 		if (index > 0) {
@@ -443,7 +497,7 @@ public class Main {
 
 	public void actualizaVistaPrevia(Object object) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
