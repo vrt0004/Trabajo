@@ -1,0 +1,41 @@
+\capitulo{7}{Conclusiones y Líneas de trabajo futuras}
+\section{Conclusiones}
+
+Se ha perfeccionado el conocimiento sobre Java y su integración con bibliotecas de terceros como ha sido \textit{Commons CLI}.
+
+El empleo de una herramienta para el control de versiones, ya utilizados con anterioridad,
+ha servido para reforzar la idea de lo imprescindibles que son estas herramientas para el
+desarrollo software y las garantías de seguridad que ofrecen.
+
+Se ha aprendido un nuevo modo de realizar documentos técnicos con el uso de \LaTeX{}. Aunque
+en un principio supuso una carga a la documentación, a medida que avanzó el desarrollo, favoreció el interés por la escritura debido a los retos que se presentaron durante su ejecución.
+
+Por último, destacar el perfeccionamiento de todas las tareas del desarrollo software aprendidas a lo largo del grado en ingeniería: planificación,
+análisis, diseño, implementación, pruebas y documentación.
+\section{Líneas de trabajo futuras}
+
+\subsection{Deshacer cambios}
+La aplicación no permite \textit{volver atrás} si se elimina parte del trabajo realizado. Por ejemplo, si se elimina una cuestión, no se puede recuperar.
+
+Desarrollar una opción de <<deshacer>> evitaría problemas al usuario y aumentaría la usabilidad del programa.
+
+\subsection{Exportación de mas de una pregunta en la interfaz gráfica}
+La aplicación exporta las preguntas en formato .XML o .TEX de una en una.
+
+Una posible mejora de la aplicación consistiría en poder exportar todas las preguntas de una sola vez, facilitando el trabajo y reduciendo el tiempo de uso.
+
+\subsection{Más tipos de cuestiones}
+ La aplicación proporciona un conjunto relativamente amplio de modelos de preguntas, pero, partiendo de la funcionalidad de resolución de algoritmos ya implementada, podrían generarse nuevos tipos de cuestiones para evaluar conocimientos de manera más amplia. 
+
+Un ejemplo serían preguntas de emparejamiento, que están directamente soportadas por \textit{Moodle} y son sencillas de crear en otros formatos
+
+  
+ \subsection{Importar cuestionarios} 
+En la versión actual de la aplicación, los cuestionarios pueden exportarse pero no importarse. Esto quiere decir que, una vez se cierra el programa, no se puede continuar trabajando sobre las preguntas que se tenían, a menos que se cree un cuestionario nuevo y se añadan las preguntas a mano. 
+
+Se proponen dos posibles implementaciones de un sistema de almacenamiento y carga:
+
+ \begin{itemize}
+ \item El almacenamiento de los cuestionarios como ficheros separados, ya sea en texto plano, XML o cualquier otro formato.
+ \item Consistiría en la lectura de un fichero exportado y su comparación con la plantilla de la que se generó. De esta manera se pueden localizar la gramática y el análisis y extraer la plantilla. Una vez obtenidas, la reconstrucción del cuestionario es trivial.
+ \end{itemize}

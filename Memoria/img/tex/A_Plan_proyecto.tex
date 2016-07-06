@@ -1,0 +1,292 @@
+\apendice{Manuales}
+
+\section{Introducción}
+
+En este anexo se detalla el estudio desde el punto de vista temporal y de la viabilidad del proyecto software.
+
+La planificación es una de las tareas más importantes en el desarrollo de un proyecto software y servirá para determinar objetivos, evaluar la viabilidad del proyecto, priorizar actividades...
+
+En la primera parte del anexo se detallará la planificación temporal del proyecto teniendo en cuenta la metodología ágil que se va a utilizar: $Scrum$. En esta fase se determinarán los elementos que forman el \textit{Product Backlog} y la prioridad de cada uno de ellos.
+Debido a la metodología empleada, no se utilizará el clásico diagrama de $GANTT$. En lugar de esto, se definirá el \textit{Product Backlog} y para el seguimiento se utilizará una herramienta de gestión especializada en metodologías ágiles, $VersionOne$, que permite el seguimiento diario de las tareas por parte del equipo de desarrollo.
+
+En la segunda parte se justificará el desarrollo del proyecto desde diversos puntos de vista: viabilidad técnica, legal, económica, etc.
+
+\section{Planificación temporal}
+Esta sección detalla el trabajo realizado en cada $sprint$ del proyecto. Tras la primera reunión con el tutor, se decidió que cada $sprint$ duraría una semana y se correspondería con una serie de objetivos planteados y unos resultados a conseguir. 
+
+A continuación se describe semana por semana dichos objetivos y los resultados que se fueron consiguiendo. Se incluye adicionalmente un $sprint$ inicial que transcurre entre la asignación del proyecto y el comienzo oficial.
+
+\subsection{Sprint 0: hasta el 3 marzo}
+
+Esta iteración tiene consideraciones especiales, puesto que desde que se asignaron los proyectos hasta que realmente se comenzó a trabajar semana a semana con el tutor, se realizó una búsqueda de información relacionada con la futura aplicación.
+
+Para ello se leyeron los apuntes de la asignatura \textit{Procesadores del Lenguaje}, se buscó información sobre programas similares y se recabó información sobre los programas que iban a ser de utilidad a la hora de desarrollar el proyecto.
+
+Así, se creó el repositorio en $Github$ y se comenzó a realizar la programación temporal utilizando el software online $VersionOne$. 
+
+\subsection{Sprint 1: 3 marzo - 10 marzo}
+
+La primera reunión con el tutor fue el 3 de marzo. En ella, se habló sobre cómo se podría distribuir mejor la aplicación que se iba a crear. Se decidió entonces optar por dos soluciones: un prototipo de línea de comandos y una aplicación similar al prototipo con una interfaz gráfica accesible.
+
+Planteados los objetivos generales del proyecto, se empezó a trabajar en el proyecto actual. 
+
+Se planteó el primer objetivo, que fue empezar a familiarizarse con las clases de $Burgram$. Para facilitar dicha familiarización  con la estructura de clases de $Burgram$ y de $PLQuiz$, el tutor me recomendó instalar un plugin que de forma automática generase diagramas $UML$ con la arquitectura de las aplicaciones. Este plugin sería: \url{http://www.objectaid.com/class-diagram}.
+
+Otro de los objetivos planteados fue crear un prototipo de línea de comandos, concretamente la idea sería tener una pequeña aplicación en modo texto que:
+
+\begin{enumerate}
+\item Tome como argumento el nombre de un archivo con la especificación de una gramática en el formato $bison$.
+\item Utilice su contenido para, utilizando las clases adecuadas de $Burgram$, instanciar un objeto \textit{Gramática}.
+\item Interrogue el objeto \textit{Gramática} para mostrar el \textit{FIRST} y el \textit{FOLLOW} de los símbolos de la gramática.
+\end{enumerate}
+
+
+\subsection{Sprint 2: 10 marzo - 17 marzo}
+
+El 10 de marzo se realizó una reunión en la que se valoraron los resultados del primer \textit{sprint}. Todos los resultados fueron satisfactorios, se consiguió crear un prototipo en el cual, introduciendo una gramática en formato \textit{bison}, se obtenía de ella el \textit{FIRST} y el \textit{FOLLOW} por pantalla.
+
+En esta reunión se plantearon nuevos objetivos: 
+
+\begin{itemize}
+\item Generar la tabla de análisis sintáctico predictivo (\textit{TASP}) en el prototipo.
+\item Instalar MiK\TeX{}.
+\item Instalar \textit{\TeX{}Maker}.
+\item Hacer un uso correcto de los Path.
+\end{itemize}
+
+
+\subsection{Sprint 3: 17 marzo - 31 marzo}
+
+El 17 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del segundo \textit{sprint}. Todos los resultados fueron satisfactorios. Se consiguió generar la \textit{TASP} y se preparó el prototipo para que los path no diesen problemas en los diferentes sistemas operativos.
+ 
+Los objetivos que se plantearon en esta reunión fueron:
+
+\begin{itemize}
+\item Introducir parámetros en el prototipo.
+\item Investigar sobre diferentes motores de plantillas, como por ejemplo $Mustache$, $Trimou$, $JinJava$, $FreeMaker$ o $Shootout$, y decidir cuál era el óptimo para el proyecto.
+\item Generar una plantilla para crear ficheros .XML utilizables por \textit{MOODLE}.
+\item Generar una plantilla para crear ficheros .TEX. 
+\end{itemize}
+
+Se estableció que este \textit{sprint} sería de dos semanas debido a la Semana Santa.
+
+
+
+\subsection{Sprint 4: 31 marzo - 7 abril}
+
+El 31 de marzo se realizó la siguiente reunión en la que se valoraron los resultados del tercer \textit{sprint}:
+\begin{itemize}
+\item Se comenzó el tratamiento de datos utilizando una librería llamada \textit{Apache Commons CLI}.
+\item Se decidió utilizar como motor de plantillas \textit{JinJava}. 
+\item En cuanto a las plantillas, y dado que su generación no había sido tan satisfactoria como se pretendía, se decidió junto con el tutor, centrar el trabajo en la plantilla .XML y dejar la plantilla .TEX para un \textit{sprint} futuro.
+\end{itemize}
+
+En esta reunión se plantearon nuevos objetivos:
+\begin{itemize}
+\item Introducción de $JinJava$ para comenzar con la generación de los ficheros deseados.
+\item Continuar con la plantilla para ficheros .XML.
+\item Establecer una codificación $UTF-8$ para todos los ficheros, tanto en las clases del proyecto como en los ficheros generados.
+\end{itemize}
+
+ 
+
+\subsection{Sprint 5: 7 abril - 14 abril}
+La siguiente reunión tuvo lugar el 7 de abril y se analizaron los progresos conseguidos en el anterior \textit{sprint}. Se desechó el uso de $JinJava$ como motor de plantillas porque no permitía la posibilidad de realizar bucles de repetición. En su lugar, se decidió continuar el trabajo utilizando $Mustache$, ya que cualquier elemento iterable puede ser utilizado. En cuanto a la plantilla para ficheros .XML, no se pudo avanzar lo deseado puesto que aparecieron problemas con $JavaScript$ ya que la plataforma \textit{Moodle} de la Universidad de Burgos no permite su uso.
+
+Los objetivos que se plantearon en esta reunión fueron:
+\begin{itemize}
+\item Al tener problemas con el uso de $JavaScript$, se plantearon dos posibles soluciones. Una de ellas era utilizar un motor web que, desde Java, permitiese transformar un documento HTML construido de forma dinámica con $JavaScript$, en un documento HTML estático. La otra solución era cambiar todos los script de $JavaScript$ por HTML estático de forma manual. Por tanto, el objetivo era buscar dicho motor web. Si se conseguía encontrar un motor web que transformase los documentos en poco tiempo el objetivo estaría cumplido; sino, se tendría que proceder al cambio de todos los script de forma manual.
+\item Buscar información sobre el formato de inicio y fin de las preguntas en Moodle.
+\item Durante la reunión se decidió que las gramáticas estuvieran compuestas por letras mayúsculas y letras minúsculas. Las mayúsculas corresponderían a los no terminales y las minúsculas a los terminales. Se estableció que no se utilizasen símbolos como paréntesis, corchetes, llaves, etc. puesto que interfieren con el funcionamiento de la plantilla. De esta manera, se planteó como objetivo cambiar las gramáticas y adaptarlas a los nuevos requisitos planteados en esta reunión.
+\end{itemize}
+
+
+
+\subsection{Sprint 6: 14 abril - 21 abril}
+En la siguiente reunión, que tuvo lugar el 14 de abril, se analizaron los resultados del quinto \textit{sprint}. Debido a la dificultad de encontrar un motor web que permitiese transformar documentos html dinámicos en estáticos, se decidió implantar la segunda solución planteada en la reunión anterior para solucionar el problema que suponía el uso de $JavaScript$. Para ello, se utilizó la propiedad de $Mustache$ que permite utilizar cualquier elemento iterable. Los demás objetivos tuvieron resultados satisfactorios.
+
+En esta reunión se plantearon nuevos objetivos:
+\begin{itemize}
+\item Crear respuestas alternativas para los símbolos de preanálisis con cierta lógica conociendo la solución correcta.
+\item Continuar con la plantilla .XML.
+\end{itemize}
+
+
+\subsection{Sprint 7: 21 abril - 28 abril}
+El 21 de abril se realizó una reunión en la que se valoraron los resultados del sexto $sprint$. Todos los resultados fueron satisfactorios.
+
+Ya que todos los objetivos se iban cumpliendo a tiempo, en esta semana se planteó terminar el código para visualizar las tablas del \textit{FIRST} y del \textit{FOLLOW} en una gramática $LL$.
+
+
+\subsection{Sprint 8: 28 abril - 5 mayo}
+En la siguiente reunión celebrada el 28 de abril se comprobó que los objetivos del séptimo \textit{sprint} se habían conseguido, es decir, el código para visualizar las tablas del \textit{FIRST} y del \textit{FOLLOW} en una gramática $LL$ estaba terminado.
+
+En esta reunión se plantearon nuevos objetivos:
+\begin{itemize}
+\item Se estableció cómo debería ser la plantilla y se programó cambiar la plantilla existente en ese momento para que fuera acorde con lo decidido en la reunión.
+\item Crear la tabla de análisis sintáctico predictivo introduciendo la respuesta correcta. Crear un método para obtener las cadenas de múltiples respuestas. Todo ello para la gramática $LL$. 
+\end{itemize}
+
+
+
+\subsection{Sprint 9: 5 mayo - 12 mayo}
+En la reunión del 5 de mayo se valoraron los resultados obtenidos en el octavo $sprint$. Se comprobó que para la gramática $LL$ todo estaba correcto y terminado, menos la tabla de la traza, que se decidió dejar para un futuro $sprint$. Aún así, se decidió meter un parámetro en el prototipo con la cadena para usar posteriormente.
+
+Siguiendo los pasos de la gramática $LL$ se programó para este $sprint$ comenzar a generar las gramáticas $LR$, $SLR$ y $LALR$.
+Además, se comentó que se debería comenzar a redactar y escribir las partes de la memoria que ya estuvieran definidas hasta ese momento.
+
+
+
+\subsection{Sprint 10: 12 mayo - 19 mayo}
+En la siguiente reunión, del 12 de mayo, se comprobó que se habían generado las tablas de conjuntos del análisis $LR$ pero que todavía faltaban por generar las tablas correspondientes a los otros análisis.
+
+En esta reunión se planteó:
+\begin{itemize}
+\item Crear un método para generar respuestas cortas en Moodle.
+\item Crear un método para obtener la tabla de \textit{ACCIÓN} e \textit{IR A}.
+\item Seguir trabajando en los análisis restantes.
+\item Seguir trabajando en la redacción de la memoria.
+\end{itemize}
+
+
+\subsection{Sprint 11: 19 mayo - 26 mayo}
+El 19 de mayo, en la siguiente reunión se comprobó que se habían generado correctamente las respuestas cortas, así como la tabla de \textit{ACCIÓN} e \textit{IR A} en todas los análisis. 
+Además se presentó un primer avance de la memoria.
+Se comprobó además que el cambio en el posicionamiento de los conjuntos $LR$, $SLR$ y $LALR$ era correcto.
+
+El avance de la aplicación por línea de comando era correcto y quedaban pocas cosas por ir terminando, por tanto, se planteó empezar a desarrollar la interfaz gráfica.
+Además, y dado que los análisis estaban prácticamente finalizados, se programó terminarlos creando la tabla para la traza en todas ellas.
+Por último, el tutor me facilitó plantillas de memorias de años anteriores para tener modelos a seguir y comenzar con la redacción de los anexos.
+
+\subsection{Sprint 12: 26 mayo - 2 junio}
+En la reunión del 26 de mayo se valoraron los resultados del undécimo $sprint$ y se comprobó que todos eran satisfactorios.
+
+Aún avanzando a buen ritmo y con la mayoría del proyecto terminado, se decidió en esta reunión presentarlo en la segunda convocatoria para tener tiempo y terminar de pulir aquellas cosas que todavía no estaban del todo correctas.
+
+En esta reunión se comprobó que, en líneas generales, únicamente quedaba por hacer para la finalización del proyecto y, por tanto, serían los objetivos del decimosegundo \textit{sprint}:
+\begin{itemize}
+\item Crear pruebas unitarias para evaluar el funcionamiento de los métodos del prototipo.
+\item Terminar la interfaz gráfica.
+\item Retomar y terminar la plantilla .TEX.
+\item Seguir trabajando en la memoria y en sus anexos.
+\end{itemize}
+
+
+\subsection{Sprint 13: 2 junio - 9 junio}
+En la siguiente reunión, que tuvo lugar el 2 de junio se comprobaron los avances realizados en el anterior \textit{sprint}. Se comprobó que se habían creado correctamente las pruebas unitarias para evaluar el funcionamiento de los métodos del prototipo. Dichas pruebas se han completado con una cobertura suficiente dadas las características del proyecto. Además, se presentaron los avances conseguidos en la plantilla .TEX para los análisis $LL$ y se plantearon diferentes alternativas para mejorar la forma de la misma.
+
+Como objetivos para el siguiente \textit{sprint}, se plantearon:
+\begin{itemize}
+\item Continuar con la plantilla .TEX para el resto de análisis e introducir las mejoras planteadas en la reunión.
+\item Terminar la interfaz gráfica.
+\item Empezar a pensar en la forma y contenido del póster necesario para la defensa del proyecto.
+\item Seguir trabajando en la memoria y en sus anexos.
+\end{itemize}
+
+\subsection{Sprint 14: 9 junio - 16 junio}
+
+La siguiente reunión tuvo lugar el 9 de junio y se comprobaron los resultados obtenidos en el anterior \textit{sprint}. Así, se presentaron los avances realizados en la interfaz gráfica y un primer borrador de la memoria. Ambos trabajos fueron satisfactorios, aunque se plantearon mejoras en ambos. También se presentaron los avances en la plantilla .TEX para el resto de análisis que, aún sin estar finalizados completamente, avanzaban según los criterios planteados en la anterior reunión.
+
+Por tanto, para el siguiente \textit{sprint} se plantearon los siguientes objetivos:
+
+\begin{itemize}
+\item Terminar la plantilla .TEX.
+\item Terminar la interfaz gráfica.
+\item Corregir los errores de la memoria planteados en la reunión y continuar trabajando en los anexos restantes.
+\end{itemize}
+
+\subsection{Sprint 15: 16 junio - 23 junio}
+
+En la siguiente reunión, que tuvo lugar el 16 de junio, se valoraron los avances llevados a cabo en las tareas planteadas para el decimocuarto \textit{sprint}. 
+
+Se presentaron las plantillas .TEX para todos los análisis y se comprobó que eran viables. Aún así, se plantearon mejoras en dichas plantillas que se deberían llevar a cabo en el siguiente \textit{sprint}. 
+
+Se presentaron además los avances llevados a cabo en la interfaz gráfica. En este caso, aunque los avances que se iban realizando eran satisfactorios, el ritmo de avance no era el deseado y se planteó como objetivo para la siguiente semana terminar definitivamente la interfaz.
+
+Finalmente se entregó la memoria y sus anexos corregidos y mejorados con respecto al borrador anterior para su lectura por los tutores.
+
+Por tanto, para el siguiente sprint se planteó como principal objetivo el terminar la interfaz gráfica. También se planteó implementar las mejoras discutidas en las plantillas .TEX.
+
+\subsection{Sprint 15: 23 junio - 30 junio}
+
+La siguiente reunión tuvo lugar el 23 de junio y se valoraron los resultados obtenidos en el \textit{sprint} anterior:
+
+\begin{itemize}
+\item Con respecto a la plantilla .TEX, se dieron por buenos los resultados obtenidos.
+\item Se plantearon algunas mejoras en la memoria y anexos presentados en la anterior reunión.
+\item Con respecto a la interfaz gráfica, se tomaron nuevas decisiones en cuanto al alcance de la misma. Debido a la complejidad de crear una interfaz que funcionara para todos los análisis usando todas las gramáticas, se comprobó que a la hora de exportar los resultados, los datos obtenidos no eran los correctos en algunos de los casos. Así, se tomó la decisión de finalizar la interfaz gráfica llegando solo a los resultados obtenidos hasta ese momento y se planteó como futuros trabajos relacionados con \textit{PLGRAM}, la mejora de la interfaz gráfica.
+\end{itemize}
+
+Por tanto, el objetivo planteado para el siguiente \textit{sprint} fue continuar con la documentación del proyecto, planteando tener terminada la memoria y sus anexos para la siguiente reunión.
+
+\subsection{Sprint 16: 30 junio - 7 julio}
+
+En este caso, debido a que en Burgos estaba teniendo lugar la celebración de las Fiestas de San Pedro y San Pablo, no hubo una reunión como tal, sino que se envió la memoria y sus anexos a los tutores para su última revisión antes de la entrega final del proyecto.
+
+\section{Estudio de viabilidad}
+
+El análisis de viabilidad es un requisito imprescindible en cualquier organización de un proyecto, sea éste del tipo que sea.
+
+Son muchos los aspectos que intervienen a la hora de valorar la viabilidad de un proyecto y no es recomendable centrarse únicamente en la relación coste-beneficio del mismo, sino que conviene valorar otros aspectos como la funcionalidad, el tamaño del proyecto, el grado de complejidad del mismo, el equipo de trabajo, etc.
+
+En este caso, y dado la finalidad del proyecto actual, un estudio de viabilidad complejo no es necesario, puesto que el proyecto está planteado dentro de un contexto docente y al amparo de la Universidad de Burgos. 
+
+De todos modos, se plantean algunos aspectos generales, dividiendo el estudio de viabilidad en los dos criterios que se han considerado más importantes: la viabilidad económica y viabilidad legal.
+
+\subsection{Viabilidad económica}
+
+En este apartado se explica el estudio de costes y la viabilidad económica del proyecto, para poder determinar si es viable económicamente o debe desestimarse.
+
+\subsubsection{Estudio de costes}
+
+\begin{enumerate}
+
+\item Costes de personal
+
+Para el cálculo del coste de personal se debe tener en cuenta al desarrollador y a los dos tutores del proyecto que también deben recibir una retribución por el apoyo prestado.
+
+\begin{itemize}
+\item Desarrollador: Graduado en Ingeniería Informática que percibirá un salario de 12 $\EUR$/hora. Considerando las horas invertidas a la semana, el desarrollador supone 360$\EUR$/semana. La duración del proyecto ha sido de 16 semanas, por lo que el coste del desarrollador será de 5.760$\EUR$.
+\item Tutores: Titulados en Ingeniería Informática que cobrarán 20 $\EUR$/hora. Calculando que la dedicación media va a ser de 1 horas/semana y eniendo en cuenta que la duración del proyecto es de 16 semanas, se tiene:
+
+\textit{2 tutores }$ * \dfrac{\textit{ 20 euros } }{hora}*\dfrac{\textit{1 hora}}{semana}*\textit{16 semanas}=640 \EUR $
+
+\end{itemize}
+
+Sumando el coste del desarrollador y el de los tutores hacen un total de:
+5.760$\EUR$ +640$\EUR$ = 6.400$\EUR$.
+
+Al salario bruto hay que añadir el coste de la Seguridad Social (desglosado en contingencias comunes, seguro desempleo y formación profesional) que supone un 30$\%$ aproximadamente sobre
+el salario bruto, por lo que dicho coste será: 6.400$\EUR$ $\times 0,3$ = 1.920$\EUR$.
+
+El coste total de personal (sumando el coste de la seguridad social) hace un total de 6.400$\EUR$ + 1.920$\EUR$ = 8.320$\EUR$.
+
+\item Coste de software
+
+Se ha trabajado con herramientas cuya licencia es gratuita, por lo que el coste de software utilizado es de 0$\EUR$.
+
+\item Coste de Hardware
+Para el desarrollo del proyecto es necesario un ordenador portatil. Se utilizará un modelo que dispone de un procesador Intel core i7, con 8 GB de RAM con
+un precio en el mercado de 1000$\EUR$.
+
+\item Coste de Impresión
+\begin{itemize}
+\item Impresión de la memoria : 25$\EUR$.
+\item Impresión del poster : 20$\EUR$.
+\end{itemize}
+
+\item Costes totales
+
+Debido a que los costes de software son 0$\EUR$, el coste total del proyecto asciende a 9.365$\EUR$.
+\end{enumerate}
+
+\subsubsection{Análisis de beneficios}
+
+El costal del proyecto ha sido estimado en 9365$\EUR$ por lo que calculando el precio de la licencia en 150$\EUR$, el número de licencias a vender para obtener beneficios sería de 63 licencias.
+
+Por tanto, para considerar económicamente viable el proyecto, sería necesario vender 63 licencias de \textit{PLGRAM}. Debido al carácter universitario de la aplicación desarrollada, se puede intuir que dicho objetivo es factible de conseguir debido a la cantidad de centros universitarios del país.
+
+\subsection{Viabilidad legal}
+
+En el uso de bibliotecas de terceros, como por ejemplo \textit{Apache Commons Cli}, todo el software producido por la \textit{ASF} (\textit{Apache Software Foundation}) o cualquiera de sus proyectos, está desarrollado bajo los términos de la licencia $Apache$, es decir, la licencia permite al usuario del software la libertad de usar dicho software para cualquier propósito, para distribuirlo, modificarlo y distribuir versiones modificadas del software, bajo los términos de la licencia; sin necesidad de preocuparse por problemas legales futuros\cite{apache}.
+

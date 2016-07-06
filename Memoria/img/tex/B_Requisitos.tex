@@ -1,0 +1,167 @@
+\apendice{Especificación de Requisitos}
+
+\section{Introducción}
+Este anexo tiene como objetivo analizar y documentar las necesidades funcionales mínimas que deben ser soportadas por la aplicación desarrollada. 
+
+Otro objetivo básico del presente anexo es la de priorizar cada una de las funcionalidades a implementar. Si se tiene claro cuáles son las tareas críticas, se podrá llevar a cabo un enfoque más preciso en ellas y asignarlas una mayor cantidad de recursos.
+
+El anexo se estructura presentado una lista de objetivos generales que la aplicación debe cumplir. Son los objetivos que el cliente establece mediante un lenguaje neutral y es trabajo del ingeniero su desglose y formalización. A continuación se incluye un catálogo de los requisitos que deberá cumplir la aplicación.
+
+\section{Objetivos generales}
+El desarrollo de la aplicación cumple los siguientes objetivos:
+\begin{enumerate}
+	\item Construcción de una \textit{GUI} (Interfaz Gráfica de Usuario) que permita visualizar de forma rápida la aplicación desarrollada.
+	\item Construcción de una \textit{CLI} (Command Line Interface) que permita trabajar de forma rápida y directa con la aplicación desarrollada.
+	\item Procesado y manipulación de gramáticas mediante procesadores del lenguaje.
+	\item Obtención del $FIRST$ y del $FOLLOW$ de una gramática.
+	\item Obtención de la Tabla de Análisis Sintáctico Predictivo ($TASP$) de una gramática.
+	\item Obtención de los conjuntos de items $LR(0)$ y  $LR(1)$.
+	\item Obtención de las tablas de análisis sintáctico  \textit{ACCIÓN e IR A} para análisis $SLR(1)$, $LR(1)$ y $LALR(1)$.
+	\item Exportación de cuestionarios en formato .XML compatible con la plataforma Moodle.
+	
+	\item Exportación de cuestionarios en formato \LaTeX{}.
+	
+	\item Creación de un manual de usuario detallando todas las opciones de la aplicación.
+\end{enumerate}
+
+\section{Catálogo de requisitos}
+El objetivo de este apartado es definir de forma clara, precisa, completa y verificable todas las funcionalidades y restricciones del sistema a construir.
+
+\subsection{Funciones del producto}
+Una de las características más importantes de la aplicación que se ha  desarrollado es su facilidad de uso. 
+Dado que su empleo está orientado a convertirse en una herramienta docente, debe ser fácil de usar y posibilitar la creación de cuestionarios de manera rápida, sencilla y comprensible.
+
+Como se explica en el \textit{Anexo E: Manual de usuario}, los archivos obtenidos de la aplicación tendrán extensiones .TEX y .XML, tratando de cubrir un mayor abanico de posibilidades de uso de la aplicación y dando una mayor cobertura a la hora de obtener los cuestionarios.
+
+En el caso de los archivos .XML es necesario el uso de la plataforma \textit{Moodle}, que al ser internacional, se puede utilizar en varios idiomas, dándole así una mayor difusión a la aplicación.
+
+\subsection{Requisitos de usuario}
+El usuario debe ser capaz de utilizar la aplicación mediante la Interfaz Gráfica o mediante la Consola del sistema. 
+
+La ayuda será un punto a tener en cuenta en el caso de utilizar la aplicación mediante la consola del sistema.
+ 
+En todo momento el usuario podrá consultar el \textit{Manual del Usuario} para
+orientarse y resolver dudas que le puedan surgir durante el manejo de la misma.
+
+\subsection{Requisitos del sistema}
+Los requisitos mínimos del hardware del sistema serán los mismos que para ejecutar java\cite{requisitos}.
+
+
+Los requisitos software necesarios son:
+\begin{itemize}
+\item Sistema operativo \textit{Windows}, \textit{Linux} o \textit{Macintosh}.
+\item Máquina virtual de java ($JDK 8$).
+\item Consola de sistema operativo capaz de interpretar Unicode, solo para la interfaz en línea de comandos. Si no soportara Unicode, las tildes u otros símbolos podrían ser mal representados.
+\end{itemize}
+
+\section{Especificación de requisitos}
+En este apartado se realizará un análisis de los requisitos de diseño de la aplicación. Para ello, se detallarán los requisitos funcionales y no funcionales de la aplicación.
+
+\subsection{Requisitos funcionales}
+La aplicación debe ser capaz de cumplir los siguientes requisitos:
+
+\begin{itemize}
+\item \textit{RF1: Cargar gramática y análisis}. Permite al usuario seleccionar una gramática disponible en la carpeta \textit{gramaticas} y un tipo de análisis.
+\item \textit{RF2: Obtener análisis}. Se obtienen los datos del análisis solicitado para la gramática seleccionada.
+\item \textit{RF3: Crear cadenas}. Se obtienen las cadenas de los datos del análisis.
+\item \textit{RF4: Obtener fichero} .TEX. Se utiliza la plantilla para obtener el fichero .TEX.
+\item \textit{RF5: Obtener fichero} .XML. Se utiliza la plantilla para obtener el fichero .XML.
+\end{itemize}
+
+
+
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF1 Cargar gramática y análisis}\\ 
+\hline
+\hline    Descripción        & Permite al usuario seleccionar una gramática y un tipo de análisis. \\ 
+\hline    Precondiciones     &   Que exista la gramática.       \\ 
+\hline    Secuencia normal   &   Introducir gramática y análisis.       \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   Si no existe la gramática o tiene algún error.       \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Alto.     \\ 
+\hline    Importancia        &       Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF2 Obtener análisis}\\ 
+\hline
+\hline    Descripción        &   Se obtienen los datos del análisis para la gramática seleccionada.\\ 
+\hline    Precondiciones     &   Tipo de análisis valido.       \\ 
+\hline    Secuencia normal   &   Introducir análisis.       \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   Si no existe el análisis muestra un error.        \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Alto.     \\ 
+\hline    Importancia        &       Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF3 crear cadenas}\\ 
+\hline
+\hline    Descripción        & Se obtienen las cadenas del análisis para la gramática seleccionada.\\ 
+\hline    Precondiciones     &          \\ 
+\hline    Secuencia normal   &         \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &   \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &    Alto.     \\ 
+\hline    Importancia        &    Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+\vspace{0,5cm}
+
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF4 Obtener fichero .TEX}\\ 
+\hline
+\hline    Descripción        & Se utiliza la plantilla para obtener el fichero .TEX. \\ 
+\hline    Precondiciones     &    Que exista la plantilla PlantillaTEX.     \\ 
+\hline    Secuencia normal   &         \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &    \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &    Medio.     \\ 
+\hline    Importancia        &    Alto.   \\ 
+\hline    Urgencia    		 &    Alto.      \\ 
+\hline
+\end{tabular}
+
+
+
+\vspace{0,5cm}
+
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF5 Obtener fichero .XML}\\ 
+\hline
+\hline    Descripción        & Se utiliza la plantilla para obtener el fichero .XML. \\ 
+\hline    Precondiciones     &    Que exista la plantilla Plantillamoodle.       \\ 
+\hline    Secuencia normal   &          \\ 
+\hline    Postcondiciones    &          \\ 
+\hline    Excepciones        &          \\ 
+\hline    Rendimiento        &          \\ 
+\hline    Frecuencia         &     Medio.     \\ 
+\hline    Importancia        &     Alto   \\ 
+\hline    Urgencia    		 &     Alto      \\ 
+\hline
+\end{tabular}
+\imagen{diagramaprincipal}{Diagrama principal de casos de uso.}
+
+\subsection{Requisitos no funcionales}
+A continuación se describen todos aquellos requisitos no funcionales importantes para considerar en el diseño:
+
+
+\begin{itemize}
+\item \textit{RNF1: Eficiencia}. Se debe buscar la eficiencia de la aplicación para que pueda ser usada con gramáticas complejas.
+\item \textit{RNF2: Extensibilidad}. Se pueden definir nuevas capacidades en la aplicación mediante su extensión a otro tipo de ficheros.
+\item \textit{RNF3: Práctica}. Al ser una aplicación docente, un requisito es que sea útil y práctica para enseñar/evaluar
+\end{itemize}
