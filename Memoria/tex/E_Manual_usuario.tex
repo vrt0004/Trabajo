@@ -3,29 +3,12 @@
 \section{Introducción}
 En esta sección se explica cómo llevar a cabo la instalación de las herramientas implementadas en el presente proyecto y los requisitos del sistema.
 \section{Requisitos de usuarios}
-Los requisitos mínimos necesarios son los siguientes:
-\subsection{Requisitos hardware}
-Requisitos mínimos:
-\begin{itemize}
-\item Intel core i3.
-\item 128 MB  de memoria RAM.
-\item Resolución de pantalla igual o superior a 1152 x 864, solo para la GUI.
-\end{itemize}
-
-Requisitos recomendados:
-
-\begin{itemize}
-
-\item Intel core i7.
-\item 1 GB de memoria RAM.
-\item Resolución de pantalla igual o superior a 1280 x 960 , solo para la GUI.
-\end{itemize}
-
-\subsection{Requisitos software}
+Los requisitos mínimos del hardware del sistema serán los mismos que para ejecutar java\cite{requisitos}
 
 Los requisitos software necesarios son:
+
 \begin{itemize}
-\item Sistema operativo $Windows$ o $Linux$.
+\item Sistema operativo \textit{Windows}, \textit{Linux} o \textit{Macintosh}.
 \item Máquina virtual de java ($JDK 8$).
 \item Consola de sistema operativo capaz de interpretar Unicode, solo para la interfaz en línea de comandos. Si no soportara Unicode, las tildes u otros símbolos podrían ser mal representados.
 \end{itemize}
@@ -34,10 +17,10 @@ La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCom
 
 \begin{itemize}
 \item Para ejecutar $PLGRAM$ se dispone de un fichero jar ejecutable.
-\imagen{iconoPLGRAM}{Icono PLGRAM}
+\imagen{iconoPLGRAM}{Icono PLGRAM.}
 \item Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
 
-Esta carpeta debe contener también una carpeta llamada \textit{gramaticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias.
+Esta carpeta debe contener también una carpeta llamada \textit{gramaticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias \textit{(plantillaTEX y plantillamoodle)}.
 
 
 \end{itemize}
@@ -65,7 +48,7 @@ Para ejecutar la aplicación se debe escribir el siguiente comando:
 
 
 
-La gramática $-g$ y el tipo de análisis a realizar $-t$ son obligatorios. La gramática debe estar en la carpeta gramáticas.
+La gramática $-g$ y el tipo de análisis a realizar $-t$ son obligatorios. La gramática debe estar en la carpeta \textit{gramaticas}.
  
 El parámetro $-t$ tiene diferentes opciones:
   \begin{itemize}
@@ -76,7 +59,7 @@ El parámetro $-t$ tiene diferentes opciones:
  \end{itemize}
   
  
-Si no se introduce alguno de los parámetros obligatorios (\textit{-g} , \textit{-t}) se indicará que falta el parámetro.
+Si no se introduce alguno de los parámetros obligatorios (\textit{-g} , \textit{-t}) o el parámetro es incorrecto se indicará que falta el parámetro.
  
 Así, si se introduce la siguiente línea de código 
 \begin{verbatim}
@@ -85,16 +68,9 @@ Así, si se introduce la siguiente línea de código
 
 La aplicación requerirá la gramática, tal y como se muestra a continuación:
 
-\imagen{consola2}{$PLGRAM$ sin argumento gramática}
- 
-La misma situación se presenta con el parámetro tipo de análisis a realizar.
- 
-Si se  introduce la línea de código
-\begin{verbatim}
-java -jar PLGRAMlineCommand.jar -g gramatica1.yc 
-\end{verbatim}
-en la que no se ha especificado el tipo de análisis, la aplicación lo solicita, como se muestra a continuación:
-\imagen{consola3}{$PLGRAM$ sin argumento tipo de análisis}
+\imagen{consola2}{$PLGRAM$ sin argumento gramática.}
+
+La primera vez que se ejecuta la aplicación y se genera un fichero se crea, en el directorio donde se encuentra el ejecutable, una nueva carpeta llamada \textit{informes}, donde se irán guardando todos los ficheros generados posteriormente.
 
 Si solo se introducen los parámetros de la gramática y del tipo de análisis que se quiere realizar, se ejecuta el programa con el resto de valores por defecto:
 \begin{itemize}
@@ -106,10 +82,10 @@ Si solo se introducen los parámetros de la gramática y del tipo de análisis q
 
 En el supuesto de que se quiera modificar alguno de los valores que por defecto se les asignan a los parámetros anteriores, bastará con introducir en cada uno de ellos los argumentos deseados:
 \begin{itemize}
-\item $-i$ se podrá elegir la extensión del fichero de salida, que será .XML en el caso de querer obtener un cuestionario virtual o .TEX en el caso de que se quiera para una futura impresión.
+\item $-i$ se podrá elegir la extensión del fichero de salida, que será XML en el caso de querer obtener un cuestionario virtual o TEX en el caso de que se quiera para una futura impresión.
 \item $-o$ se podrá nombrar los ficheros de salida según se desee.
 \item $-ca$ se podrá introducir una cadena para  que la aplicación genere una tabla de primeros pasos de la traza de análisis de dicha cadena.
-La cadena deberá introducirse entrecomillado y cada item separado por un espacio. Por ejemplo, $-ca$ "$item1$ $item2$ $item3$ $item4$".
+La cadena deberá introducirse entrecomillado y cada item separado por un espacio. Por ejemplo, $-ca$ ``$item1$ $item2$ $item3$ $item4$".
 \end{itemize}
 
 
@@ -117,20 +93,79 @@ Una vez introducidos todos los parámetros, se muestra la información de la gra
 
 A continuación se muestran los datos obtenidos al introducir una gramática $gramatica1.yc$ y un tipo de análisis $LL$. El resto de parámetros se han dejado por defecto.
 
-\imagen{consola4}{$PLGRAM$ Con argumentos gramática y tipo de análisis}
+\imagen{consola4}{$PLGRAM$ con argumentos gramática y tipo de análisis.}
 
 Como se puede observar, al final de la información obtenida, la consola nos muestra que los ficheros se han generado correctamente y su ruta.
 
 
 \subsection{Aplicación interfaz gráfica}
-FALTA
+La interfaz gráfica pretende que el usuario tenga una visión completa y sencilla de la aplicación.
+\imagen{gui1}{Aplicación \textit{PLGRAM}.}
+\newpage
+\subsubsection{Añadir preguntas}
+Para añadir preguntas mediante la interfaz gráfica, se tienen dos opciones:
 
+\begin{itemize}
+\item Desde el menú Archivo. En él se ofrecen la opción de añadir preguntas utilizando los cuatro tipos de análisis.
+\imagen{gui2}{Añadir preguntas desde menú Archivo.}
+\item Utilizando el desplegable de la parte inferior de la aplicación. Al abrir dicho desplegable, se nos muestran los cuatro tipos de análisis que se pueden elegir a la hora de añadir una pregunta. Una vez seleccionado el tipo de análisis, bastaría con pulsar el botón identificado con el símbolo '+' situado a la izquierda del desplegable.
+\imagen{gui3}{Añadir preguntas desde el desplegable.}
+\end{itemize}
+
+Utilizando cualquiera de las dos opciones anteriores, el resultado obtenido es una panel de preguntas que aparecerá en la parte superior izquierda de la aplicación.
+\imagen{gui4}{Panel de preguntas.}
+
+\subsubsection{Borrar preguntas}
+En el caso de querer borrar una pregunta se realiza mediante el botón situado a la izquierda del panel de preguntas identificado con el símbolo '-'.
+\imagen{gui5}{Borrar preguntas.}
+
+\subsubsection{Cambiar el orden de las preguntas}
+Si se tienen varias preguntas abiertas a la vez, los controles situados a la izquierda del panel de preguntas permiten modificar la posición de las preguntas hacia arriba y hacia abajo dentro de la ventana izquieda.
+\imagen{gui6}{Cambiar el orden de las preguntas.}
+
+\subsubsection{Cargar gramáticas}
+Una vez elegido el tipo de análisis, se permite, desde el panel de preguntas, cargar la gramática deseada. Para ello, habría que pulsar el botón Cargar de dicho panel.
+\imagen{gui7}{Cargar gramáticas.}
+
+Aparece un explorador de ficheros en el que se puede seleccionar una de las gramáticas que se tengan guardadas.
+
+Una vez abierta la gramática, el panel de preguntas ser rellenará con los datos de dicha gramática.
+\imagen{gui8}{Ejemplo de una gramática cargada en el panel de preguntas.}
+\newpage
+\subsubsection{Añadir cadena}
+La aplicación permite añadir una cadena si se desea generar posteriormente su traza.Para ello se deberá introducir en el cuadro habilitado una cadena con los elementos separados por espacios. 
+
+\imagen{gui10}{Ejemplo de cadena.}
+\newpage
+\subsubsection{Mostrar gramáticas}
+Elegido el tipo de análisis, la gramática deseada e introducida o no una cadena, pulsando en el botón Mostrar situado en la parte inferior del panel de preguntas, se previsualiza el resultado del análisis en la parte derecha de la pantalla.
+\imagen{gui11}{Ejemplo de la previsualización de un análisis.}
+
+Cada panel de preguntas generado para cada una de las preguntas deseadas tiene su propio botón mostrar. 
+\newpage
+\subsubsection{Exportar ficheros}
+Una vez obtenida la previsualización del análisis de la gramática, la aplicación permite exportar los resultados a dos tipos de ficheros: ficheros .XML y ficheros .TEX.
+
+Para ello, debe elegirse la opción que se desee dentro del menú Exportar.
+\imagen{gui12}{Exportar ficheros.}
+
+En cualquiera de las dos opciones, aparece un cuadro de diálogo que nos informa de que el fichero se ha generado correctamente. Dicho fichero se guarda en el directorio donde se esté ejecutando la aplicación \textit{PLGRAM.jar}.
+\newpage
+\subsubsection{Página web}
+En el menú Ayuda se encuentra la opción Página web que nos redirecciona a la página web del proyecto.
+
+\subsubsection{Acerca de}
+En el menú Ayuda se encuentra la información de la aplicación.
+\imagen{gui13}{Acerca de.}
 
 \subsection{Ficheros obtenidos}
+
+Bien a partir de la \textit{GUI} o mediente la \textit{CLI} se han podido generar ficheros en los formatos .TEX o .XML
+\newpage
 \subsubsection{Fichero .XML}
 
 El fichero .XML obtenido tiene una estructura general común sea cual sea la gramática y el tipo de análisis realizado. Esta estructura sigue el siguiente esquema general:
-\imagen{EstructuraXML}{Estructura del fichero .XML}
+\imagen{EstructuraXML}{Estructura del fichero .XML.}
 
 Para poder utilizar el fichero .XML obtenido es necesario poder acceder a la plataforma de aprendizaje de Moodle.
 
@@ -146,26 +181,26 @@ Los pasos que se deben seguir son:
 \end{enumerate}
 
 Los puntos 5 y 6 se pueden realizar arrastrando el archivo al recuadro que se muestra.
-\imagen{Moodle1}{Importar fichero .XML en moodle}
+
 
 A la hora de importar el fichero .XML hay que tener en cuenta lo siguiente:
 \begin{itemize}
 \item Los nombres de los archivos y carpetas no deben tener caracteres especiales como palabras acentuadas, tabulaciones, ñ, retornos de carro, espacios en blanco, ni símbolos de sistema como / o : , además no es recomendable combinar mayúsculas y minúsculas en los nombres.
-\item El tamaño del archivo no debe superar el límite permitido.
+\item El tamaño del archivo no debe superar el límite permitido que se muestra en la ventana.
 
+\imagen{Moodle1}{Importar fichero .XML en Moodle.}
 \end{itemize} 
 
 Una vez importado el fichero .XML deseado, aparece una primera previsualización de los datos que se obtendrán a continuación. Basta con dar a continuar para acceder a la siguiente pantalla.
 
 En ella, aparecen todos los ficheros que se hayan importado. Para visualizar uno de ellos, se hace click en la lupa del archivo correspondiente.
-\imagen{moodle2}{Lista de ficheros .XML en Moodle}
+\imagen{moodle2}{Lista de ficheros .XML en Moodle.}
 
 Un ejemplo de cuestionario obtenido sería el siguiente:
-\imagen{moodle3}{Ejemplo de cuestionario resuelto en Moodle }
-
+\imagen{moodle3}{Ejemplo de cuestionario \textit{LL} resuelto en Moodle.}
+\imagen{moodle4}{Ejemplo de cuestionario  \textit{LR}(1)  resuelto en Moodle.Conjunto de items}
+\imagen{moodle5}{Ejemplo de cuestionario  \textit{LR}(1) resuelto en Moodle.Tabla de ACCIÓN e IR A}
 \subsubsection{Fichero .TEX}
-
-Una vez realizado el cuestionario siguiendo cualquiera de las vías explicadas anteriormente, se obtiene un fichero .TEX en una carpeta llamada \textit{informes} situada en el directorio donde se ejecuta el ejecutable .jar.
 
 Al tratarse de un fichero .TEX se requiere un editor de textos adaptado a \LaTeX{} para utilizarlo.
 
@@ -173,13 +208,13 @@ Una vez abierto el fichero, su tratamiento es muy sencillo. Bastará con compila
 
 Se muestra un ejemplo de un fichero .TEX abierto con \TeX{}MaKer. De manera general, se puede observar el código a la izquierda y del documento generado a la derecha.
 
-\imagen{ejemplotex1}{Ejemplo fichero .TEX}
+\imagen{ejemplotex1}{Ejemplo fichero .TEX para un análisis \textit{LL}.}
 
 Para una mejor comprensión, se muestra un detalle de cómo compilar el código para obtener el documento. Para ello, basta con hacer click en las flechas resaltadas en la parte superior de la pantalla del editor.
 
-\imagen{ejemplotex2}{Compilación de un fichero .TEX}
+\imagen{ejemplotex2}{Compilación de un fichero .TEX.}
 
-Es necesario destacar que para cada tipo de gramática elegida, se genera un fichero .TEX diferente siguiendo los requisitos de cada una de ellas. 
+Es necesario destacar que para cada tipo de análisis elegido, se genera un fichero .TEX diferente siguiendo los requisitos de cada una de ellas. 
 
 La aplicación ofrece dos opciones en lo que a los ficheros .TEX respecta. Así, se podrá obtener un documento en el que el cuestionario esté completo con las respuestas correctas y otro documento en el que el cuestionario se encuentre vacío, pensado para ser respondido por un tercero.
 
@@ -188,16 +223,16 @@ La aplicación ofrece dos opciones en lo que a los ficheros .TEX respecta. Así,
 \begin{verbatim}
 \newcommand{\h}[1]{#1}
 \end{verbatim}
-\imagen{ejemplotex3}{Obtención del cuestionario completo}
+\imagen{ejemplotex3}{Obtención del cuestionario completo.}
 \item Obtención del cuestionario en blanco. Para ello, bastaría con eliminar el símbolo $\%$ de delante de la siguiente línea:
 
 \begin{verbatim}
 %\renewcommand{\h}[1]
 \end{verbatim}
 
-\imagen{ejemplotex4}{Obtención del cuestionario en blanco: Descomentar}
+\imagen{ejemplotex4}{Obtención del cuestionario en blanco: descomentar.}
 Así, ambas líneas deberían estar activas.
-\imagen{ejemplotex5}{Obtención del cuestionario en blanco}
+\imagen{ejemplotex5}{Obtención del cuestionario en blanco.}
 
 \end{itemize}
 

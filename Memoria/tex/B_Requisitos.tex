@@ -55,7 +55,9 @@ Los requisitos software necesarios son:
 \end{itemize}
 
 \section{Especificación de requisitos}
-En este apartado se realizará un análisis de los requisitos de diseño de la aplicación. Para ello, se detallarán los requisitos funcionales y no funcionales de la aplicación.
+En este apartado se realizará un análisis de los requisitos de diseño de la aplicación. Para ello, se detallarán los requisitos funcionales y no funcionales de la aplicación. 
+
+Para representar graficamente los casos de uso se ha utilizado DIA\cite{DIA}.
 
 \subsection{Requisitos funcionales}
 La aplicación debe ser capaz de cumplir los siguientes requisitos:
@@ -70,10 +72,10 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 
 
-\begin{tabular}{l|l}
-\hline  \multicolumn{2}{c} {RF1 Cargar gramática y análisis}\\ 
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF1 Cargar gramática y análisis}\\ 
 \hline
-\hline    Descripción        & Permite al usuario seleccionar una gramática y un tipo de análisis.\\ 
+\hline    Descripción        & Permite al usuario seleccionar una gramática y un tipo de análisis. \\ 
 \hline    Precondiciones     &   Que exista la gramática.       \\ 
 \hline    Secuencia normal   &   Introducir gramática y análisis.       \\ 
 \hline    Postcondiciones    &          \\ 
@@ -87,14 +89,14 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 \vspace{0,5cm}
 
-\begin{tabular}{l|l}
-\hline  \multicolumn{2}{c} {RF2 Obtener análisis}\\ 
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF2 Obtener análisis}\\ 
 \hline
-\hline    Descripción        & Se obtienen los datos del análisis para la gramática seleccionada. \\ 
+\hline    Descripción        &   Se obtienen los datos del análisis para la gramática seleccionada.\\ 
 \hline    Precondiciones     &   Tipo de análisis valido.       \\ 
 \hline    Secuencia normal   &   Introducir análisis.       \\ 
 \hline    Postcondiciones    &          \\ 
-\hline    Excepciones        &   Si no existe el análisis.        \\ 
+\hline    Excepciones        &   Si no existe el análisis muestra un error.        \\ 
 \hline    Rendimiento        &          \\ 
 \hline    Frecuencia         &     Alto.     \\ 
 \hline    Importancia        &       Alto.   \\ 
@@ -104,10 +106,10 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 \vspace{0,5cm}
 
-\begin{tabular}{l|l}
-\hline  \multicolumn{2}{c} {RF3 crear cadenas}\\ 
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF3 crear cadenas}\\ 
 \hline
-\hline    Descripción        & Se obtienen las cadenas del análisis para la gramática seleccionada. \\ 
+\hline    Descripción        & Se obtienen las cadenas del análisis para la gramática seleccionada.\\ 
 \hline    Precondiciones     &          \\ 
 \hline    Secuencia normal   &         \\ 
 \hline    Postcondiciones    &          \\ 
@@ -121,8 +123,8 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 \vspace{0,5cm}
 
-\begin{tabular}{l|l}
-\hline  \multicolumn{2}{c} {RF4 Obtener fichero .TEX}\\ 
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF4 Obtener fichero .TEX}\\ 
 \hline
 \hline    Descripción        & Se utiliza la plantilla para obtener el fichero .TEX. \\ 
 \hline    Precondiciones     &    Que exista la plantilla PlantillaTEX.     \\ 
@@ -140,8 +142,8 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 
 \vspace{0,5cm}
 
-\begin{tabular}{l|l}
-\hline  \multicolumn{2}{c} {RF5 Obtener fichero .XML}\\ 
+\begin{tabular}{| p{3.2cm}| p{8.2cm} |}
+\hline  \multicolumn{2}{|c|} {RF5 Obtener fichero .XML}\\ 
 \hline
 \hline    Descripción        & Se utiliza la plantilla para obtener el fichero .XML. \\ 
 \hline    Precondiciones     &    Que exista la plantilla Plantillamoodle.       \\ 
@@ -154,7 +156,7 @@ La aplicación debe ser capaz de cumplir los siguientes requisitos:
 \hline    Urgencia    		 &     Alto      \\ 
 \hline
 \end{tabular}
-\imagen{diagramaprincipal}{Diagrama principal de casos de uso.}
+\imagen{diagramaprincipal}{Diagrama principal de casos de uso.\cite{DIA}}
 
 \subsection{Requisitos no funcionales}
 A continuación se describen todos aquellos requisitos no funcionales importantes para considerar en el diseño:

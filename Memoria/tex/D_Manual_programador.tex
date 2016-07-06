@@ -1,11 +1,112 @@
 \apendice{Documentación técnica de programación}
 
 \section{Introducción}
+En este capítulo se detallan los aspectos más relevantes de la implementación del diseño expuesto en el apéndice C. Además se detallarán las convenciones de estilo y codificación utilizadas durante la fase de programación.
+
+El desarrollo se ha realizado en la versión 8 de \textit{Java}. Para la implementación del núcleo de la aplicación se ha utilizado \textit{Eclipse} como entorno integrado de desarrollo. Para el desarrollo de
+las interfaces de usuario se ha empleado \textit{Swing} y para el control de versiones se ha utilizado \textit{VersionOne}.
+
+El motivo de escoger \textit{Eclipse} fue que ya se había utilizado en proyectos anteriores, conociendo así sus puntos fuertes y débiles. La potencia de esta herramienta facilita las tareas de programación, sobre todo a la hora de refactorizar o depurar el código fuente. Otra de las ventajas que ofrece, es la cantidad de plugins disponibles: control de tareas, control de versiones, pruebas, etc.
+
+Como en todo proyecto software, era necesario disponer de un control de versiones potente y versátil para controlar los fuentes desarrollados(\textit{Github}) y un control de tareas. Para esta tarea se barajaron diversos programas: \textit{Subversion}, \textit{GIT} y \textit{Plastic SCM}, entre otros. Se escogió \textit{VersionOne}. La licencia gratuita de \textit{VersionOne} caducaba a los 30 días de comenzar a usarlo, borrando todos los datos almacenados en ese momento. Por ello, cuando el proyecto estaba ya muy avanzado, se perdió toda la información que se había ido almacenando en \textit{VersionOne} sin que hubiera ninguna posibilidad de recuperarla\footnote{\url {https://www53.v1host.com/Ubu44/Default.aspx?menu=MyHomeEnterpriseGettingStartedPage}}.
+
+Para la realización de las pruebas unitarias se ha optado por \textit{JUnit}. Para las pruebas de cobertura se ha utilizado un plugin de \textit{Eclipse} llamado \textit{EclEmma} por la calidad en el desempeño de sus tareas, además de ser un plugin ya conocido al haberlo utilizado durante la carrera.
+
+Para la obtención de métricas se ha utilizado \textit{SourceMonitor} por su facilidad de
+uso y porque, entre otras cosas, aportaba las métricas necesarias para los informes.
 
 \section{Estructura de directorios}
 
+La estructura de directorios que se ha seguido en el soporte físico distribuido junto a la documentación, es la siguiente:
+\begin{itemize}
+\item PLGRAM: Este directorio contiene la aplicación desarrollada, incluyendo los fuentes, las plantillas, los ejecutables y las pruebas. Además, incluye el \textit{build.xml} para \textit{Ant}.
+\item Memoria: Este directorio contiene la memoria del trabajo.
+\item Documentación técnica: Este directorio contiene la documentación que se está leyendo en este momento.
+\end{itemize}
+
 \section{Manual del programador}
 
-\section{Compilación, instalación y ejecución del proyecto}
+El manual del programador se encuentra dividido en dos secciones: en la primera, aparecen detalladas las herramientas utilizadas durante el desarrollo y, en la segunda, el fichero de configuración
+de Ant explicando cada uno de los objetivos (o \textit{target}).
 
+\subsection{Herramientas utilizadas}
+
+Las herramientas utilizadas han sido cuidadosamente explicadas en la memoria, en el capitulo 4 Técnicas y herramientas, sección 2 Herramientas.
+
+
+\subsection{Configuración de la construcción}
+
+
+
+Para la construcción de los ejecutables, pruebas, métricas y demás objetos se ha utilizado \textit{Ant}. Esta herramienta sería el equivalente en \textit{Java} al \textit{Make} de \textit{C}.
+
+\textit{Ant} utiliza ficheros de configuración escritos en XML. Para el proyecto, ha sido generado el fichero \textit{build.xml}, que se encuentra en el directorio PLGRAM.
+
+\section{Descarga, instalación y ejecución del proyecto}
+Todo el código de la aplicación está detalladamente comentado para facilitar a un futuro programador la ampliación y programación que se desee realizar.
+
+\subsection{Descarga}
+El proyecto puede obtenerse directamente o a través de su repositorio de \textit{Github}\footnote{\url {https://github.com/vrt0004/Trabajo}}, que ofrece dos opciones:
+
+\begin{itemize}
+\item Puede descargarse como un fichero comprimido mediante la opción Download  ZIP.
+\item Puede descargarse utilizando  uno  de  los  clientes  propietarios  de  Github  con  la opción Clone  in  Desktop.
+\end{itemize}
+
+\subsection{Instalación y ejecución}
+La aplicación se distribuye de dos formas diferentes: $PLGRAM$ y $PLGRAMlineCommand$.
+
+\begin{itemize}
+\item Para ejecutar $PLGRAM$ se dispone de un fichero jar ejecutable.
+\imagen{iconoPLGRAM}{Icono PLGRAM.}
+\item Para ejecutar $PLGRAMlineCommand$ se debe acceder mediante la línea de comandos a la carpeta que contiene el fichero.
+
+Esta carpeta debe contener también una carpeta llamada \textit{gramaticas} donde estarán las gramáticas guardadas. Además, también estarán en ese directorio las plantillas necesarias \textit{(plantillaTEX y plantillamoodle)}.
+\end{itemize}
+\newpage
 \section{Pruebas del sistema}
+
+La aplicación utiliza JUnit 4 para realizar sus pruebas, y cuenta con un total de 27 pruebas. Las pruebas excluyen las clases autogeneradas (como por ejemplo las pertenecientes al paquete parser, generadas porJavaCC). Las herramientas aplicadas indican una cobertura general superior al $55\%$, con más del $90\%$ en las clases más relevantes.
+\vspace{0.5cm}
+\imagen{cobertura}{Resultados del análisis de cobertura de pruebas.}
+\newpage
+\section{Métricas}
+
+Para las distintas métricas se ha utilizado \textit{SourceMonitor}.
+
+El resultado del análisis obtenido con \textit{SourceMonitor} se puede observar en la tabla siguiente. Se muestra también un gráfico de Kiviat obtenido con \textit{SourceMonitor}.
+
+En ambos, aparecen los umbrales definidos por la Universidad de Burgos. Los valores que no se encuentran dentro del umbral establecido han sido resaltados en negrita.
+
+\imagen {metricas}{Métricas obtenidas con SourceMonitor.}
+
+\begin{tabular}{|l|c|c|c|}
+\hline Métrica & Resultado &  \begin{tabular}[c]{@{}c@{}}Mín.\\ UBU\end{tabular} & \begin{tabular}[c]{@{}c@{}}Máx.\\ UBU\end{tabular}\\
+
+
+
+
+
+\hline Líneas de código & 10.506 & &\\
+\hline Número de sentencias & 5.966 &&\\
+\hline Porcentaje de sentencias condicionales& 20,1 &&\\
+\hline Número de llamadas a métodos &4.124 &&\\
+\hline \textbf{Porcentaje de líneas de comentarios} & 25,3& 8 &20\\
+\hline Número de clases e interfaces &77 &&\\
+\hline Número de métodos por clase &6,03& 4 &16\\
+\hline Media de sentencias por método& 10,21& 6& 12\\
+\hline \textbf{Complejidad máxima} & 9+ &2& 8\\
+\hline Media de complejidad &2,78 & 2& 4\\
+\hline \textbf{Máxima profundidad en bloques} &9+ & 3 &7\\
+\hline \textbf{Media de profundidad de bloques} & 2,96 & 1 & 2,2\\
+ \hline
+\end{tabular}
+
+
+Aunque la complejidad máxima y la profundidad máxima se salen de los valores establecidos, la media de ambas métricas se encuentra en el umbral o muy cerca de estarlo.
+
+\newpage
+A continuación se muestra un diagrama de kiviatt de la aplicación PLGRAM.
+
+Los diagramas de Kiviatt son unos gráficos circulares en cuyos ejes radiales se representan diferentes indices de prestaciones. Las intersecciones entre los radios y la circunferencia representan los valores máximos que pueden alcanzar las variables representadas en los mismos. Aunque en principio, el número de ejes que puede tener un gráfico de este tipo es arbitrario y depende de los datos que se van a representar, se suelen seguir unos convenios de representación.
+\imagen{kiviat}{Gráfico de Kiviat obtenido con SourceMonitor.}
