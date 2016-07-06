@@ -13,9 +13,18 @@
 
 % Links
 \usepackage[colorlinks]{hyperref}
+\newcommand\myshade{70}
+\colorlet{mylinkcolor}{violet}
+\colorlet{mycitecolor}{green}
+\colorlet{myurlcolor}{blue}
+
 \hypersetup{
-	allcolors = {red}
+  linkcolor  = mylinkcolor!\myshade!black,
+  citecolor  = mycitecolor!\myshade!black,
+  urlcolor   = myurlcolor!\myshade!black,
+  colorlinks = true,
 }
+
 
 % Ecuaciones
 \usepackage{amsmath}
@@ -342,7 +351,7 @@
     \noindent\LARGE
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
-    Tutores: \@tutor{}\\
+    Tutor: \@tutor{}\\
   }%
   \end{center}%
   \null
@@ -356,7 +365,7 @@
 % Datos de portada
 \title{PLGRAM}
 \author{Víctor Renuncio Tobar}
-\tutor{Dr. César Ignacio García Osorio y D. Álvar Arnaiz González}
+\tutor{Dr. César Ignacio García Osorio \\ D. Álvar Arnaiz González}
 \date{\today}
 
 \begin{document}
@@ -374,7 +383,7 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. César Ignacio García Osorio, profesor del departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos y D. Álvar Arnaiz González, profesor del departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos
+\noindent El Dr. César Ignacio García Osorio, profesor del departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos y D. Álvar Arnaiz González, profesor del departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos
 
 \noindent Exponen:
 
@@ -392,7 +401,7 @@ En Burgos, {\large \today}
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del Tutor:\\[2cm]
-D. Cesar Ignacio García Osorio
+D. César Ignacio García Osorio
 \end{flushleft}
 \end{minipage}
 \hfill
@@ -438,7 +447,7 @@ Generación de cuestionarios, análisis sintáctico ascendente, análisis sintá
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
 
-Development of an application that obtains top-down parsing \textit{LL}(1) and botton-up parsing \textit{SLR}(1), \textit{LR}(1) and \textit{LALR}(1) from a grammar. Obtains the \textit{FIRST} and \textit{FOLLOW} sets and the predictive parsing table and tables \textit{ACTION} and \textit{GOTO}. Moreover, it can be obtained for each diferent analyzes the trace of a string.
+Development of an application that obtains top-down parsing \textit{LL}(1) and botton-up parsing \textit{SLR}(1), \textit{LR}(1) and \textit{LALR}(1) from a grammar. The application obtains the \textit{FIRST} and \textit{FOLLOW} sets and the predictive parsing table and tables \textit{ACTION} and \textit{GOTO}. Moreover, it can be obtained for each diferent analyzes the trace of a string.
 
 With the application you can generate a .XML file to import to the Moodle platform in order to generate automatically parse test. You can also generate a \LaTeX{} file format that can be used for written tests. You can get a document that the questionnaire is completed, with the correct answers and other documents in which the questionnaire is empty, designed to be solved by students.
 

@@ -13,8 +13,16 @@
 \RequirePackage{multirow}
 % Links
 \usepackage[colorlinks]{hyperref}
+\newcommand\myshade{70}
+\colorlet{mylinkcolor}{violet}
+\colorlet{mycitecolor}{green}
+\colorlet{myurlcolor}{blue}
+
 \hypersetup{
-	allcolors = {red}
+  linkcolor  = mylinkcolor!\myshade!black,
+  citecolor  = mycitecolor!\myshade!black,
+  urlcolor   = myurlcolor!\myshade!black,
+  colorlinks = true,
 }
 
 % Ecuaciones
