@@ -271,7 +271,9 @@ public class LALRPanel extends ProblemaPanel<LALR1> {
 					cadena2 += "</tr>";
 					cadena2 += "</table>";
 				} catch (NullPointerException s) {
-					JOptionPane.showMessageDialog(null, "Error al analizar la traza");
+					if(!cadenaintr.equals("")){
+						JOptionPane.showMessageDialog(null, "Error al analizar la traza");
+					}
 				}
 			}
 			main.vistaPreviaText.setText(cadena2);
