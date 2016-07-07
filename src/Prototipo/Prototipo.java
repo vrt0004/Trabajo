@@ -168,9 +168,11 @@ public class Prototipo {
 			try {
 				g = pg.parsearGramaticaArchivo(path + System.getProperty("file.separator") + gramatica);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				System.out.println("Error en la gramatica");
+				System.exit(0);
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("No se encuentra la gramatica");
+				System.exit(0);
 
 			}
 			Analisis analisis = null;
@@ -186,7 +188,7 @@ public class Prototipo {
 				System.out.println("follow");
 				System.out.println(g.obtenerFollow());
 				System.out.println();
-
+				tipoanalisis = tipoanalisis.toUpperCase();
 				switch (tipoanalisis) {
 
 				case "LL":
@@ -201,6 +203,9 @@ public class Prototipo {
 				case "LR":
 					analisis = new AnalisisLR1(g);
 					break;
+				default:
+					System.out.println("Error en el tipo de analisis");
+					System.exit(0);
 				}
 			}
 			File directorio = new File(
@@ -265,12 +270,13 @@ public class Prototipo {
 			terminales.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerTerminales().obtenerSimbolo(i).toString());
 		}
-		
+
 		TodosSimbolos.add("$");
 		for (int i = 0; i < g.obtenerNoTerminales().simbolosIntroducidos(); i++) {
 			noterminales.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 			TodosSimbolos.add(g.obtenerNoTerminales().obtenerSimbolo(i).toString());
 		}
+
 		orden.addAll(noterminales);
 		orden.addAll(terminales);
 		context.put("Orden", orden);
@@ -326,8 +332,8 @@ public class Prototipo {
 			context.put("LR", false);
 			context.put("SLR", true);
 			context.put("LALR", false);
-			List<Object> conjuntosSLR = creacadenasconjuntosSLR(analisis, producciones, terminales, true,false);
-			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false,false);
+			List<Object> conjuntosSLR = creacadenasconjuntosSLR(analisis, producciones, terminales, true, false);
+			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false, false);
 			List<Taccioneir> accioneiraSLR = creacadenasaccioneiraLR(analisis, TodosSimbolos, true);
 			List<Taccioneir> AccioneiraSLRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 			context.put("ConjuntosSLR", conjuntosSLR);
@@ -425,14 +431,15 @@ public class Prototipo {
 			ruta = fichero2.getPath();
 			System.out.println("Fichero.XML generado correctamente en " + fichero.getPath());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("El fichero.XML no se ha generado correctamente ");
+			System.exit(0);
 		}
 		fichero2.delete();
 	}
 
 	@SuppressWarnings("unchecked")
 	private static List<Object> creacadenasconjuntosSLR(Analisis analisis, List<Object> producciones,
-			List<Object> terminales, boolean preguntas,boolean tex) {
+			List<Object> terminales, boolean preguntas, boolean tex) {
 
 		List<Object> theconjuntos = new ArrayList<Object>();
 		Automata ana = analisis.obtenerAutomataAnalisis();
@@ -470,16 +477,16 @@ public class Prototipo {
 			}
 
 			for (int j = 0; j < numitems; j++) {
-				
+
 				if (tex) {
 					String itemtex = itemmarcadocadena.get(j).toString().replace("->", "\\rightarrow ");
-					todositems.add(new Items(itemtex.replace("$", "\\$").replace("->", "\\rightarrow "),null));
+					todositems.add(new Items(itemtex.replace("$", "\\$").replace("->", "\\rightarrow "), null));
 				} else {
 					todositems.add(new Items(itemmarcadocadena.get(j), null));
 				}
-				
+
 			}
-			
+
 			ConjuntoLR c = new ConjuntoLR(i, (ArrayList<Items>) todositems.clone());
 			todositems.clear();
 
@@ -547,6 +554,7 @@ public class Prototipo {
 	public static String eliminarparentesis(Object elemento) {
 		String a = "";
 		a = a.concat(elemento.toString());
+		a = a.replace(" ", "");
 		a = a.replace("(", "");
 		a = a.replace("[", "");
 		a = a.replace(")", "");
@@ -696,7 +704,7 @@ public class Prototipo {
 	 *            numero de simbolos a obtener
 	 * @return Lista con los simbolos
 	 */
-	private static List<Object> obtenersimboloanticipacion(String x) {
+	public static List<Object> obtenersimboloanticipacion(String x) {
 
 		List<Object> thesimb = new ArrayList<Object>();
 		int init = 0;
@@ -760,7 +768,7 @@ public class Prototipo {
 								analisis.obtenerProduccionSalida().replace("$", "\\$").replace("->", "\\rightarrow "));
 					} else {
 						e = new Traza(eliminarparentesis(analisis.obtenerEstadoPilaAnalisis()),
-								analisis.obtenerEstadoEntradaAnalisis(), analisis.obtenerProduccionSalida());
+								analisis.obtenerEstadoEntradaAnalisis(), "");
 					}
 					thetraza.add(e);
 
@@ -780,7 +788,9 @@ public class Prototipo {
 					if (tex) {
 						e = new Traza(eliminarparentesis(pila).replace("$", "\\$").replace("->", "\\rightarrow "),
 								entrada.replace("$", "\\$").replace("->", "\\rightarrow "),
-								eliminarparentesis(salidamul.replace("$", "\\$").replace("->", "\\rightarrow ")));
+								salidamul.replace("$", "\\$").replace("[", " ").replace("]", " ").replace("->",
+										"\\rightarrow "));
+
 					} else {
 						e = new Traza(obtenerShortanswer(eliminarparentesis(pila)), obtenerShortanswer(entrada),
 								salidamul);
@@ -805,6 +815,8 @@ public class Prototipo {
 
 				thetraza.set(thetraza.size() - 1, e);
 			} catch (NullPointerException s) {
+				System.out.println("Error al analizar la traza");
+				System.exit(0);
 			}
 		}
 
@@ -1091,7 +1103,7 @@ public class Prototipo {
 			context.put("SLR", true);
 			context.put("LALR", false);
 
-			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false,true);
+			List<Object> conjuntosSLRSin = creacadenasconjuntosSLR(analisis, producciones, terminales, false, true);
 
 			List<Taccioneir> AccioneiraSLRSin = creacadenasaccioneiraLR(analisis, TodosSimbolos, false);
 
@@ -1161,17 +1173,17 @@ public class Prototipo {
 			MustacheFactory mf = new DefaultMustacheFactory();
 
 			mustache = mf.compile("plantillaTEX");
-	
+
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero), "UTF-8"));
 
-		
 			mustache.execute(bw, context);
 			bw.close();
 
 			ruta = fichero.getPath();
-			System.out.println("Fichero.XML generado correctamente en " + fichero.getPath());
+			System.out.println("Fichero.TEX generado correctamente en " + fichero.getPath());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("El fichero.TEX no se ha generado correctamente ");
+			System.exit(0);
 		}
 
 	}

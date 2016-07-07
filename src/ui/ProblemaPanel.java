@@ -101,10 +101,7 @@ public class ProblemaPanel<T> extends JPanel {
 		this.mostrarPanel.setLayout(new BorderLayout());
 		add(this.mostrarPanel);
 
-		this.mostrarButton = new JButton(">>");
-		this.mostrarButton.setMargin(new Insets(0, 1, 0, 1));
-		this.mostrarButton.addActionListener(new BotonMostrarActionListener());
-		this.mostrarPanel.add(this.mostrarButton, BorderLayout.CENTER);
+
 	}
 
 	void mostrarVista() {
@@ -125,22 +122,14 @@ public class ProblemaPanel<T> extends JPanel {
 		this.numero = numero;
 	}
 
-	private class BotonMostrarActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-
-			mostrarVista();
-		}
-	}
+	
 
 	class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 
-			if (problemaActual != null) {
-				main.actualizaVistaPrevia(null);
-			}
-
 			contenedorPanel.remove(actualPanel);
 			contenedorPanel.revalidate();
+			main.vistaPreviaText.setText("<br>");
 		}
 	}
 

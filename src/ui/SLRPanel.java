@@ -269,6 +269,7 @@ public class SLRPanel extends ProblemaPanel<SLR1> {
 					cadena2 += "</tr>";
 					cadena2 += "</table>";
 				} catch (NullPointerException s) {
+					JOptionPane.showMessageDialog(null, "Error al analizar la traza");
 				}
 			}
 			main.vistaPreviaText.setText(cadena2);

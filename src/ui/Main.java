@@ -260,7 +260,6 @@ public class Main {
 			String tipoanalisis;
 			String cadena;
 			try {
-				// TODO
 				if (LLPanel.expresionText != null) {
 					g = pg.parsearGramaticaCadena(LLPanel.expresionText.getText());
 					gramatica = LLPanel.fichero;
@@ -274,7 +273,7 @@ public class Main {
 						JOptionPane.showMessageDialog(null, "XML generado");
 					} else {
 						Prototipo.creaTex(g, gramatica, analisis, tipoanalisis, cadena);
-						JOptionPane.showMessageDialog(null, "TEX generado");
+						JOptionPane.showMessageDialog(null, "TEX generado ");
 
 					}
 					
@@ -327,7 +326,9 @@ public class Main {
 					}	
 				}
 			} catch (IOException e) {	
+				JOptionPane.showMessageDialog(frmPlgram,"Error al exportar");
 			} catch (ParseException e) {
+				JOptionPane.showMessageDialog(frmPlgram,"Error al exportar");
 			}
 		}
 	}
@@ -338,7 +339,7 @@ public class Main {
 			try {
 				Desktop.getDesktop().browse(new URI("http://vrt0004.github.io/Trabajo/"));
 			} catch (IOException | URISyntaxException e) {
-
+				JOptionPane.showMessageDialog(frmPlgram,"Error al mostrar la pagina");
 			}
 		}
 	}
@@ -491,13 +492,10 @@ public class Main {
 					panel.problemaActual.setNumero(num++);
 			}
 			contenedorPanel.revalidate();
-			actualizaVistaPrevia(problema.problemaActual);
+			
 		}
 	}
 
-	public void actualizaVistaPrevia(Object object) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }
