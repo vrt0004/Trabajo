@@ -1,9 +1,0 @@
-%start E 
-%nulo EPS 
-%token id 
-%%
-E : T J ;
-J : '+' T J | EPS ;
-T : F U ;
-U : '*' F U | EPS ;
-F : '(' E ')' | id ;
